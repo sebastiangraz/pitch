@@ -30,10 +30,10 @@ const Slides = React.memo(({ children }) => {
   }, []);
 
   return (
-    <div ref={ref} style={{ height: totalHeight }}>
+    <div ref={ref}>
       {React.Children.map(children || null, (child, i) => {
         return (
-          <Slide index={i} position={position} height={height}>
+          <Slide index={i} childPosition={position} childHeight={height}>
             {child}
           </Slide>
         );

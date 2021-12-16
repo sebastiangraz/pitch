@@ -5,10 +5,23 @@ const App = () => {
   return (
     <div className="App">
       <Slides>
-        {Object.entries(componentList).map(([i, Section]) => {
-          return <Section key={i} />;
+        {Object.entries(componentList).map(([i, Slide]) => {
+          return <Slide key={i} />;
         })}
       </Slides>
+      {Object.entries(componentList).map(([i]) => {
+        return (
+          <div
+            style={{
+              height: "100vh",
+              width: "100vw",
+              scrollSnapAlign: "start",
+            }}
+            className="ghostSlide"
+            key={i}
+          />
+        );
+      })}
     </div>
   );
 };

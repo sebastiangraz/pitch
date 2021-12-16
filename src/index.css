@@ -8,6 +8,12 @@
   margin: 0;
 }
 
+html {
+  scroll-snap-type: proximity;
+  scroll-snap-points-y: repeat(100vh);
+  scroll-snap-type: y proximity;
+}
+
 html,
 body {
   overscroll-behavior: none;
