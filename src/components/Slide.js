@@ -3,7 +3,6 @@ import {
   useSpring,
   transform,
   motion,
-  useMotionValue,
   useTransform,
   useViewportScroll,
 } from "framer-motion";
