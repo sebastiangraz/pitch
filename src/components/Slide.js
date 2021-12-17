@@ -7,18 +7,26 @@ import {
   useViewportScroll,
 } from "framer-motion";
 const Slide = ({ index, childPosition, children }) => {
+  const settings = {
+    horizontal: true,
+  };
   const position = childPosition[index] || [];
-
   const { scrollY } = useViewportScroll();
-  const updatePos = (v) => {
-    const progress = v - position + window.innerHeight * 2;
+  const { innerWidth, innerHeight } = window;
 
+  const updatePos = (v) => {
     return transform(
-      progress,
-      [0, window.innerHeight],
-      [0, -window.innerHeight]
+      v - position + innerHeight * 2,
+      [0, innerHeight],
+      [0, -innerWidth + index * 24]
     );
   };
+
+  /* 
+  Todos
+  - Change bg color dep on completion
+  - Option to switch orientation
+  */
 
   const y = useSpring(
     useTransform(scrollY, (v) => updatePos(v)),
@@ -27,19 +35,20 @@ const Slide = ({ index, childPosition, children }) => {
       mass: 0.1,
     }
   );
+
   return (
     <motion.div
       style={{
-        y: y,
+        x: y,
         zIndex: index,
         position: "fixed",
-        left: 0,
-        top: "100vh",
+        top: 0,
+        left: "100vw",
         borderRadius: "3vmin",
         border: "1px solid",
         background: `#aaa`,
         height: "100vh",
-        width: "100vw",
+        width: `calc(100vw - ${index * 24}px)`,
         padding: "3rem",
         display: "flex",
         alignItems: "center",

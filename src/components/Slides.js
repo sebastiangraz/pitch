@@ -1,27 +1,24 @@
 import React from "react";
 import Slide from "./Slide";
-
+import { useWindowSize } from "./useWindowSize";
 const Slides = React.memo(({ children }) => {
+  const windowSize = useWindowSize();
+
   const ref = React.useRef();
 
   const [position, setPosition] = React.useState([]);
 
   React.useLayoutEffect(() => {
-    let arr = [];
     let childPosition = [];
     const child = ref.current.children;
 
-    [...child].forEach((e) => {
-      arr.push(e.getBoundingClientRect().height);
-    });
-
-    arr.reduce((acc, child) => {
-      childPosition.push(acc + child);
-      return acc + child;
+    [...child].reduce((acc) => {
+      childPosition.push(acc + windowSize.height);
+      return acc + windowSize.height;
     }, 0);
 
     setPosition(childPosition);
-  }, []);
+  }, [windowSize]);
 
   return (
     <div ref={ref}>
