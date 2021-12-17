@@ -31,7 +31,7 @@ const Slide = ({ index, childPosition, children }) => {
     return transform(
       v - positionN + innerHeight * 2,
       [0, innerHeight],
-      [`hsl(30, 5%, ${index * 2 + 85}%)`, `hsl(30, 5%, ${index * 2 + 85}%)`]
+      [`hsl(30, 5%, ${index * 3 + 92}%)`, `hsl(30, 5%, ${index * 3 + 80}%)`]
     );
   };
 
@@ -55,16 +55,16 @@ const Slide = ({ index, childPosition, children }) => {
         position: "fixed",
         borderRadius: "4vmin",
         height: "100vh",
-        padding: "3rem",
+        padding: "1.5rem",
         display: "flex",
         alignItems: "center",
         background: bg,
-        scale: 0.9,
+        // scale: 0.9,
         ...(settings.horizontal
           ? {
-              width: `calc(104vw - ${index * stagger}px)`,
+              width: `calc(100vw - ${index * stagger}px)`,
               x: y,
-              left: "98vw",
+              left: "100vw",
               top: "0",
             }
           : { y: y, left: "0", top: "100vh", width: "100vw" }),
