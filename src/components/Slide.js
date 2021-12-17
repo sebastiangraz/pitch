@@ -10,9 +10,10 @@ import { settings } from "./settings";
 
 const Slide = ({ index, childPosition, children }) => {
   const position = childPosition[index] || [];
+  const positionN = childPosition[index + 1] || [];
   const { scrollY } = useViewportScroll();
   const { innerWidth, innerHeight } = window;
-
+  const stagger = 20;
   const updatePos = (v) => {
     return transform(
       v - position + innerHeight * 2,
@@ -20,17 +21,17 @@ const Slide = ({ index, childPosition, children }) => {
       [
         0,
         settings.horizontal
-          ? -innerWidth + index * 24
-          : -innerHeight + index * 24,
+          ? -innerWidth + index * stagger
+          : -innerHeight + index * stagger,
       ]
     );
   };
 
   const updateBg = (v) => {
     return transform(
-      v - position + innerHeight * 2,
-      [0, innerHeight / 1.2, innerHeight],
-      ["hsl(186, 0%, 63%)", "hsl(0, 0%, 63%)", "hsl(0, 0%, 23%)"]
+      v - positionN + innerHeight * 2,
+      [0, innerHeight],
+      [`hsl(30, 5%, ${index * 2 + 85}%)`, `hsl(30, 5%, ${index * 2 + 85}%)`]
     );
   };
 
@@ -52,18 +53,18 @@ const Slide = ({ index, childPosition, children }) => {
       style={{
         zIndex: index,
         position: "fixed",
-        borderRadius: "3vmin",
-        border: "1px solid",
+        borderRadius: "4vmin",
         height: "100vh",
         padding: "3rem",
         display: "flex",
         alignItems: "center",
         background: bg,
+        scale: 0.9,
         ...(settings.horizontal
           ? {
-              width: `calc(100vw - ${index * 24}px)`,
+              width: `calc(104vw - ${index * stagger}px)`,
               x: y,
-              left: "100vw",
+              left: "98vw",
               top: "0",
             }
           : { y: y, left: "0", top: "100vh", width: "100vw" }),
