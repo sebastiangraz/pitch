@@ -6,10 +6,9 @@ import {
   useTransform,
   useViewportScroll,
 } from "framer-motion";
+import { settings } from "./settings";
+
 const Slide = ({ index, childPosition, children }) => {
-  const settings = {
-    horizontal: true,
-  };
   const position = childPosition[index] || [];
   const { scrollY } = useViewportScroll();
   const { innerWidth, innerHeight } = window;
@@ -18,15 +17,27 @@ const Slide = ({ index, childPosition, children }) => {
     return transform(
       v - position + innerHeight * 2,
       [0, innerHeight],
-      [0, -innerWidth + index * 24]
+      [
+        0,
+        settings.horizontal
+          ? -innerWidth + index * 24
+          : -innerHeight + index * 24,
+      ]
     );
   };
 
-  /* 
-  Todos
-  - Change bg color dep on completion
-  - Option to switch orientation
-  */
+  const updateBg = (v) => {
+    return transform(
+      v - position + innerHeight * 2,
+      [0, innerHeight / 1.2, innerHeight],
+      ["hsl(186, 0%, 63%)", "hsl(0, 0%, 63%)", "hsl(0, 0%, 23%)"]
+    );
+  };
+
+  const bg = useTransform(scrollY, (v) => updateBg(v), {
+    damping: 12,
+    mass: 0.1,
+  });
 
   const y = useSpring(
     useTransform(scrollY, (v) => updatePos(v)),
@@ -39,19 +50,23 @@ const Slide = ({ index, childPosition, children }) => {
   return (
     <motion.div
       style={{
-        x: y,
         zIndex: index,
         position: "fixed",
-        top: 0,
-        left: "100vw",
         borderRadius: "3vmin",
         border: "1px solid",
-        background: `#aaa`,
         height: "100vh",
-        width: `calc(100vw - ${index * 24}px)`,
         padding: "3rem",
         display: "flex",
         alignItems: "center",
+        background: bg,
+        ...(settings.horizontal
+          ? {
+              width: `calc(100vw - ${index * 24}px)`,
+              x: y,
+              left: "100vw",
+              top: "0",
+            }
+          : { y: y, left: "0", top: "100vh", width: "100vw" }),
       }}
     >
       <div

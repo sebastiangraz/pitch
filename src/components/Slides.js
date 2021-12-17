@@ -1,6 +1,7 @@
 import React from "react";
 import Slide from "./Slide";
 import { useWindowSize } from "./useWindowSize";
+
 const Slides = React.memo(({ children }) => {
   const windowSize = useWindowSize();
 
