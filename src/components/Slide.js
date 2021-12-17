@@ -6,18 +6,18 @@ import {
   useTransform,
   useViewportScroll,
 } from "framer-motion";
-const Slide = ({ index, childPosition, childHeight, children }) => {
-  const height = React.useCallback(
-    (pos) => childHeight[pos ? index - pos : index] || [],
-    [childHeight, index]
-  );
-  const position = (pos) => childPosition[pos ? index - pos : index] || [];
-  console.log(position());
+const Slide = ({ index, childPosition, children }) => {
+  const position = childPosition[index] || [];
+
   const { scrollY } = useViewportScroll();
   const updatePos = (v) => {
-    const progress = v - position(0) + height(0) + window.innerHeight;
+    const progress = v - position + window.innerHeight * 2;
 
-    return transform(progress, [0, height(0)], [0, -height(0)]);
+    return transform(
+      progress,
+      [0, window.innerHeight],
+      [0, -window.innerHeight]
+    );
   };
 
   const y = useSpring(
@@ -41,9 +41,19 @@ const Slide = ({ index, childPosition, childHeight, children }) => {
         height: "100vh",
         width: "100vw",
         padding: "3rem",
+        display: "flex",
+        alignItems: "center",
       }}
     >
-      {children}
+      <div
+        className="slideContent"
+        style={{
+          height: "56.25em",
+          width: "100%",
+        }}
+      >
+        {children}
+      </div>
     </motion.div>
   );
 };

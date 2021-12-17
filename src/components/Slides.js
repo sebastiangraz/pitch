@@ -5,7 +5,6 @@ const Slides = React.memo(({ children }) => {
   const ref = React.useRef();
 
   const [position, setPosition] = React.useState([]);
-  const [height, setHeight] = React.useState([]);
 
   React.useLayoutEffect(() => {
     let arr = [];
@@ -22,14 +21,13 @@ const Slides = React.memo(({ children }) => {
     }, 0);
 
     setPosition(childPosition);
-    setHeight(arr);
   }, []);
 
   return (
     <div ref={ref}>
       {React.Children.map(children || null, (child, i) => {
         return (
-          <Slide index={i} childPosition={position} childHeight={height}>
+          <Slide index={i} childPosition={position}>
             {child}
           </Slide>
         );

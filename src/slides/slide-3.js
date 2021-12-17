@@ -1,17 +1,10 @@
-export const Component2 = () => {
+export const Slide3 = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Comp 2</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Header 1</h1>
+      <h2>Header 2</h2>
+      <h3>Header 3</h3>
+      <p>Para</p>
+    </>
   );
 };
