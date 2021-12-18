@@ -1,10 +1,6 @@
 import intro from "../assets/intro.png";
 import { Padding } from "../components/Padding";
 
-/*
-todos
-- pass scrolldata from parent
- */
 export const Slide1 = () => {
   return (
     <>
