@@ -4,9 +4,7 @@ import { useWindowSize } from "./useWindowSize";
 
 const Slides = React.memo(({ children }) => {
   const windowSize = useWindowSize();
-
   const ref = React.useRef();
-
   const [position, setPosition] = React.useState([]);
 
   React.useLayoutEffect(() => {

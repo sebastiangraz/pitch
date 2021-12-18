@@ -14,6 +14,7 @@ const Slide = ({ index, childPosition, children }) => {
   const { scrollY } = useViewportScroll();
   const { innerWidth, innerHeight } = window;
   const stagger = 20;
+
   const updatePos = (v) => {
     return transform(
       v - position + innerHeight * 2,
@@ -90,8 +91,6 @@ const Slide = ({ index, childPosition, children }) => {
           scale: scale,
           height: "56.25em",
           width: "100%",
-
-          padding: "1.5rem",
         }}
       >
         {children}

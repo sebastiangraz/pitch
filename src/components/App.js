@@ -6,7 +6,7 @@ const App = () => {
     <div className="App">
       <Slides>
         {Object.entries(componentList).map(([i, Slide]) => {
-          return <Slide key={i} />;
+          return <Slide dataTest={"test"} key={i} />;
         })}
       </Slides>
       {Object.entries(componentList).map(([i]) => {
