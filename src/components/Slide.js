@@ -31,9 +31,22 @@ const Slide = ({ index, childPosition, children }) => {
     return transform(
       v - positionN + innerHeight * 2,
       [0, innerHeight],
-      [`hsl(30, 5%, ${index * 3 + 92}%)`, `hsl(30, 5%, ${index * 3 + 80}%)`]
+      [`hsl(30, 5%, ${index * 3 + 92}%)`, `hsl(30, 20%, ${index * 3 + 80}%)`]
     );
   };
+
+  const updateScale = (v) => {
+    return transform(
+      v - positionN + innerHeight * 2,
+      [0, innerHeight],
+      [1, 0.98]
+    );
+  };
+
+  const scale = useTransform(scrollY, (v) => updateScale(v), {
+    damping: 12,
+    mass: 0.1,
+  });
 
   const bg = useTransform(scrollY, (v) => updateBg(v), {
     damping: 12,
@@ -55,11 +68,11 @@ const Slide = ({ index, childPosition, children }) => {
         position: "fixed",
         borderRadius: "4vmin",
         height: "100vh",
-        padding: "1.5rem",
+        overflow: "hidden",
         display: "flex",
-        alignItems: "center",
+        alignItems: "start",
         background: bg,
-        // scale: 0.9,
+
         ...(settings.horizontal
           ? {
               width: `calc(100vw - ${index * stagger}px)`,
@@ -70,15 +83,19 @@ const Slide = ({ index, childPosition, children }) => {
           : { y: y, left: "0", top: "100vh", width: "100vw" }),
       }}
     >
-      <div
+      <motion.div
         className="slideContent"
         style={{
+          transformOrigin: "left",
+          scale: scale,
           height: "56.25em",
           width: "100%",
+
+          padding: "1.5rem",
         }}
       >
         {children}
-      </div>
+      </motion.div>
     </motion.div>
   );
 };
