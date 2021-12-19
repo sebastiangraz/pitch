@@ -9,15 +9,17 @@ import {
 } from "framer-motion";
 import { Padding } from "../components/Padding";
 import { useCaseWrapperContext } from "../components/Slide";
-const { innerHeight } = window;
 
 export const Slide1 = () => {
   const { scrollY } = useViewportScroll();
   let { value } = useCaseWrapperContext();
 
   const updateOpacity = (v) => {
-    console.log(v - value + innerHeight);
-    return transform(v - value + innerHeight, [0, innerHeight], [0, -300]);
+    return transform(
+      v - value + window.innerHeight,
+      [0, window.innerHeight],
+      [0, -300]
+    );
   };
 
   const y = useSpring(
@@ -37,7 +39,6 @@ export const Slide1 = () => {
       <motion.div
         style={{
           y: y,
-          value,
           right: 0,
           top: 0,
           width: "70%",

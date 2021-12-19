@@ -39,18 +39,18 @@ const Slide = ({ index, childPosition, children }) => {
     );
   };
 
-  // const updateScale = (v) => {
-  //   return transform(
-  //     v - positionN + innerHeight * 2,
-  //     [0, innerHeight],
-  //     [1, 0.98]
-  //   );
-  // };
+  const updateScale = (v) => {
+    return transform(
+      v - positionN + innerHeight * 2,
+      [0, innerHeight],
+      [1, 0.98]
+    );
+  };
 
-  // const scale = useTransform(scrollY, (v) => updateScale(v), {
-  //   damping: 12,
-  //   mass: 0.1,
-  // });
+  const scale = useTransform(scrollY, (v) => updateScale(v), {
+    damping: 12,
+    mass: 0.1,
+  });
 
   const bg = useTransform(scrollY, (v) => updateBg(v), {
     damping: 12,
@@ -91,8 +91,8 @@ const Slide = ({ index, childPosition, children }) => {
         <motion.div
           className="slideContent"
           style={{
-            // transformOrigin: "left",
-            // scale: scale,
+            transformOrigin: "left",
+            scale: scale,
             height: "56.25em",
             width: "100%",
           }}
