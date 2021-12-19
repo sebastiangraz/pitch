@@ -8,6 +8,9 @@ import {
 } from "framer-motion";
 import { settings } from "./settings";
 
+export const useCaseWrapperContext = () => React.useContext(CaseWrapperContext);
+const CaseWrapperContext = React.createContext(null);
+
 const Slide = ({ index, childPosition, children }) => {
   const position = childPosition[index] || [];
   const positionN = childPosition[index + 1] || [];
@@ -36,18 +39,18 @@ const Slide = ({ index, childPosition, children }) => {
     );
   };
 
-  const updateScale = (v) => {
-    return transform(
-      v - positionN + innerHeight * 2,
-      [0, innerHeight],
-      [1, 0.98]
-    );
-  };
+  // const updateScale = (v) => {
+  //   return transform(
+  //     v - positionN + innerHeight * 2,
+  //     [0, innerHeight],
+  //     [1, 0.98]
+  //   );
+  // };
 
-  const scale = useTransform(scrollY, (v) => updateScale(v), {
-    damping: 12,
-    mass: 0.1,
-  });
+  // const scale = useTransform(scrollY, (v) => updateScale(v), {
+  //   damping: 12,
+  //   mass: 0.1,
+  // });
 
   const bg = useTransform(scrollY, (v) => updateBg(v), {
     damping: 12,
@@ -63,39 +66,41 @@ const Slide = ({ index, childPosition, children }) => {
   );
 
   return (
-    <motion.div
-      style={{
-        zIndex: index,
-        position: "fixed",
-        borderRadius: "4vmin",
-        height: "100vh",
-        overflow: "hidden",
-        display: "flex",
-        alignItems: "start",
-        background: bg,
-
-        ...(settings.horizontal
-          ? {
-              width: `calc(100vw - ${index * stagger}px)`,
-              x: y,
-              left: "100vw",
-              top: "0",
-            }
-          : { y: y, left: "0", top: "100vh", width: "100vw" }),
-      }}
-    >
+    <CaseWrapperContext.Provider value={{ value: position }}>
       <motion.div
-        className="slideContent"
         style={{
-          transformOrigin: "left",
-          scale: scale,
-          height: "56.25em",
-          width: "100%",
+          zIndex: index,
+          position: "fixed",
+          borderRadius: "4vmin",
+          height: "100vh",
+          overflow: "hidden",
+          display: "flex",
+          alignItems: "start",
+          background: bg,
+
+          ...(settings.horizontal
+            ? {
+                width: `calc(100vw - ${index * stagger}px)`,
+                x: y,
+                left: "100vw",
+                top: "0",
+              }
+            : { y: y, left: "0", top: "100vh", width: "100vw" }),
         }}
       >
-        {children}
+        <motion.div
+          className="slideContent"
+          style={{
+            // transformOrigin: "left",
+            // scale: scale,
+            height: "56.25em",
+            width: "100%",
+          }}
+        >
+          {children}
+        </motion.div>
       </motion.div>
-    </motion.div>
+    </CaseWrapperContext.Provider>
   );
 };
 export default Slide;

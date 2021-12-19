@@ -1,4 +1,8 @@
+import { useCaseWrapperContext } from "../components/Slide";
+
 export const Slide2 = () => {
+  let { value } = useCaseWrapperContext();
+
   return (
     <>
       <h1>Header 1</h1>
