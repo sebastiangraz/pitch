@@ -73,6 +73,7 @@ export const Slide1 = () => {
         <h1>brand designer</h1>
       </Padding>
       <motion.div
+        initial={{ y: 0 }}
         style={{
           y: y,
           right: 0,

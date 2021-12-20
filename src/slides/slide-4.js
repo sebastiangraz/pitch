@@ -5,7 +5,7 @@ import React from "react";
 
 export const Slide4 = () => {
   let { parentValues } = useCaseWrapperContext();
-  console.log(parentValues.progress);
+
   return (
     <>
       <Padding>
