@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useEffect } from "react";
-import { m, motion, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 
 export const Reveal = ({ trigger, children }) => {
   const parentVariant = {
@@ -11,9 +11,10 @@ export const Reveal = ({ trigger, children }) => {
   };
 
   const childVariant = {
-    hidden: { opacity: 0 },
+    hidden: { opacity: 0.2 },
     visible: (custom) => ({
       opacity: 1,
+
       transition: {
         ease: [0.83, 0, 0.17, 1],
         delay: custom * 0.1,
@@ -26,6 +27,8 @@ export const Reveal = ({ trigger, children }) => {
   useEffect(() => {
     if (trigger) {
       controls.start("visible");
+    } else {
+      controls.start("hidden");
     }
   }, [controls, trigger]);
 
@@ -38,14 +41,14 @@ export const Reveal = ({ trigger, children }) => {
     >
       {React.Children.map(children || null, (child, i) => {
         return (
-          <m.div
+          <motion.div
             sx={{ display: "grid" }}
             key={i}
             custom={i}
             variants={childVariant}
           >
             {child}
-          </m.div>
+          </motion.div>
         );
       })}
     </motion.div>

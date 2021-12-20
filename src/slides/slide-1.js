@@ -21,15 +21,16 @@ const variant = {
 export const Slide1 = () => {
   const controls = useAnimation();
   const { scrollY } = useViewportScroll();
+
+  const [active, setActive] = React.useState();
   let { parentValues } = useCaseWrapperContext();
 
   const updateTransform = (v) => {
-    const transvar = transform(
+    return transform(
       v - parentValues.position + window.innerHeight,
       [0, window.innerHeight],
       [0, -600]
     );
-    return transvar;
   };
 
   const y = useSpring(
@@ -40,16 +41,13 @@ export const Slide1 = () => {
     }
   );
 
-  console.log(parentValues.progress);
-
-  // controls.start("active");
-  // React.useEffect(() => {
-  //   if (parentValues.active) {
-  //     controls.start("active");
-  //   } else {
-  //     controls.stop("active");
-  //   }
-  // }, [controls, parentValues.active]);
+  React.useEffect(() => {
+    if (parentValues.progress < 0.5) {
+      controls.start("active");
+    } else {
+      controls.stop("active");
+    }
+  }, [controls, parentValues.progress]);
 
   return (
     <>

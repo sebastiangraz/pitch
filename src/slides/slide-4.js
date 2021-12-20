@@ -9,10 +9,12 @@ export const Slide4 = () => {
   return (
     <>
       <Padding>
-        <Reveal trigger={parentValues.progress}>
-          <p>Reveal me</p>
-          <h1>Reveal me too</h1>
-        </Reveal>
+        <Padding>
+          <Reveal trigger={parentValues.progress > 0.5}>
+            <h2>Reveal me</h2>
+            <h1>Reveal me too</h1>
+          </Reveal>
+        </Padding>
       </Padding>
     </>
   );

@@ -5,12 +5,12 @@ import React from "react";
 
 export const Slide6 = () => {
   let { parentValues } = useCaseWrapperContext();
-  console.log(parentValues.progress);
+
   return (
     <>
       <Padding>
-        <Reveal trigger={parentValues.progress}>
-          <p>Reveal me</p>
+        <Reveal trigger={parentValues.progress > 0.5}>
+          <h2>Reveal me</h2>
           <h1>Reveal me too</h1>
         </Reveal>
       </Padding>
