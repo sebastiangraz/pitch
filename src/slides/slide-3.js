@@ -1,10 +1,21 @@
+import { Padding } from "../components/Padding";
+
 export const Slide3 = () => {
   return (
     <>
-      <h1>Header 1</h1>
-      <h2>Header 2</h2>
-      <h3>Header 3</h3>
-      <p>Para</p>
+      <Padding>
+        <h1>Header 1</h1>
+        <h3>
+          <span>
+            · Results first. · I strive to deliver strong results rather than
+            rushing the outcome to finish a set deadline. · Planning a project
+            to an exact date is near impossible so I’m happy to put in extra
+            time to deliver great work. · That said that doesn’t mean I miss
+            important deadlines as I work fast with my decade of design
+            experience.
+          </span>
+        </h3>
+      </Padding>
     </>
   );
 };
