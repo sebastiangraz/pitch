@@ -1,10 +1,19 @@
+import { useCaseWrapperContext } from "../components/Slide";
+import { Padding } from "../components/Padding";
+import { Reveal } from "../components/Reveal";
+import React from "react";
+
 export const Slide6 = () => {
+  let { parentValues } = useCaseWrapperContext();
+  console.log(parentValues.progress);
   return (
     <>
-      <h1>Header 1</h1>
-      <h2>Header 2</h2>
-      <h3>Header 3</h3>
-      <p>Para</p>
+      <Padding>
+        <Reveal trigger={parentValues.progress}>
+          <p>Reveal me</p>
+          <h1>Reveal me too</h1>
+        </Reveal>
+      </Padding>
     </>
   );
 };

@@ -15,6 +15,8 @@ const Slide = ({ index, childPosition, children }) => {
   const position = childPosition[index] || [];
   const positionN = childPosition[index + 1] || [];
   const { scrollY } = useViewportScroll();
+  const [progress, setProgress] = React.useState(0);
+
   const { innerWidth, innerHeight } = window;
   const stagger = 20;
 
@@ -30,6 +32,22 @@ const Slide = ({ index, childPosition, children }) => {
       ]
     );
   };
+
+  React.useEffect(() => {
+    const unsubscribeProgress = scrollY.onChange((value) => {
+      const calc = transform(
+        value - position + window.innerHeight * 2,
+        [0, window.innerHeight],
+        [0, 1]
+      );
+      // console.log(index, calc.toFixed(2), calc > 0 && calc < 1);
+      setProgress(calc);
+    });
+
+    return () => {
+      unsubscribeProgress();
+    };
+  }, [position, scrollY, index]);
 
   const updateBg = (v) => {
     return transform(
@@ -66,7 +84,9 @@ const Slide = ({ index, childPosition, children }) => {
   );
 
   return (
-    <CaseWrapperContext.Provider value={{ value: position }}>
+    <CaseWrapperContext.Provider
+      value={{ parentValues: { position: position, progress: progress } }}
+    >
       <motion.div
         style={{
           zIndex: index,

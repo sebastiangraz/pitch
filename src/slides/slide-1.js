@@ -1,25 +1,31 @@
 import intro from "../assets/intro.png";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   motion,
   transform,
   useSpring,
   useTransform,
   useViewportScroll,
+  useAnimation,
 } from "framer-motion";
 import { Padding } from "../components/Padding";
 import { Logo } from "../components/Logo";
 import { useCaseWrapperContext } from "../components/Slide";
 
-export const Slide1 = () => {
-  const [slideVisible, setSlideVisible] = React.useState(true);
+const variant = {
+  active: {
+    y: -1800,
+  },
+};
 
+export const Slide1 = () => {
+  const controls = useAnimation();
   const { scrollY } = useViewportScroll();
-  let { value } = useCaseWrapperContext();
+  let { parentValues } = useCaseWrapperContext();
 
   const updateTransform = (v) => {
     const transvar = transform(
-      v - value + window.innerHeight,
+      v - parentValues.position + window.innerHeight,
       [0, window.innerHeight],
       [0, -600]
     );
@@ -33,6 +39,17 @@ export const Slide1 = () => {
       mass: 0.1,
     }
   );
+
+  console.log(parentValues.progress);
+
+  // controls.start("active");
+  // React.useEffect(() => {
+  //   if (parentValues.active) {
+  //     controls.start("active");
+  //   } else {
+  //     controls.stop("active");
+  //   }
+  // }, [controls, parentValues.active]);
 
   return (
     <>
@@ -55,7 +72,8 @@ export const Slide1 = () => {
             repeatType: "reverse",
             repeat: Infinity,
           }}
-          animate={{ y: -1800 }}
+          variants={variant}
+          animate={controls}
           style={{ position: "absolute" }}
           src={intro}
           alt=""
