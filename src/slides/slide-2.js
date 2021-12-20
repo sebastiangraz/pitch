@@ -1,12 +1,24 @@
 import { Padding } from "../components/Padding";
+import { Reveal } from "../components/Reveal";
 
 export const Slide2 = () => {
   return (
     <Padding>
-      <h1>Header 1</h1>
-      <h2>Header 2</h2>
-      <h3>Header 3</h3>
-      <p>Para</p>
+      <h2>
+        {/* <Reveal
+          delay={0.5}
+          sx={{
+            position: "absolute",
+            top: "50%",
+            width: `70%`,
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          <span>Clients & Companies</span>
+          <span>·</span>
+        </Reveal> */}
+      </h2>
     </Padding>
   );
 };

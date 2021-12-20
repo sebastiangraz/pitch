@@ -96,7 +96,6 @@ const Slide = ({ index, childPosition, children }) => {
           display: "flex",
           alignItems: "start",
           background: bg,
-
           ...(settings.horizontal
             ? {
                 width: `calc(100vw - ${index * stagger}px)`,

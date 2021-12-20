@@ -6,40 +6,15 @@ import {
   useSpring,
   useTransform,
   useViewportScroll,
-  useAnimation,
 } from "framer-motion";
+import { Reveal } from "../components/Reveal";
 import { Padding } from "../components/Padding";
 import { Logo } from "../components/Logo";
 import { useCaseWrapperContext } from "../components/Slide";
 
-const variant = {
-  active: {
-    y: -1800,
-  },
-};
-
 export const Slide1 = () => {
-  const controls = useAnimation();
   const { scrollY } = useViewportScroll();
-
-  const [inview, setInview] = React.useState(true);
-
   let { parentValues } = useCaseWrapperContext();
-
-  React.useEffect(() => {
-    const unsubscribeProgress = scrollY.onChange((value) => {
-      const calc = transform(
-        value - parentValues.position + window.innerHeight,
-        [0, window.innerHeight],
-        [0, 1]
-      );
-      setInview(calc < 0.5);
-    });
-
-    return () => {
-      unsubscribeProgress();
-    };
-  }, [parentValues.position, scrollY]);
 
   const updateTransform = (v) => {
     return transform(
@@ -57,14 +32,6 @@ export const Slide1 = () => {
     }
   );
 
-  React.useEffect(() => {
-    if (inview) {
-      controls.start("active");
-    } else {
-      controls.stop("active");
-    }
-  }, [controls, inview]);
-
   return (
     <>
       <Padding>
@@ -81,18 +48,20 @@ export const Slide1 = () => {
           position: "absolute",
         }}
       >
-        <motion.img
-          transition={{
-            duration: 20,
-            repeatType: "reverse",
-            repeat: Infinity,
-          }}
-          variants={variant}
-          animate={controls}
-          style={{ position: "absolute" }}
-          src={intro}
-          alt=""
-        ></motion.img>
+        <Reveal
+          ignoreParentFade
+          ease={"linear"}
+          initialInView
+          effect={[{ y: 0 }, { y: -1800 }]}
+          duration={18}
+          repeat
+        >
+          <motion.img
+            style={{ position: "absolute" }}
+            src={intro}
+            alt=""
+          ></motion.img>
+        </Reveal>
       </motion.div>
     </>
   );

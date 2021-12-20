@@ -1,49 +1,98 @@
-/** @jsxImportSource theme-ui */
-
 import React from "react";
 import { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import { motion, useAnimation } from "framer-motion";
+export const Reveal = ({
+  children,
+  delay,
+  effect,
+  ease,
+  parentEffect,
+  duration,
+  parentDuration,
+  ignoreParentFade,
+  repeat,
+  repeatParent,
+  repeatTypeLoop,
+  initialInView,
+  ...rest
+}) => {
+  const delayVal = delay ? delay : 0.05;
+  const effectVal = effect ? effect : [{ opacity: 0 }, { opacity: 1 }];
+  const parentEffectVal = parentEffect
+    ? parentEffect
+    : [{ opacity: 0 }, { opacity: 1 }];
+  const durationVal = duration ? duration : 1;
 
-export const Reveal = ({ trigger, children }) => {
   const parentVariant = {
-    hidden: { opacity: 0.2 },
-    visible: { opacity: 1 },
+    hidden: parentEffectVal[0],
+    visible: {
+      ...parentEffectVal[1],
+      transition: {
+        ease: ease ? ease : [0.83, 0, 0.17, 1],
+        duration: parentDuration ? parentDuration : durationVal,
+        delay: delayVal,
+        ...(repeatParent && {
+          repeat: Infinity,
+          repeatDelay: 1,
+          repeatType: "reverse",
+        }),
+      },
+    },
   };
 
   const childVariant = {
-    hidden: { opacity: 0.2 },
+    hidden: effectVal[0],
     visible: (custom) => ({
-      opacity: 1,
-
+      ...effectVal[1],
       transition: {
-        ease: [0.83, 0, 0.17, 1],
-        delay: custom * 0.1,
+        ease: ease ? ease : [0.83, 0, 0.17, 1],
+        duration: durationVal,
+        delay: delayVal + custom * 0.1,
+        ...(repeat && {
+          repeat: Infinity,
+          repeatDelay: 1,
+          repeatType: repeatTypeLoop ? "loop" : "reverse",
+        }),
       },
     }),
   };
 
-  const controls = useAnimation();
+  const parentControls = useAnimation();
+  const childControls = useAnimation();
+
+  // delay helps to prevent lag when clicking between cases
+  const [ref, inView] = useInView({
+    initialInView: initialInView,
+    triggerOnce: false,
+    delay: 200,
+  });
 
   useEffect(() => {
-    if (trigger) {
-      controls.start("visible");
+    if (inView) {
+      parentControls.start("visible");
+      childControls.start("visible");
     } else {
-      controls.start("hidden");
+      parentControls.start("hidden");
+      childControls.start({ ...effectVal[0], transition: { duration: 0 } });
     }
-  }, [controls, trigger]);
+  }, [parentControls, childControls, inView, effectVal]);
 
   return (
     <motion.div
-      sx={{ willChange: "transform" }}
-      animate={controls}
+      {...rest}
+      style={{ willChange: "transform" }}
+      ref={ref}
+      animate={parentControls}
       initial="hidden"
-      variants={parentVariant}
+      variants={!ignoreParentFade && parentVariant}
     >
       {React.Children.map(children || null, (child, i) => {
         return (
           <motion.div
-            sx={{ display: "grid" }}
+            style={{ display: "grid", originX: 0.5, originY: 0.5 }}
             key={i}
+            animate={childControls}
             custom={i}
             variants={childVariant}
           >
