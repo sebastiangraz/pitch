@@ -22,8 +22,24 @@ export const Slide1 = () => {
   const controls = useAnimation();
   const { scrollY } = useViewportScroll();
 
-  const [active, setActive] = React.useState();
+  const [inview, setInview] = React.useState(true);
+
   let { parentValues } = useCaseWrapperContext();
+
+  React.useEffect(() => {
+    const unsubscribeProgress = scrollY.onChange((value) => {
+      const calc = transform(
+        value - parentValues.position + window.innerHeight,
+        [0, window.innerHeight],
+        [0, 1]
+      );
+      setInview(calc < 0.5);
+    });
+
+    return () => {
+      unsubscribeProgress();
+    };
+  }, [parentValues.position, scrollY]);
 
   const updateTransform = (v) => {
     return transform(
@@ -42,12 +58,12 @@ export const Slide1 = () => {
   );
 
   React.useEffect(() => {
-    if (parentValues.progress < 0.5) {
+    if (inview) {
       controls.start("active");
     } else {
       controls.stop("active");
     }
-  }, [controls, parentValues.progress]);
+  }, [controls, inview]);
 
   return (
     <>

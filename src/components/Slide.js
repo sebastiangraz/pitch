@@ -40,7 +40,6 @@ const Slide = ({ index, childPosition, children }) => {
         [0, window.innerHeight],
         [0, 1]
       );
-      // console.log(index, calc.toFixed(2), calc > 0 && calc < 1);
       setProgress(calc);
     });
 
