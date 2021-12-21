@@ -36,7 +36,7 @@ const Slide = ({ index, childPosition, children }) => {
   React.useEffect(() => {
     const unsubscribeProgress = scrollY.onChange((value) => {
       const calc = transform(
-        value - position + window.innerHeight * 2,
+        value - position + window.innerHeight,
         [0, window.innerHeight],
         [0, 1]
       );

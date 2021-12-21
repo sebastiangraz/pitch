@@ -1,24 +1,38 @@
+/** @jsxImportSource theme-ui */
+
+import { Text } from "@theme-ui/components";
 import { Padding } from "../components/Padding";
 import { Reveal } from "../components/Reveal";
 
 export const Slide2 = () => {
   return (
     <Padding>
-      <h2>
-        {/* <Reveal
-          delay={0.5}
-          sx={{
-            position: "absolute",
-            top: "50%",
-            width: `70%`,
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
-        >
-          <span>Clients & Companies</span>
-          <span>·</span>
-        </Reveal> */}
-      </h2>
+      <Reveal
+        sx={{
+          "&>*": {
+            display: "inline-block",
+            mr: 2,
+          },
+        }}
+        delay={0.5}
+      >
+        <Text variant="heading">Framer · </Text>
+        <Text variant="heading">Canon · </Text>
+        <Text variant="heading">Volvo · </Text>
+        <Text variant="heading">T-Mobile · </Text>
+        <Text variant="heading">Carrefour · </Text>
+        <Text variant="heading">The Food Network · </Text>
+        <Text variant="heading">Capchase · </Text>
+        <Text variant="heading">Maurice Saatchi · </Text>
+        <Text variant="heading">Husqvarna · </Text>
+        <Text variant="heading">SKF · </Text>
+        <Text variant="heading">Teva · </Text>
+        <Text variant="heading">Maersk · </Text>
+        <Text variant="heading">E.ON · </Text>
+        <Text variant="heading">Ascom · </Text>
+        <Text variant="heading">Tena · </Text>
+        <Text variant="heading">Delhaize · </Text>
+      </Reveal>
     </Padding>
   );
 };

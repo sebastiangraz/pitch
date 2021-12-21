@@ -90,7 +90,7 @@ export const Reveal = ({
       {React.Children.map(children || null, (child, i) => {
         return (
           <motion.div
-            style={{ display: "grid", originX: 0.5, originY: 0.5 }}
+            style={{ originX: 0.5, originY: 0.5 }}
             key={i}
             animate={childControls}
             custom={i}

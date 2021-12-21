@@ -1,5 +1,6 @@
+/** @jsxImportSource theme-ui */
+
 import intro from "../assets/intro.png";
-import React from "react";
 import {
   motion,
   transform,
@@ -7,6 +8,7 @@ import {
   useTransform,
   useViewportScroll,
 } from "framer-motion";
+import { Text } from "@theme-ui/components";
 import { Reveal } from "../components/Reveal";
 import { Padding } from "../components/Padding";
 import { Logo } from "../components/Logo";
@@ -16,16 +18,10 @@ export const Slide1 = () => {
   const { scrollY } = useViewportScroll();
   let { parentValues } = useCaseWrapperContext();
 
-  const updateTransform = (v) => {
-    return transform(
-      v - parentValues.position + window.innerHeight,
-      [0, window.innerHeight],
-      [0, -600]
-    );
-  };
-
   const y = useSpring(
-    useTransform(scrollY, (v) => updateTransform(v)),
+    useTransform(scrollY, () =>
+      transform(parentValues.progress, [0, 1], [0, -600])
+    ),
     {
       damping: 12,
       mass: 0.1,
@@ -36,8 +32,8 @@ export const Slide1 = () => {
     <>
       <Padding>
         <Logo />
-        <h1>sebastian graz</h1>
-        <h1>brand designer</h1>
+        <Text variant="heading">sebastian graz</Text>
+        <Text variant="heading">brand designer</Text>
       </Padding>
       <motion.div
         initial={{ y: 0 }}
