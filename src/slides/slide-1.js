@@ -12,16 +12,13 @@ import { Text } from "@theme-ui/components";
 import { Reveal } from "../components/Reveal";
 import { Padding } from "../components/Padding";
 import { Logo } from "../components/Logo";
-import { useCaseWrapperContext } from "../components/Slide";
-
+import { useWindowSize } from "../components/useWindowSize";
 export const Slide1 = () => {
   const { scrollY } = useViewportScroll();
-  let { parentValues } = useCaseWrapperContext();
+  const { height } = useWindowSize();
 
   const y = useSpring(
-    useTransform(scrollY, () =>
-      transform(parentValues.progress, [0, 1], [0, -600])
-    ),
+    useTransform(scrollY, (e) => transform(e, [0, height], [0, -600])),
     {
       damping: 12,
       mass: 0.1,
@@ -31,7 +28,7 @@ export const Slide1 = () => {
   return (
     <>
       <Padding>
-        <Logo />
+        <Logo weight={y} />
         <Text variant="heading">sebastian graz</Text>
         <Text variant="heading">brand designer</Text>
       </Padding>

@@ -52,7 +52,7 @@ const Slide = ({ index, childPosition, children }) => {
     return transform(
       v - positionN + innerHeight * 2,
       [0, innerHeight],
-      [`hsl(30, 5%, ${index * 3 + 92}%)`, `hsl(30, 20%, ${index * 3 + 80}%)`]
+      [`hsl(144, 5%, ${index * 3 + 92}%)`, `hsl(144, 20%, ${index * 3 + 80}%)`]
     );
   };
 

@@ -8,10 +8,14 @@ export const Slide2 = () => {
   return (
     <Padding>
       <Reveal
+        effect={[
+          { color: `hsl(144, 50%, 50%)`, opacity: 0 },
+          { color: `hsl(144, 100%, 1%)`, opacity: 1 },
+        ]}
         sx={{
           "&>*": {
             display: "inline-block",
-            mr: 2,
+            mr: 1,
           },
         }}
         delay={0.5}
@@ -30,7 +34,7 @@ export const Slide2 = () => {
         <Text variant="heading">Maersk · </Text>
         <Text variant="heading">E.ON · </Text>
         <Text variant="heading">Ascom · </Text>
-        <Text variant="heading">Tena · </Text>
+        <Text variant="heading">SCA · </Text>
         <Text variant="heading">Delhaize · </Text>
       </Reveal>
     </Padding>

@@ -48,7 +48,7 @@ export const Reveal = ({
       transition: {
         ease: ease ? ease : [0.83, 0, 0.17, 1],
         duration: durationVal,
-        delay: delayVal + custom * 0.1,
+        delay: delayVal + custom * 0.05,
         ...(repeat && {
           repeat: Infinity,
           repeatDelay: 1,

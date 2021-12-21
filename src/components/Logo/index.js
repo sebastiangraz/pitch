@@ -2,7 +2,7 @@
 
 import { m } from "framer-motion";
 
-export const Logo = ({ ...rest }) => {
+export const Logo = ({ weight, ...rest }) => {
   return (
     <m.div {...rest} sx={{ display: "inline-flex", position: "relative" }}>
       <h1
@@ -11,7 +11,7 @@ export const Logo = ({ ...rest }) => {
           // hax iOS14 clips variable fonts
           minWidth: 100,
           // endhax
-          fontVariationSettings: `"wght" 60`,
+          fontVariationSettings: `"wght" ${weight ? weight : 60}`,
           display: "inline-block",
           fontFamily: "G",
           fontSize: "16em",
