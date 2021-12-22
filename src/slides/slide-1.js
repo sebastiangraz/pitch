@@ -13,7 +13,11 @@ import { Reveal } from "../components/Reveal";
 import { Padding } from "../components/Padding";
 import { Logo } from "../components/Logo";
 import { useWindowSize } from "../components/useWindowSize";
+import { useCaseWrapperContext } from "../components/Slide";
+
 export const Slide1 = () => {
+  const { parentValues } = useCaseWrapperContext();
+  console.log(parentValues.progress);
   const { scrollY } = useViewportScroll();
   const { height } = useWindowSize();
 
@@ -28,9 +32,13 @@ export const Slide1 = () => {
   return (
     <>
       <Padding>
-        <Logo weight={y} />
-        <Text variant="heading">sebastian graz</Text>
-        <Text variant="heading">brand designer</Text>
+        <Logo weight={70 - parentValues.progress * 30} />
+        <Text variant="heading" mb={0}>
+          sebastian graz
+        </Text>
+        <Text variant="heading" sx={{ color: "brand" }}>
+          brand designer
+        </Text>
       </Padding>
       <motion.div
         initial={{ y: 0 }}

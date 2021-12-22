@@ -11,6 +11,7 @@ export const Logo = ({ weight, ...rest }) => {
           // hax iOS14 clips variable fonts
           minWidth: 100,
           // endhax
+          // transform: `scale(${0.013 * weight})`,
           fontVariationSettings: `"wght" ${weight ? weight : 60}`,
           display: "inline-block",
           fontFamily: "G",

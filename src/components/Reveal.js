@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { motion, useAnimation } from "framer-motion";
@@ -48,7 +48,7 @@ export const Reveal = ({
       transition: {
         ease: ease ? ease : [0.83, 0, 0.17, 1],
         duration: durationVal,
-        delay: delayVal + custom * 0.05,
+        delay: delayVal + custom * (0.4 / React.Children.count(children)),
         ...(repeat && {
           repeat: Infinity,
           repeatDelay: 1,

@@ -1,7 +1,18 @@
 const colors = {
   text: "#111",
+  brand: `hsla(144, 50%, 12%, 56%)`,
 };
-const space = ["0em", "1em", "2em", "4em", "6em", "8em", "10em", "12em"];
+const space = [
+  "0em",
+  "0.2em",
+  "1em",
+  "2em",
+  "4em",
+  "6em",
+  "8em",
+  "10em",
+  "12em",
+];
 
 export const scroll = {
   "&::-webkit-scrollbar": {
@@ -32,28 +43,38 @@ export default {
   breakpoints: ["40em", "64em", "98em", "120em"],
   lineHeights: {
     body: 1.2,
-    heading: 1,
+    heading: 1.05,
   },
   letterSpacings: {
     body: "-0.072em",
-    heading: "-0.092em",
+    heading: "-0.088em",
+  },
+  grids: {
+    vertical: {},
   },
   fontSizes: space,
   colors: colors,
   text: {
     default: {
-      fontSize: 2,
+      fontSize: 3,
       fontWeight: 400,
       fontFamily: "body",
       lineHeight: "body",
       letterSpacing: "body",
       display: "block",
+      mb: 2,
+    },
+    caps: {
+      variant: "text.default",
+      fontVariantCaps: "all-small-caps",
+      mb: 2,
     },
     heading: {
       variant: "text.default",
       lineHeight: "heading",
       letterSpacing: "heading",
-      fontSize: 4,
+      fontSize: 5,
+      mb: 0,
     },
   },
   styles: {
@@ -64,7 +85,7 @@ export default {
       webkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
       variant: "text.default",
-      fontFeatureSettings: `"liga"`,
+      // fontFeatureSettings: `"liga", "dlig"`,
     },
     a: { color: "inherit", "&:hover": { textDecoration: "none" } },
     pre: {
