@@ -13,7 +13,7 @@ const svgStyle = {
   display: "inline",
 };
 
-export const Slide2 = () => {
+export const SlideClients = () => {
   return (
     <Padding>
       <Reveal
@@ -25,16 +25,6 @@ export const Slide2 = () => {
           },
         }}
       >
-        <Text variant="heading">
-          <span
-            sx={{
-              svg: svgStyle,
-            }}
-          >
-            {" "}
-            {vectors.circles}{" "}
-          </span>
-        </Text>
         <Text variant="heading">Framer · </Text>
         <Text variant="heading">Canon · </Text>
         <Text variant="heading">Volvo · </Text>

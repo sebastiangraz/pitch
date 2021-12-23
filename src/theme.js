@@ -1,6 +1,6 @@
 const colors = {
   text: "#111",
-  brand: `hsla(144, 50%, 12%, 56%)`,
+  brand: `hsl(144, 6%, 50%)`,
 };
 const space = [
   "0em",
@@ -42,11 +42,11 @@ export default {
   },
   breakpoints: ["40em", "64em", "98em", "120em"],
   lineHeights: {
-    body: 1.2,
+    body: 1.4,
     heading: 1.05,
   },
   letterSpacings: {
-    body: "-0.072em",
+    body: "-0.045em",
     heading: "-0.088em",
   },
   grids: {
@@ -64,11 +64,7 @@ export default {
       display: "block",
       mb: 2,
     },
-    caps: {
-      variant: "text.default",
-      fontVariantCaps: "all-small-caps",
-      mb: 2,
-    },
+
     heading: {
       variant: "text.default",
       lineHeight: "heading",

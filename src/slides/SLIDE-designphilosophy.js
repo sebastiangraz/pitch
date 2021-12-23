@@ -11,7 +11,7 @@ const svgStyle = {
   position: "relative",
   display: "inline",
 };
-export const Slide4 = () => {
+export const SlidePhilosophy = () => {
   return (
     <>
       <Padding>
@@ -23,22 +23,10 @@ export const Slide4 = () => {
           }}
           {...defaultProps.textRevealAnimation}
         >
-          <Text
-            variant="heading"
-            mr={1}
-            sx={{ color: "brand", display: "inline-block" }}
-          >
-            <span
-              sx={{
-                svg: svgStyle,
-              }}
-            >
-              {" "}
-              {vectors.donut}{" "}
-            </span>
-            <span>design philosophy</span>{" "}
+          <Text variant="heading" mb={1} sx={{ color: "brand" }}>
+            design philosophy
           </Text>
-          <Text variant="heading" sx={{ display: "inline" }}>
+          <Text variant="heading">
             <span
               sx={{
                 svg: svgStyle,
@@ -48,17 +36,11 @@ export const Slide4 = () => {
               {vectors.dotArray}{" "}
             </span>
             <span>
-              exploration{" "}
-              <Text
-                variant="caps"
-                sx={{ fontSize: "inherit", display: "inline" }}
-              >
-                &
-              </Text>{" "}
-              naivety is key for great designs
+              exploration & naivety <br />
+              is key for great designs
             </span>{" "}
           </Text>
-          <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
+          <Text mt={1} variant="heading">
             <span
               sx={{
                 svg: svgStyle,

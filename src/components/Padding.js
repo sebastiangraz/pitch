@@ -1,3 +1,7 @@
-export const Padding = ({ children }) => {
-  return <div style={{ padding: "5em" }}>{children}</div>;
+export const Padding = ({ children, ...rest }) => {
+  return (
+    <div {...rest} style={{ padding: "6.5em" }}>
+      {children}
+    </div>
+  );
 };

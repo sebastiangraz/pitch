@@ -11,7 +11,7 @@ const svgStyle = {
   position: "relative",
   display: "inline",
 };
-export const Slide3 = () => {
+export const SlideEthos = () => {
   return (
     <>
       <Padding>
@@ -23,28 +23,15 @@ export const Slide3 = () => {
           }}
           {...defaultProps.textRevealAnimation}
         >
-          <Text
-            variant="heading"
-            mr={1}
-            sx={{ color: "brand", display: "inline-block" }}
-          >
-            <span
-              sx={{
-                svg: svgStyle,
-              }}
-            >
-              {" "}
-              {vectors.donut}{" "}
-            </span>
-            <span>work ethos</span>{" "}
+          <Text variant="heading" mb={1} sx={{ color: "brand" }}>
+            work ethos
           </Text>
-          <Text variant="heading" sx={{ display: "inline" }}>
+          <Text variant="heading">
             <span
               sx={{
                 svg: svgStyle,
               }}
             >
-              {" "}
               {vectors.star}{" "}
             </span>
             <span>
@@ -52,7 +39,7 @@ export const Slide3 = () => {
               scrutinizing hours.
             </span>{" "}
           </Text>
-          <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
+          <Text mt={1} variant="heading">
             <span
               sx={{
                 svg: svgStyle,
@@ -61,8 +48,7 @@ export const Slide3 = () => {
               {vectors.time}{" "}
             </span>
             <span>
-              I go the extra mile to deliver on time while keeping a high
-              standard.
+              meaningful and frequent collaboration equals great results
             </span>
           </Text>
         </Reveal>
