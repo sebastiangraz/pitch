@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 
-import intro from "../assets/intro.png";
+import capchase from "../assets/capchase.png";
 import {
   motion,
   transform,
@@ -63,20 +63,21 @@ export const SlideCapchase = () => {
         style={{
           y: y,
           right: 0,
+          top: 0,
           width: "60%",
           position: "absolute",
         }}
       >
         <Reveal
           ignoreParentFade
-          ease={"linear"}
-          effect={[{ y: 0 }, { y: -1800 }]}
-          duration={18}
+          ease={[0.2, 0, 0.17, 0.2]}
+          effect={[{ y: 100 }, { y: -500 }]}
+          duration={10}
           repeat
         >
           <motion.img
             style={{ position: "absolute" }}
-            src={intro}
+            src={capchase}
             alt=""
           ></motion.img>
         </Reveal>
