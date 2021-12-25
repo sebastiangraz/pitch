@@ -7,10 +7,12 @@ import { Reveal } from "../components/Reveal";
 import { useCaseWrapperContext } from "../components/Slide";
 
 const svgStyle = {
-  width: "0.6em",
-  top: "0.05em",
-  position: "relative",
-  display: "inline",
+  svg: {
+    width: "0.6em",
+    top: "-0.05em",
+    position: "relative",
+    display: "inline",
+  },
 };
 
 export const SlideProcess = () => {
@@ -35,7 +37,8 @@ export const SlideProcess = () => {
           Process
           <span
             sx={{
-              svg: { ...svgStyle, width: "1.4em", ml: 1 },
+              ...svgStyle,
+              svg: { width: "1.4em", ml: 1, display: "inline" },
             }}
           >
             <svg
@@ -69,43 +72,19 @@ export const SlideProcess = () => {
           </span>
         </Text>
         <Text variant="heading" sx={{ display: "inline-block" }}>
-          <span
-            sx={{
-              svg: svgStyle,
-            }}
-          >
-            {vectors.donut}{" "}
-          </span>
+          <span sx={svgStyle}>{vectors.donut} </span>
           <span>Gathering context & data.</span>
         </Text>
         <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
-          <span
-            sx={{
-              svg: svgStyle,
-            }}
-          >
-            {vectors.donut}{" "}
-          </span>
+          <span sx={svgStyle}>{vectors.donut} </span>
           <span>Outlining brand strategy.</span>
         </Text>
         <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
-          <span
-            sx={{
-              svg: svgStyle,
-            }}
-          >
-            {vectors.donut}{" "}
-          </span>
+          <span sx={svgStyle}>{vectors.donut} </span>
           <span>Design conceptualization.</span>
         </Text>
         <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
-          <span
-            sx={{
-              svg: svgStyle,
-            }}
-          >
-            {vectors.donut}{" "}
-          </span>
+          <span sx={svgStyle}>{vectors.donut} </span>
           <span>Consolidate visuals.</span>
         </Text>
       </Reveal>

@@ -4,14 +4,6 @@ import { Text } from "@theme-ui/components";
 import { Padding } from "../components/Padding";
 import { Reveal } from "../components/Reveal";
 import { defaultProps } from "../components/settings";
-import { vectors } from "../assets/vectors";
-
-const svgStyle = {
-  width: "0.6em",
-  top: "0.05em",
-  position: "relative",
-  display: "inline",
-};
 
 export const SlideClients = () => {
   return (

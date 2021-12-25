@@ -6,11 +6,14 @@ import { defaultProps } from "../components/settings";
 import { Reveal } from "../components/Reveal";
 
 const svgStyle = {
-  width: "0.6em",
-  top: "0.05em",
-  position: "relative",
-  display: "inline",
+  svg: {
+    width: "0.6em",
+    top: "-0.05em",
+    position: "relative",
+    display: "inline",
+  },
 };
+
 export const SlidePhilosophy = () => {
   return (
     <>
@@ -27,27 +30,14 @@ export const SlidePhilosophy = () => {
             Design philosophy
           </Text>
           <Text variant="heading">
-            <span
-              sx={{
-                svg: svgStyle,
-              }}
-            >
-              {" "}
-              {vectors.dotArray}{" "}
-            </span>
+            <span sx={svgStyle}> {vectors.dotArray} </span>
             <span>
               Exploration & naivety <br />
               is key for great designs.
             </span>{" "}
           </Text>
           <Text mt={1} variant="heading">
-            <span
-              sx={{
-                svg: svgStyle,
-              }}
-            >
-              {vectors.circleArray}{" "}
-            </span>
+            <span sx={svgStyle}>{vectors.polygon} </span>
             <span>
               Avoid trends, instead aim for designs that answer the brief.
             </span>

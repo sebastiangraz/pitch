@@ -5,4 +5,4 @@ export { SlideLoupe } from "../slides/SLIDE-loupe";
 export { SlideEthos } from "../slides/SLIDE-ethos";
 export { SlidePhilosophy } from "../slides/SLIDE-designphilosophy";
 export { SlideProcess } from "../slides/SLIDE-process";
-export { SlideTodo } from "../slides/SLIDE-todo";
+export { SlideQuestions } from "../slides/SLIDE-questions";
