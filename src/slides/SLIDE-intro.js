@@ -1,6 +1,5 @@
 /** @jsxImportSource theme-ui */
 
-import intro from "../assets/intro.png";
 import introvid from "../assets/intro.mp4";
 import {
   motion,
@@ -9,7 +8,7 @@ import {
   useTransform,
   useViewportScroll,
 } from "framer-motion";
-import { Text } from "@theme-ui/components";
+import { Text, Flex, Box } from "@theme-ui/components";
 import { Reveal } from "../components/Reveal";
 import { Padding } from "../components/Padding";
 import { Logo } from "../components/Logo";
@@ -31,43 +30,52 @@ export const SlideIntro = () => {
 
   return (
     <>
-      <Padding>
-        <Logo weight={70 - parentValues.progress * 30} />
-        <Text variant="heading" mb={0}>
-          sebastian graz
-        </Text>
-        <Text variant="heading" sx={{ color: "brand" }}>
-          brand designer
-        </Text>
-        <motion.div
-          initial={{ x: 0 }}
-          style={{
-            x: y,
-            right: 0,
+      <Padding sx={{ height: "100vh" }}>
+        <Flex
+          sx={{
+            flexDirection: "column",
+            justifyContent: "space-between",
+            height: "100%",
           }}
         >
-          <Reveal
-            sx={{
-              display: "flex",
-              justifyContent: "end",
-              width: "100%",
-              mt: 4,
+          <Box>
+            <Logo weight={70 - parentValues.progress * 30} />
+            <Text variant="heading" mb={0}>
+              sebastian graz
+            </Text>
+            <Text variant="heading" sx={{ color: "brand" }}>
+              brand designer
+            </Text>
+          </Box>
+          <motion.div
+            initial={{ x: 0 }}
+            style={{
+              x: y,
+              right: 0,
             }}
-            duration={2}
           >
-            <video
+            <Reveal
               sx={{
-                borderRadius: "1em",
-                maxWidth: "45em",
-                placeSelf: "flex-end",
+                display: "flex",
+                justifyContent: "end",
+                width: "100%",
               }}
-              src={introvid}
-              autoPlay
-              muted
-              loop
-            />
-          </Reveal>
-        </motion.div>
+              duration={2}
+            >
+              <video
+                sx={{
+                  borderRadius: "1em",
+                  maxWidth: "45em",
+                  placeSelf: "flex-end",
+                }}
+                src={introvid}
+                autoPlay
+                muted
+                loop
+              />
+            </Reveal>
+          </motion.div>
+        </Flex>
       </Padding>
     </>
   );

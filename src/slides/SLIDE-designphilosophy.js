@@ -24,7 +24,7 @@ export const SlidePhilosophy = () => {
           {...defaultProps.textRevealAnimation}
         >
           <Text variant="heading" mb={1} sx={{ color: "brand" }}>
-            design philosophy
+            Design philosophy
           </Text>
           <Text variant="heading">
             <span
@@ -36,8 +36,8 @@ export const SlidePhilosophy = () => {
               {vectors.dotArray}{" "}
             </span>
             <span>
-              exploration & naivety <br />
-              is key for great designs
+              Exploration & naivety <br />
+              is key for great designs.
             </span>{" "}
           </Text>
           <Text mt={1} variant="heading">
@@ -49,7 +49,7 @@ export const SlidePhilosophy = () => {
               {vectors.circleArray}{" "}
             </span>
             <span>
-              avoid trends, instead aim for designs that answer the brief
+              Avoid trends, instead aim for designs that answer the brief.
             </span>
           </Text>
         </Reveal>

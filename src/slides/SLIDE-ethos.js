@@ -24,7 +24,7 @@ export const SlideEthos = () => {
           {...defaultProps.textRevealAnimation}
         >
           <Text variant="heading" mb={1} sx={{ color: "brand" }}>
-            work ethos
+            Work ethos
           </Text>
           <Text variant="heading">
             <span
@@ -35,8 +35,7 @@ export const SlideEthos = () => {
               {vectors.star}{" "}
             </span>
             <span>
-              estimating effort is difficult—so results are prioritzed over
-              scrutinizing hours.
+              Estimating effort is difficult. Outcome over scrutinizing hours.
             </span>{" "}
           </Text>
           <Text mt={1} variant="heading">
@@ -47,9 +46,7 @@ export const SlideEthos = () => {
             >
               {vectors.time}{" "}
             </span>
-            <span>
-              meaningful and frequent collaboration equals great results
-            </span>
+            <span>Meaningful & frequent collaboration for better results.</span>
           </Text>
         </Reveal>
       </Padding>

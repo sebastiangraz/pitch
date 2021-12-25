@@ -32,7 +32,7 @@ export const SlideProcess = () => {
           variant="heading"
           sx={{ color: "brand", display: "block" }}
         >
-          process
+          Process
           <span
             sx={{
               svg: { ...svgStyle, width: "1.4em", ml: 1 },
@@ -76,7 +76,7 @@ export const SlideProcess = () => {
           >
             {vectors.donut}{" "}
           </span>
-          <span>gathering context & data</span>
+          <span>Gathering context & data.</span>
         </Text>
         <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
           <span
@@ -86,7 +86,7 @@ export const SlideProcess = () => {
           >
             {vectors.donut}{" "}
           </span>
-          <span>outlining brand strategy</span>
+          <span>Outlining brand strategy.</span>
         </Text>
         <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
           <span
@@ -96,7 +96,7 @@ export const SlideProcess = () => {
           >
             {vectors.donut}{" "}
           </span>
-          <span>design conceptualization</span>
+          <span>Design conceptualization.</span>
         </Text>
         <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
           <span
@@ -106,7 +106,7 @@ export const SlideProcess = () => {
           >
             {vectors.donut}{" "}
           </span>
-          <span>consolidate visuals</span>
+          <span>Consolidate visuals.</span>
         </Text>
       </Reveal>
     </Padding>
