@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { motion, useAnimation } from "framer-motion";
@@ -23,6 +23,8 @@ export const Reveal = ({
     ? parentEffect
     : [{ opacity: 0 }, { opacity: 1 }];
   const durationVal = duration ? duration : 1;
+
+  console.log(effectVal, parentEffectVal);
 
   const parentVariant = {
     hidden: parentEffectVal[0],

@@ -2,29 +2,10 @@
 
 import { m } from "framer-motion";
 
-export const Logo = ({ weight, ...rest }) => {
+export const Logo = ({ component, weight, children, ...rest }) => {
   return (
     <m.div {...rest} sx={{ display: "inline-flex", position: "relative" }}>
-      <h1
-        className="logo"
-        sx={{
-          // hax iOS14 clips variable fonts
-          minWidth: 100,
-          // endhax
-          // transform: `scale(${0.013 * weight})`,
-          fontVariationSettings: `"wght" ${weight ? weight : 60}`,
-          display: "inline-block",
-          fontFamily: "G",
-          fontSize: "16em",
-          lineHeight: 0.5,
-          userSelect: "none",
-          textRendering: "optimizeLegibility",
-          fontWeight: "normal",
-          margin: 0,
-        }}
-      >
-        G
-      </h1>
+      {component ? component : children}
     </m.div>
   );
 };

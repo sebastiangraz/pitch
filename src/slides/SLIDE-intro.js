@@ -13,10 +13,8 @@ import { Reveal } from "../components/Reveal";
 import { Padding } from "../components/Padding";
 import { Logo } from "../components/Logo";
 import { useWindowSize } from "../components/useWindowSize";
-import { useCaseWrapperContext } from "../components/Slide";
 
 export const SlideIntro = () => {
-  const { parentValues } = useCaseWrapperContext();
   const { scrollY } = useViewportScroll();
   const { height } = useWindowSize();
 
@@ -39,13 +37,48 @@ export const SlideIntro = () => {
           }}
         >
           <Box>
-            <Logo weight={70 - parentValues.progress * 30} />
-            <Text variant="heading" mb={0}>
-              sebastian graz
-            </Text>
-            <Text variant="heading" sx={{ color: "brand" }}>
-              brand designer
-            </Text>
+            <Logo
+              component={
+                <Reveal
+                  duration={3}
+                  parentEffect={[
+                    { scale: 1.2, opacity: 0 },
+                    { scale: 1, opacity: 1 },
+                  ]}
+                  effect={[
+                    { fontVariationSettings: `"wght" 5` },
+                    { fontVariationSettings: `"wght" 64` },
+                  ]}
+                >
+                  <h1
+                    className="logo"
+                    sx={{
+                      // hax iOS14 clips variable fonts
+                      minWidth: 100,
+                      // endhax
+                      display: "inline-block",
+                      fontFamily: "G",
+                      fontSize: "14em",
+                      lineHeight: 0.5,
+                      userSelect: "none",
+                      textRendering: "optimizeLegibility",
+                      fontWeight: "normal",
+                      margin: 0,
+                    }}
+                  >
+                    G
+                  </h1>
+                </Reveal>
+              }
+            />
+            <Reveal delay={1.2}>
+              <Text variant="heading" mb={0}>
+                sebastian graz
+              </Text>
+              <Text variant="heading" sx={{ color: "brand" }}>
+                brand designer
+              </Text>
+            </Reveal>
           </Box>
           <motion.div
             initial={{ x: 0 }}
@@ -60,7 +93,6 @@ export const SlideIntro = () => {
                 justifyContent: "end",
                 width: "100%",
               }}
-              duration={2}
             >
               <video
                 sx={{
