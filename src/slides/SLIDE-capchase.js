@@ -9,7 +9,7 @@ import {
   useViewportScroll,
 } from "framer-motion";
 import { Text } from "@theme-ui/components";
-import { Reveal } from "../components/Reveal";
+import Reveal from "../components/Reveal";
 import { Padding } from "../components/Padding";
 import { useCaseWrapperContext } from "../components/Slide";
 import { useWindowSize } from "../components/useWindowSize";
@@ -20,20 +20,16 @@ export const SlideCapchase = () => {
   const { height } = useWindowSize();
 
   const y = useSpring(
-    useTransform(scrollY, (e) =>
-      transform(
-        e,
-        [parentValues.position - height, parentValues.position],
-        [0, -600]
-      )
+    useTransform(
+      scrollY,
+      [parentValues.position - height, parentValues.position],
+      [0, -600]
     ),
     {
       damping: 12,
       mass: 0.1,
     }
   );
-
-  // console.log(y.current, parentValues.position);
 
   return (
     <>
@@ -58,6 +54,7 @@ export const SlideCapchase = () => {
           not a business tool.
         </Text>
       </Padding>
+
       <motion.div
         initial={{ y: 0 }}
         style={{

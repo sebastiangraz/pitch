@@ -1,9 +1,9 @@
 /** @jsxImportSource theme-ui */
-import { Text, Grid } from "@theme-ui/components";
+import { Text } from "@theme-ui/components";
 import { Padding } from "../components/Padding";
 import { vectors } from "../assets/vectors";
 import { defaultProps } from "../components/settings";
-import { Reveal } from "../components/Reveal";
+import Reveal from "../components/Reveal";
 import { useCaseWrapperContext } from "../components/Slide";
 
 const svgStyle = {

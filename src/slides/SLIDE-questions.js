@@ -3,8 +3,7 @@ import { Text, Grid } from "@theme-ui/components";
 import { Padding } from "../components/Padding";
 import { vectors } from "../assets/vectors";
 import { defaultProps } from "../components/settings";
-import { Reveal } from "../components/Reveal";
-import { useCaseWrapperContext } from "../components/Slide";
+import Reveal from "../components/Reveal";
 
 const svgStyle = {
   svg: {
@@ -16,7 +15,6 @@ const svgStyle = {
 };
 
 export const SlideQuestions = () => {
-  const { parentValues } = useCaseWrapperContext();
   return (
     <Padding>
       <Grid gap={4} columns={"auto 1fr"} repeat="fit">

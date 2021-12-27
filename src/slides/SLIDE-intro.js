@@ -12,7 +12,7 @@ import {
   useViewportScroll,
 } from "framer-motion";
 import { Text, Flex, Box } from "@theme-ui/components";
-import { Reveal } from "../components/Reveal";
+import Reveal from "../components/Reveal";
 import { Padding } from "../components/Padding";
 import { Logo } from "../components/Logo";
 import { useWindowSize } from "../components/useWindowSize";
@@ -98,52 +98,6 @@ export const SlideIntro = () => {
                 width: "100%",
               }}
             >
-              <div
-                sx={{
-                  borderRadius: "10em",
-                  bg: "brand",
-                  width: "20em",
-                  paddingBottom: "100%",
-                  overflow: "hidden",
-                  position: "relative",
-                  "& > *": { position: "absolute" },
-                }}
-              >
-                <Reveal
-                  delay={0}
-                  repeatParent
-                  parentDuration={1}
-                  parentEffect={[
-                    { scale: 1.2, opacity: 0 },
-                    { scale: 1, opacity: 1 },
-                  ]}
-                >
-                  <img src={orb1} alt="" />
-                </Reveal>
-                <Reveal
-                  delay={1}
-                  repeatParent
-                  parentDuration={1}
-                  parentEffect={[
-                    { scale: 1.2, opacity: 0 },
-                    { scale: 1, opacity: 1 },
-                  ]}
-                >
-                  <img src={orb} alt="" />
-                </Reveal>
-                <Reveal
-                  repeatTypeLoop
-                  delay={2}
-                  repeatParent
-                  parentDuration={1}
-                  parentEffect={[
-                    { scale: 1.2, opacity: 0 },
-                    { scale: 1, opacity: 1 },
-                  ]}
-                >
-                  <img src={orb2} alt="" />
-                </Reveal>
-              </div>
               <video
                 sx={{
                   borderRadius: "1em",

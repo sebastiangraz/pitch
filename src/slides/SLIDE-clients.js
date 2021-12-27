@@ -2,7 +2,7 @@
 
 import { Text } from "@theme-ui/components";
 import { Padding } from "../components/Padding";
-import { Reveal } from "../components/Reveal";
+import Reveal from "../components/Reveal";
 import { defaultProps } from "../components/settings";
 
 export const SlideClients = () => {
