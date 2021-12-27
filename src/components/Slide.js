@@ -8,6 +8,7 @@ import {
   useTransform,
   useViewportScroll,
 } from "framer-motion";
+import { useResponsiveValue } from "@theme-ui/match-media";
 import { Text } from "@theme-ui/components";
 import { Padding } from "./Padding";
 import { settings } from "./settings";
@@ -22,7 +23,7 @@ const Slide = ({ index, childPosition, children }) => {
   const [progress, setProgress] = React.useState(0);
 
   const { innerWidth, innerHeight } = window;
-  const stagger = 20;
+  const stagger = useResponsiveValue([8, 12, 16, 20]);
 
   const updatePos = (v) => {
     return transform(
