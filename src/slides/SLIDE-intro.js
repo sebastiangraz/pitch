@@ -1,6 +1,9 @@
 /** @jsxImportSource theme-ui */
 
 import introvid from "../assets/intro.mp4";
+import orb from "../assets/capchase-orb.png";
+import orb1 from "../assets/capchase-orb-1.png";
+import orb2 from "../assets/capchase-orb-2.png";
 import {
   motion,
   transform,
@@ -91,9 +94,56 @@ export const SlideIntro = () => {
               sx={{
                 display: "flex",
                 justifyContent: "end",
+                alignItems: "end",
                 width: "100%",
               }}
             >
+              <div
+                sx={{
+                  borderRadius: "10em",
+                  bg: "brand",
+                  width: "20em",
+                  paddingBottom: "100%",
+                  overflow: "hidden",
+                  position: "relative",
+                  "& > *": { position: "absolute" },
+                }}
+              >
+                <Reveal
+                  delay={0}
+                  repeatParent
+                  parentDuration={1}
+                  parentEffect={[
+                    { scale: 1.2, opacity: 0 },
+                    { scale: 1, opacity: 1 },
+                  ]}
+                >
+                  <img src={orb1} alt="" />
+                </Reveal>
+                <Reveal
+                  delay={1}
+                  repeatParent
+                  parentDuration={1}
+                  parentEffect={[
+                    { scale: 1.2, opacity: 0 },
+                    { scale: 1, opacity: 1 },
+                  ]}
+                >
+                  <img src={orb} alt="" />
+                </Reveal>
+                <Reveal
+                  repeatTypeLoop
+                  delay={2}
+                  repeatParent
+                  parentDuration={1}
+                  parentEffect={[
+                    { scale: 1.2, opacity: 0 },
+                    { scale: 1, opacity: 1 },
+                  ]}
+                >
+                  <img src={orb2} alt="" />
+                </Reveal>
+              </div>
               <video
                 sx={{
                   borderRadius: "1em",

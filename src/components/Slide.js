@@ -1,3 +1,5 @@
+/** @jsxImportSource theme-ui */
+
 import React from "react";
 import {
   useSpring,
@@ -6,6 +8,8 @@ import {
   useTransform,
   useViewportScroll,
 } from "framer-motion";
+import { Text } from "@theme-ui/components";
+import { Padding } from "./Padding";
 import { settings } from "./settings";
 
 export const useCaseWrapperContext = () => React.useContext(CaseWrapperContext);
@@ -113,8 +117,29 @@ const Slide = ({ index, childPosition, children }) => {
             scale: scale,
             height: "56.25em",
             width: "100%",
+            position: "relative",
           }}
         >
+          {index !== 0 && (
+            <div
+              sx={{
+                top: "calc(100vh - 14em)",
+                width: "100%",
+                height: "14em",
+                position: "absolute",
+              }}
+            >
+              <Padding
+                sx={{ display: "flex", justifyContent: "space-between" }}
+              >
+                <Text sx={{ fontSize: 2 }}>0{index}</Text>
+                <Text sx={{ fontSize: 2, mr: "0.5em" }}>
+                  Brand Design · 2022
+                </Text>
+              </Padding>
+            </div>
+          )}
+
           {children}
         </motion.div>
       </motion.div>

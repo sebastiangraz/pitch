@@ -8,7 +8,7 @@ const space = [
   "1em",
   "2em",
   "4em",
-  "6em",
+  "5.5em",
   "8em",
   "10em",
   "12em",
@@ -43,7 +43,7 @@ export default {
   breakpoints: ["40em", "64em", "98em", "120em"],
   lineHeights: {
     body: 1.4,
-    heading: 1.05,
+    heading: 1.15,
   },
   letterSpacings: {
     body: "-0.045em",
