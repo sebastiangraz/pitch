@@ -27,7 +27,7 @@ export const SlidePhilosophy = () => {
           {...defaultProps.textRevealAnimation}
         >
           <Text variant="heading" mb={1} sx={{ color: "brand" }}>
-            Design philosophy
+            Philosophy
           </Text>
           <Text variant="heading">
             <span sx={svgStyle}> {vectors.dotArray} </span>

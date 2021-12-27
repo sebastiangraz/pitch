@@ -27,7 +27,7 @@ export const SlideEthos = () => {
           {...defaultProps.textRevealAnimation}
         >
           <Text variant="heading" mb={1} sx={{ color: "brand" }}>
-            Work ethos
+            Ethos
           </Text>
           <Text variant="heading">
             <span sx={svgStyle}>{vectors.star} </span>

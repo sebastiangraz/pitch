@@ -73,10 +73,10 @@ export const SlideIntro = () => {
             />
             <Reveal delay={1.2}>
               <Text variant="heading" mb={0}>
-                sebastian graz
+                Sebastian Graz
               </Text>
               <Text variant="heading" sx={{ color: "brand" }}>
-                brand designer
+                Brand Designer
               </Text>
             </Reveal>
           </Box>

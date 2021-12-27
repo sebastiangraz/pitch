@@ -9,7 +9,7 @@ import { useCaseWrapperContext } from "../components/Slide";
 const svgStyle = {
   svg: {
     width: "0.6em",
-    top: "0.05em",
+    top: "-0.05em",
     position: "relative",
     display: "inline",
   },
