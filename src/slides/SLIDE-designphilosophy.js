@@ -18,14 +18,7 @@ export const SlidePhilosophy = () => {
   return (
     <>
       <Padding>
-        <Reveal
-          sx={{
-            "&>*": {
-              display: "inline",
-            },
-          }}
-          {...defaultProps.textRevealAnimation}
-        >
+        <Reveal {...defaultProps.textRevealAnimation}>
           <Text variant="heading" mb={1} sx={{ color: "brand" }}>
             Philosophy
           </Text>

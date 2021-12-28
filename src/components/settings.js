@@ -1,4 +1,6 @@
 /** @jsxImportSource theme-ui */
+import theme from "../theme";
+import { saturate } from "@theme-ui/color";
 
 export const settings = {
   horizontal: true,
@@ -7,8 +9,8 @@ export const settings = {
 export const defaultProps = {
   textRevealAnimation: {
     effect: [
-      { color: "var(--theme-ui-colors-brand)", opacity: 0 },
-      { color: "var(--theme-ui-colors-text)", opacity: 1 },
+      { color: saturate("brand", 0.7)(theme), opacity: 0, y: -6 },
+      { color: "var(--theme-ui-colors-text)", opacity: 1, y: 0 },
     ],
     delay: 0.5,
   },

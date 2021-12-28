@@ -1,8 +1,8 @@
 /** @jsxImportSource theme-ui */
 
-import { desaturate, saturate } from "@theme-ui/color";
-
 import React from "react";
+import theme from "../theme";
+
 import {
   useSpring,
   transform,
@@ -10,6 +10,8 @@ import {
   useTransform,
   useViewportScroll,
 } from "framer-motion";
+
+import { tint } from "@theme-ui/color";
 import { useResponsiveValue } from "@theme-ui/match-media";
 import { Text } from "@theme-ui/components";
 import { Padding } from "./Padding";
@@ -18,7 +20,7 @@ import { settings } from "./settings";
 export const useCaseWrapperContext = () => React.useContext(CaseWrapperContext);
 const CaseWrapperContext = React.createContext(null);
 
-const Slide = ({ index, childPosition, children }) => {
+const Slide = React.memo(({ index, childPosition, childCount, children }) => {
   const position = React.useMemo(
     () => childPosition[index] || [],
     [childPosition, index]
@@ -63,7 +65,10 @@ const Slide = ({ index, childPosition, children }) => {
     return transform(
       v - positionN + innerHeight * 2,
       [0, innerHeight],
-      [0.5, index * 0.07]
+      [
+        tint("brand", 0.8 + index * (20 / childCount) * 0.01)(theme),
+        tint("brand", 0.1 + index * (90 / childCount) * 0.01)(theme),
+      ]
     );
   };
 
@@ -98,9 +103,6 @@ const Slide = ({ index, childPosition, children }) => {
       value={{ parentValues: { position: position, progress: progress } }}
     >
       <motion.div
-        sx={{
-          bg: desaturate("brand", bg.get()),
-        }}
         style={{
           zIndex: index,
           position: "fixed",
@@ -109,8 +111,7 @@ const Slide = ({ index, childPosition, children }) => {
           overflow: "hidden",
           display: "flex",
           alignItems: "start",
-          // background: `${bg}`,
-
+          backgroundColor: bg,
           ...(settings.horizontal
             ? {
                 width: `calc(100vw - ${index * stagger}px)`,
@@ -156,5 +157,5 @@ const Slide = ({ index, childPosition, children }) => {
       </motion.div>
     </CaseWrapperContext.Provider>
   );
-};
+});
 export default Slide;

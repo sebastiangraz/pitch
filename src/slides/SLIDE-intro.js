@@ -1,9 +1,10 @@
 /** @jsxImportSource theme-ui */
 
+import theme from "../theme";
 import introvid from "../assets/intro.mp4";
-import orb from "../assets/capchase-orb.png";
-import orb1 from "../assets/capchase-orb-1.png";
-import orb2 from "../assets/capchase-orb-2.png";
+import { defaultProps } from "../components/settings";
+import { saturate } from "@theme-ui/color";
+
 import {
   motion,
   transform,
@@ -45,8 +46,16 @@ export const SlideIntro = () => {
                 <Reveal
                   duration={3}
                   parentEffect={[
-                    { scale: 1.2, opacity: 0 },
-                    { scale: 1, opacity: 1 },
+                    {
+                      color: saturate("brand", 0.7)(theme),
+                      opacity: 0,
+                      scale: 1.2,
+                    },
+                    {
+                      color: "var(--theme-ui-colors-text)",
+                      opacity: 1,
+                      scale: 1,
+                    },
                   ]}
                   effect={[
                     { fontVariationSettings: `"wght" 5` },
@@ -74,7 +83,7 @@ export const SlideIntro = () => {
                 </Reveal>
               }
             />
-            <Reveal delay={1.2}>
+            <Reveal {...defaultProps.textRevealAnimation} delay={1.1}>
               <Text variant="heading" mb={0}>
                 Sebastian Graz
               </Text>

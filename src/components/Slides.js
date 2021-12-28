@@ -3,6 +3,7 @@ import Slide from "./Slide";
 import { useWindowSize } from "./useWindowSize";
 
 const Slides = React.memo(({ children }) => {
+  const count = React.Children.count(children);
   const windowSize = useWindowSize();
   const ref = React.useRef();
   const [position, setPosition] = React.useState([]);
@@ -23,7 +24,7 @@ const Slides = React.memo(({ children }) => {
     <div ref={ref}>
       {React.Children.map(children || null, (child, i) => {
         return (
-          <Slide index={i} childPosition={position}>
+          <Slide index={i} childPosition={position} childCount={count}>
             {child}
           </Slide>
         );
