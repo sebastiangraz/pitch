@@ -84,51 +84,51 @@ export const SlideIntro = () => {
               }
             />
           </Box>
-          <motion.div
-            initial={{ x: 0 }}
-            style={{
-              x: y,
-              right: 0,
+
+          <Reveal
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "end",
+              width: "100%",
             }}
           >
             <Reveal
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "end",
-                width: "100%",
+              sx={{ maxWidth: "32em" }}
+              childStyle={{ display: "inline" }}
+              {...defaultProps.textRevealAnimation}
+            >
+              <Text
+                sx={{
+                  display: "inline",
+                }}
+              >
+                My name is{" "}
+              </Text>
+              <Text
+                sx={{
+                  display: "inline",
+                  fontVariantCaps: "all-small-caps",
+                }}
+              >
+                sebastian graz
+              </Text>
+              <Text
+                sx={{
+                  display: "inline",
+                }}
+              >
+                . I run a branding studio, creating designs that are easy to use
+                and beautiful.
+              </Text>
+            </Reveal>
+            <motion.div
+              initial={{ x: 0 }}
+              style={{
+                x: y,
+                right: 0,
               }}
             >
-              <Reveal
-                sx={{ maxWidth: "32em" }}
-                childStyle={{ display: "inline" }}
-                {...defaultProps.textRevealAnimation}
-                delay={1.1}
-              >
-                <Text
-                  sx={{
-                    display: "inline",
-                  }}
-                >
-                  My name is{" "}
-                </Text>
-                <Text
-                  sx={{
-                    display: "inline",
-                    fontVariantCaps: "all-small-caps",
-                  }}
-                >
-                  sebastian graz
-                </Text>
-                <Text
-                  sx={{
-                    display: "inline",
-                  }}
-                >
-                  . I run a branding studio, creating designs that are easy to
-                  use, and beautiful.
-                </Text>
-              </Reveal>
               <video
                 sx={{
                   borderRadius: "1em",
@@ -140,8 +140,8 @@ export const SlideIntro = () => {
                 muted
                 loop
               />
-            </Reveal>
-          </motion.div>
+            </motion.div>
+          </Reveal>
         </Flex>
       </Padding>
     </>
