@@ -89,7 +89,7 @@ export const SlideIntro = () => {
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "end",
+              alignItems: "flex-end",
               width: "100%",
             }}
           >

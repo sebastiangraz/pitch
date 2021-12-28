@@ -1,7 +1,23 @@
+const isSafari =
+  navigator.userAgent.indexOf("Safari") !== -1 &&
+  navigator.userAgent.indexOf("Chrome") === -1;
+
 const colors = {
-  text: "#111",
+  text: "#000000",
   brand: `hsl(160, 8%, 72%)`,
 };
+
+export const chromeColors = {
+  chrome: {
+    dark: "#35363A",
+    light: "#ffffff",
+  },
+  safari: {
+    dark: "#2C2B2A",
+    light: colors.brand,
+  },
+};
+
 const space = [
   "0em",
   "0.2em",
@@ -81,7 +97,17 @@ export default {
       webkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
       variant: "text.default",
-      // fontFeatureSettings: `"liga", "dlig"`,
+      fontFeatureSettings: `"liga", "dlig"`,
+      "@media (prefers-color-scheme: dark)": {
+        backgroundColor: isSafari
+          ? chromeColors.safari.dark
+          : chromeColors.chrome?.dark,
+      },
+      "@media (prefers-color-scheme: light)": {
+        backgroundColor: isSafari
+          ? chromeColors.safari.light
+          : chromeColors.chrome?.light,
+      },
     },
     a: { color: "inherit", "&:hover": { textDecoration: "none" } },
     pre: {

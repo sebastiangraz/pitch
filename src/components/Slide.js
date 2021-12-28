@@ -114,7 +114,7 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
           backgroundColor: bg,
           ...(settings.horizontal
             ? {
-                width: `calc(100vw - ${index * stagger}px)`,
+                width: `calc(100vw - ${index * stagger + 5}px)`,
                 x: y,
                 left: "100vw",
                 top: "0",
