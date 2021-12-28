@@ -1,5 +1,7 @@
 /** @jsxImportSource theme-ui */
 
+import { desaturate, saturate } from "@theme-ui/color";
+
 import React from "react";
 import {
   useSpring,
@@ -61,7 +63,7 @@ const Slide = ({ index, childPosition, children }) => {
     return transform(
       v - positionN + innerHeight * 2,
       [0, innerHeight],
-      [`hsl(144, 5%, ${index * 3 + 92}%)`, `hsl(144, 20%, ${index * 3 + 80}%)`]
+      [0.5, index * 0.07]
     );
   };
 
@@ -96,6 +98,9 @@ const Slide = ({ index, childPosition, children }) => {
       value={{ parentValues: { position: position, progress: progress } }}
     >
       <motion.div
+        sx={{
+          bg: desaturate("brand", bg.get()),
+        }}
         style={{
           zIndex: index,
           position: "fixed",
@@ -104,7 +109,8 @@ const Slide = ({ index, childPosition, children }) => {
           overflow: "hidden",
           display: "flex",
           alignItems: "start",
-          background: bg,
+          // background: `${bg}`,
+
           ...(settings.horizontal
             ? {
                 width: `calc(100vw - ${index * stagger}px)`,
