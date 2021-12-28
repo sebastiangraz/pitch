@@ -1,5 +1,6 @@
 export { SlideIntro } from "../slides/SLIDE-intro";
 export { SlideClients } from "../slides/SLIDE-clients";
+export { SlideSkills } from "../slides/SLIDE-skills";
 export { SlideCapchase } from "../slides/SLIDE-capchase";
 export { SlideLoupe } from "../slides/SLIDE-loupe";
 export { SlideEthos } from "../slides/SLIDE-ethos";

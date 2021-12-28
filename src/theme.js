@@ -1,6 +1,6 @@
 const colors = {
   text: "#111",
-  brand: `hsl(144, 6%, 50%)`,
+  brand: `hsl(0, 60%, 70%)`,
 };
 const space = [
   "0em",
