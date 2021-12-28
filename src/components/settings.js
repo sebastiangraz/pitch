@@ -12,6 +12,6 @@ export const defaultProps = {
       { color: saturate("brand", 0.7)(theme), opacity: 0, y: -6 },
       { color: "var(--theme-ui-colors-text)", opacity: 1, y: 0 },
     ],
-    delay: 0.5,
+    duration: 2,
   },
 };
