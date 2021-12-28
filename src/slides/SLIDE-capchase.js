@@ -39,23 +39,30 @@ export const SlideCapchase = () => {
   return (
     <>
       <Padding sx={{ width: "40em" }}>
-        <Text mb={0} sx={{ fontVariantCaps: "all-small-caps" }}>
-          case study
-        </Text>
-        <Text sx={{ color: "brand", fontVariantCaps: "all-small-caps" }}>
-          Capchase
-        </Text>
-        <Text sx={{ fontVariantCaps: "all-small-caps" }} mb={0}>
-          Duration
-        </Text>
-        <Text sx={{ color: "brand" }}>4 months + retainer</Text>
-        <Text sx={{ fontVariantCaps: "all-small-caps" }} mb={0}>
-          Challenge
-        </Text>
-        <Text sx={{ color: "brand" }}>
-          Position Capchase as a leader in non-dilutable financing. Look & feel
-          like a business partner not a business tool.
-        </Text>
+        <Reveal
+          effect={[
+            { opacity: 0, x: -10 },
+            { opacity: 1, x: 0 },
+          ]}
+        >
+          <Text mb={0} sx={{ fontVariantCaps: "all-small-caps" }}>
+            case study
+          </Text>
+          <Text sx={{ color: "brand", fontVariantCaps: "all-small-caps" }}>
+            Capchase
+          </Text>
+          <Text sx={{ fontVariantCaps: "all-small-caps" }} mb={0}>
+            Duration
+          </Text>
+          <Text sx={{ color: "brand" }}>4 months + retainer</Text>
+          <Text sx={{ fontVariantCaps: "all-small-caps" }} mb={0}>
+            Challenge
+          </Text>
+          <Text sx={{ color: "brand" }}>
+            Position Capchase as a leader in non-dilutable financing. Look &
+            feel like a business partner not a business tool.
+          </Text>
+        </Reveal>
       </Padding>
 
       <motion.div

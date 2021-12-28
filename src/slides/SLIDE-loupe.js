@@ -39,23 +39,31 @@ export const SlideLoupe = () => {
   return (
     <>
       <Padding sx={{ width: "40em" }}>
-        <Text mb={0} sx={{ fontVariantCaps: "all-small-caps" }}>
-          case study
-        </Text>
-        <Text sx={{ color: "brand", fontVariantCaps: "all-small-caps" }}>
-          Loupe
-        </Text>
-        <Text sx={{ fontVariantCaps: "all-small-caps" }} mb={0}>
-          Duration
-        </Text>
-        <Text sx={{ color: "brand" }}>3 months </Text>
-        <Text sx={{ fontVariantCaps: "all-small-caps" }} mb={0}>
-          Challenge
-        </Text>
-        <Text sx={{ color: "brand" }}>
-          Create a highly creative page for sharability and social push &
-          inspire a diverse group of designers around the world to attend Loupe.
-        </Text>
+        <Reveal
+          effect={[
+            { opacity: 0, x: -10 },
+            { opacity: 1, x: 0 },
+          ]}
+        >
+          <Text mb={0} sx={{ fontVariantCaps: "all-small-caps" }}>
+            case study
+          </Text>
+          <Text sx={{ color: "brand", fontVariantCaps: "all-small-caps" }}>
+            Loupe
+          </Text>
+          <Text sx={{ fontVariantCaps: "all-small-caps" }} mb={0}>
+            Duration
+          </Text>
+          <Text sx={{ color: "brand" }}>3 months </Text>
+          <Text sx={{ fontVariantCaps: "all-small-caps" }} mb={0}>
+            Challenge
+          </Text>
+          <Text sx={{ color: "brand" }}>
+            Create a highly creative page for sharability and social push &
+            inspire a diverse group of designers around the world to attend
+            Loupe.
+          </Text>
+        </Reveal>
       </Padding>
 
       <motion.div
