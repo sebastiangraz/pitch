@@ -3,13 +3,13 @@
 import capchase from "../assets/capchase.png";
 import {
   motion,
-  transform,
   useSpring,
   useTransform,
   useViewportScroll,
 } from "framer-motion";
 import { Text } from "@theme-ui/components";
 import { Padding } from "../components/Padding";
+import Reveal from "../components/Reveal";
 import { useCaseWrapperContext } from "../components/Slide";
 import { useWindowSize } from "../components/useWindowSize";
 import { keyframes } from "@emotion/react";
@@ -23,12 +23,12 @@ export const SlideCapchase = () => {
   const { parentValues } = useCaseWrapperContext();
   const { scrollY } = useViewportScroll();
   const { height } = useWindowSize();
-  console.log(parentValues.progress);
+
   const y = useSpring(
     useTransform(
       scrollY,
       [parentValues.position - height, parentValues.position],
-      [0, -1000]
+      ["0em", -1000]
     ),
     {
       damping: 12,
@@ -53,10 +53,8 @@ export const SlideCapchase = () => {
           Challenge
         </Text>
         <Text sx={{ color: "brand" }}>
-          Position{" "}
-          <span sx={{ fontVariantCaps: "all-small-caps" }}>Capchase</span> as a
-          leader in non-dilutable financing. Look & feel like a business partner
-          not a business tool.
+          Position Capchase as a leader in non-dilutable financing. Look & feel
+          like a business partner not a business tool.
         </Text>
       </Padding>
 
@@ -70,20 +68,22 @@ export const SlideCapchase = () => {
           position: "absolute",
         }}
       >
-        <motion.img
-          sx={{
-            animationPlayState:
-              parentValues.progress <= 0.2 ? "running" : "paused",
-            animationName: `${slide}`,
-            animationDuration: "10s",
-            animationFillMode: "both",
-            animationDirection: "alternate",
-            animationIterationCount: "infinite",
-            animationTimingFunction: "linear",
-          }}
-          src={capchase}
-          alt=""
-        ></motion.img>
+        <Reveal>
+          <motion.img
+            sx={{
+              animationPlayState:
+                parentValues.progress <= 0.2 ? "running" : "paused",
+              animationName: `${slide}`,
+              animationDuration: "10s",
+              animationFillMode: "both",
+              animationDirection: "alternate",
+              animationIterationCount: "infinite",
+              animationTimingFunction: "linear",
+            }}
+            src={capchase}
+            alt=""
+          ></motion.img>
+        </Reveal>
       </motion.div>
     </>
   );

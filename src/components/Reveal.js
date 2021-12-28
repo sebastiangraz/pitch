@@ -19,7 +19,13 @@ export const Reveal = ({
 }) => {
   const delayVal = delay ? delay : 0.05;
   const effectVal = React.useMemo(
-    () => (effect ? effect : [{ opacity: 0 }, { opacity: 1 }]),
+    () =>
+      effect
+        ? effect
+        : [
+            { opacity: 0, display: "none" },
+            { opacity: 1, display: "block" },
+          ],
     [effect]
   );
   const parentEffectVal = parentEffect

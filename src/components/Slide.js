@@ -17,13 +17,14 @@ export const useCaseWrapperContext = () => React.useContext(CaseWrapperContext);
 const CaseWrapperContext = React.createContext(null);
 
 const Slide = ({ index, childPosition, children }) => {
-  const positionN = childPosition[index + 1] || [];
-  const { scrollY } = useViewportScroll();
-  const [progress, setProgress] = React.useState(0);
   const position = React.useMemo(
     () => childPosition[index] || [],
     [childPosition, index]
   );
+
+  const positionN = childPosition[index + 1] || [];
+  const { scrollY } = useViewportScroll();
+  const [progress, setProgress] = React.useState(0);
 
   const { innerWidth, innerHeight } = window;
   const stagger = useResponsiveValue([8, 12, 16, 20]);

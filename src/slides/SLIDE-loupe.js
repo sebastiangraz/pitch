@@ -3,16 +3,21 @@
 import loupe from "../assets/loupe.png";
 import {
   motion,
-  transform,
   useSpring,
   useTransform,
   useViewportScroll,
 } from "framer-motion";
 import { Text } from "@theme-ui/components";
-import Reveal from "../components/Reveal";
 import { Padding } from "../components/Padding";
+import Reveal from "../components/Reveal";
 import { useCaseWrapperContext } from "../components/Slide";
 import { useWindowSize } from "../components/useWindowSize";
+import { keyframes } from "@emotion/react";
+
+const slide = keyframes`
+    0%   {  transform: translateY(10em);  }
+    100%   { transform: translateY(-36em); }
+    `;
 
 export const SlideLoupe = () => {
   const { parentValues } = useCaseWrapperContext();
@@ -23,7 +28,7 @@ export const SlideLoupe = () => {
     useTransform(
       scrollY,
       [parentValues.position - height, parentValues.position],
-      [0, -600]
+      ["0em", -1000]
     ),
     {
       damping: 12,
@@ -43,16 +48,16 @@ export const SlideLoupe = () => {
         <Text sx={{ fontVariantCaps: "all-small-caps" }} mb={0}>
           Duration
         </Text>
-        <Text sx={{ color: "brand" }}>3 months</Text>
+        <Text sx={{ color: "brand" }}>3 months </Text>
         <Text sx={{ fontVariantCaps: "all-small-caps" }} mb={0}>
           Challenge
         </Text>
         <Text sx={{ color: "brand" }}>
           Create a highly creative page for sharability and social push &
-          inspire a diverse group of designers around the world to attend{" "}
-          <span sx={{ fontVariantCaps: "all-small-caps" }}>Loupe</span>.
+          inspire a diverse group of designers around the world to attend Loupe.
         </Text>
       </Padding>
+
       <motion.div
         initial={{ y: 0 }}
         style={{
@@ -63,15 +68,18 @@ export const SlideLoupe = () => {
           position: "absolute",
         }}
       >
-        <Reveal
-          ignoreParentFade
-          ease={[0.2, 0, 0.17, 0.2]}
-          effect={[{ y: 100 }, { y: -500 }]}
-          duration={10}
-          repeat
-        >
+        <Reveal>
           <motion.img
-            style={{ position: "absolute" }}
+            sx={{
+              animationPlayState:
+                parentValues.progress <= 0.2 ? "running" : "paused",
+              animationName: `${slide}`,
+              animationDuration: "10s",
+              animationFillMode: "both",
+              animationDirection: "alternate",
+              animationIterationCount: "infinite",
+              animationTimingFunction: "linear",
+            }}
             src={loupe}
             alt=""
           ></motion.img>
