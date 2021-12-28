@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { motion, useAnimation } from "framer-motion";
@@ -15,6 +15,7 @@ export const Reveal = ({
   repeatParent,
   repeatTypeLoop,
   initialInView,
+  childStyle,
   ...rest
 }) => {
   const delayVal = delay ? delay : 0.05;
@@ -99,7 +100,7 @@ export const Reveal = ({
       {React.Children.map(children || null, (child, i) => {
         return (
           <motion.div
-            style={{ originX: 0.5, originY: 0.5 }}
+            style={{ originX: 0.5, originY: 0.5, ...childStyle }}
             key={i}
             animate={childControls}
             custom={i}
