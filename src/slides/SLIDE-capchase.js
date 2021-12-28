@@ -9,21 +9,26 @@ import {
   useViewportScroll,
 } from "framer-motion";
 import { Text } from "@theme-ui/components";
-import Reveal from "../components/Reveal";
 import { Padding } from "../components/Padding";
 import { useCaseWrapperContext } from "../components/Slide";
 import { useWindowSize } from "../components/useWindowSize";
+import { keyframes } from "@emotion/react";
+
+const slide = keyframes`
+    0%   {  transform: translateY(10em);  }
+    100%   { transform: translateY(-36em); }
+    `;
 
 export const SlideCapchase = () => {
   const { parentValues } = useCaseWrapperContext();
   const { scrollY } = useViewportScroll();
   const { height } = useWindowSize();
-
+  console.log(parentValues.progress);
   const y = useSpring(
     useTransform(
       scrollY,
       [parentValues.position - height, parentValues.position],
-      [0, -600]
+      [0, -1000]
     ),
     {
       damping: 12,
@@ -65,19 +70,20 @@ export const SlideCapchase = () => {
           position: "absolute",
         }}
       >
-        <Reveal
-          ignoreParentFade
-          ease={[0.2, 0, 0.17, 0.2]}
-          effect={[{ y: 100 }, { y: -500 }]}
-          duration={10}
-          repeat
-        >
-          <motion.img
-            style={{ position: "absolute" }}
-            src={capchase}
-            alt=""
-          ></motion.img>
-        </Reveal>
+        <motion.img
+          sx={{
+            animationPlayState:
+              parentValues.progress <= 0.2 ? "running" : "paused",
+            animationName: `${slide}`,
+            animationDuration: "10s",
+            animationFillMode: "both",
+            animationDirection: "alternate",
+            animationIterationCount: "infinite",
+            animationTimingFunction: "linear",
+          }}
+          src={capchase}
+          alt=""
+        ></motion.img>
       </motion.div>
     </>
   );
