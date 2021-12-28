@@ -40,7 +40,7 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
       [
         0,
         settings.horizontal
-          ? -innerWidth + index * stagger
+          ? -innerWidth + index * stagger + 5
           : -innerHeight + index * stagger,
       ]
     );
@@ -106,18 +106,18 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
         style={{
           zIndex: index,
           position: "fixed",
-          borderRadius: "4vmin",
-          height: "100vh",
+          borderRadius: "4vmin 4vmin 1vmin 1vmin ",
+          height: `calc(100vh - 10px)`,
           overflow: "hidden",
           display: "flex",
           alignItems: "start",
           backgroundColor: bg,
           ...(settings.horizontal
             ? {
-                width: `calc(100vw - ${index * stagger + 5}px)`,
+                width: `calc(100vw - ${index * stagger + 10}px)`,
                 x: y,
                 left: "100vw",
-                top: "0",
+                top: "5px",
               }
             : { y: y, left: "0", top: "100vh", width: "100vw" }),
         }}
