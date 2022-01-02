@@ -79,8 +79,6 @@ export const SlideLoupe = () => {
         <Reveal>
           <motion.img
             sx={{
-              animationPlayState:
-                parentValues.progress <= 0.2 ? "running" : "paused",
               animationName: `${slide}`,
               animationDuration: "10s",
               animationFillMode: "both",

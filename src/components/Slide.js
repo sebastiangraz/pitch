@@ -46,20 +46,20 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
     );
   };
 
-  React.useEffect(() => {
-    const unsubscribeProgress = scrollY.onChange((value) => {
-      const calc = transform(
-        value - position + window.innerHeight,
-        [0, window.innerHeight],
-        [0, 1]
-      );
-      setProgress(calc);
-    });
+  // React.useEffect(() => {
+  //   const unsubscribeProgress = scrollY.onChange((value) => {
+  //     const calc = transform(
+  //       value - position + window.innerHeight,
+  //       [0, window.innerHeight],
+  //       [0, 1]
+  //     );
+  //     setProgress(calc);
+  //   });
 
-    return () => {
-      unsubscribeProgress();
-    };
-  }, [position, scrollY, index]);
+  //   return () => {
+  //     unsubscribeProgress();
+  //   };
+  // }, [position, scrollY, index]);
 
   const updateBg = (v) => {
     return transform(
@@ -97,10 +97,10 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
       mass: 0.1,
     }
   );
-
+  console.log("slide");
   return (
     <CaseWrapperContext.Provider
-      value={{ parentValues: { position: position, progress: progress } }}
+      value={{ parentValues: { position: position, progress: 0 } }}
     >
       <motion.div
         style={{

@@ -55,9 +55,9 @@ export const SlideProcess = () => {
               <defs>
                 <linearGradient
                   id="paint0_linear_32_3024"
-                  x1={400 - parentValues.progress * 400}
+                  x1={400}
                   y1="400"
-                  x2={1200 + -parentValues.progress * 200}
+                  x2={1200}
                   y2="400"
                   gradientUnits="userSpaceOnUse"
                 >
