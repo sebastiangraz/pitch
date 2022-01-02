@@ -106,7 +106,7 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
         style={{
           zIndex: index,
           position: "fixed",
-          borderRadius: "4vmin 4vmin 1vmin 1vmin ",
+          borderRadius: "32px",
           height: `calc(100vh - 10px)`,
           overflow: "hidden",
           display: "flex",
