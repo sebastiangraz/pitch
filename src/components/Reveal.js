@@ -5,6 +5,7 @@ import { motion, useAnimation } from "framer-motion";
 export const Reveal = ({
   children,
   delay,
+  childDelay,
   effect,
   ease,
   parentEffect,
@@ -58,7 +59,10 @@ export const Reveal = ({
       transition: {
         ease: ease ? ease : [0.83, 0, 0.17, 1],
         duration: durationVal,
-        delay: delayVal + custom * (0.4 / React.Children.count(children)),
+        delay:
+          delayVal +
+          custom *
+            ((childDelay ? childDelay : 0.4) / React.Children.count(children)),
         ...(repeat && {
           repeat: Infinity,
           repeatDelay: 0,
