@@ -1,10 +1,12 @@
+import { settings } from "./settings";
+
 const isSafari =
   navigator.userAgent.indexOf("Safari") !== -1 &&
   navigator.userAgent.indexOf("Chrome") === -1;
 
 const colors = {
   text: "#000000",
-  brand: `hsl(160, 8%, 72%)`,
+  brand: settings.tint,
 };
 
 export const chromeColors = {

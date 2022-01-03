@@ -1,3 +1,4 @@
 export const settings = {
-  horizontal: true,
+  tint: "hsl(160, 8%, 72%)",
+  horizontal: false,
 };
