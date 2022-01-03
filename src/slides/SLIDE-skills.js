@@ -3,7 +3,7 @@
 import { Text } from "@theme-ui/components";
 import { Padding } from "../components/Padding";
 import Reveal from "../components/Reveal";
-import { defaultProps } from "../components/settings";
+import { globalStyle } from "../components/globalStyles";
 import { mix } from "@theme-ui/color";
 
 const skills = [
@@ -25,7 +25,7 @@ export const SlideSkills = () => {
   return (
     <Padding>
       <Reveal
-        {...defaultProps.textRevealAnimation}
+        {...globalStyle.textRevealAnimation}
         sx={{
           "&>*": {
             display: "inline-block",

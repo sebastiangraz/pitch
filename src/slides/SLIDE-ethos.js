@@ -2,7 +2,7 @@
 import { Text } from "@theme-ui/components";
 import { Padding } from "../components/Padding";
 import { vectors } from "../assets/vectors";
-import { defaultProps } from "../components/settings";
+import { globalStyle } from "../components/globalStyles";
 import Reveal from "../components/Reveal";
 
 const svgStyle = {
@@ -18,7 +18,7 @@ export const SlideEthos = () => {
   return (
     <>
       <Padding>
-        <Reveal {...defaultProps.textRevealAnimation}>
+        <Reveal {...globalStyle.textRevealAnimation}>
           <Text variant="heading" mb={1} sx={{ color: "brand" }}>
             Ethos
           </Text>

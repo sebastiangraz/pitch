@@ -15,7 +15,7 @@ import { tint } from "@theme-ui/color";
 import { useResponsiveValue } from "@theme-ui/match-media";
 import { Text } from "@theme-ui/components";
 import { Padding } from "./Padding";
-import { settings } from "./settings";
+import { settings } from "../settings";
 
 export const useCaseWrapperContext = () => React.useContext(CaseWrapperContext);
 const CaseWrapperContext = React.createContext(null);

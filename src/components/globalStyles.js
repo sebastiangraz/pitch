@@ -2,11 +2,7 @@
 import theme from "../theme";
 import { saturate } from "@theme-ui/color";
 
-export const settings = {
-  horizontal: true,
-};
-
-export const defaultProps = {
+export const globalStyle = {
   textRevealAnimation: {
     effect: [
       { color: saturate("brand", 0.7)(theme), opacity: 0, y: -6 },

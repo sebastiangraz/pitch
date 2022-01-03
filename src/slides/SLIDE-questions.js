@@ -2,7 +2,7 @@
 import { Text, Grid } from "@theme-ui/components";
 import { Padding } from "../components/Padding";
 import { vectors } from "../assets/vectors";
-import { defaultProps } from "../components/settings";
+import { globalStyle } from "../components/globalStyles";
 import Reveal from "../components/Reveal";
 
 const svgStyle = {
@@ -18,7 +18,7 @@ export const SlideQuestions = () => {
   return (
     <Padding>
       <Grid gap={4} columns={"auto 1fr"} repeat="fit">
-        <Reveal {...defaultProps.textRevealAnimation}>
+        <Reveal {...globalStyle.textRevealAnimation}>
           <Text
             mt={1}
             variant="heading"

@@ -2,7 +2,7 @@
 
 import theme from "../theme";
 import introvid from "../assets/intro.mp4";
-import { defaultProps } from "../components/settings";
+import { globalStyle } from "../components/globalStyles";
 import { saturate } from "@theme-ui/color";
 
 import {
@@ -96,7 +96,7 @@ export const SlideIntro = () => {
             <Reveal
               sx={{ maxWidth: "32em" }}
               childStyle={{ display: "inline" }}
-              {...defaultProps.textRevealAnimation}
+              {...globalStyle.textRevealAnimation}
             >
               <Text
                 sx={{
