@@ -46,20 +46,22 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
     );
   };
 
-  // React.useEffect(() => {
-  //   const unsubscribeProgress = scrollY.onChange((value) => {
-  //     const calc = transform(
-  //       value - position + window.innerHeight,
-  //       [0, window.innerHeight],
-  //       [0, 1]
-  //     );
-  //     setProgress(calc);
-  //   });
+  React.useEffect(() => {
+    const unsubscribeProgress = scrollY.onChange((value) => {
+      const calc = transform(
+        value - position + window.innerHeight,
+        [0, window.innerHeight],
+        [0, 1]
+      );
+      setProgress(calc);
+    });
 
-  //   return () => {
-  //     unsubscribeProgress();
-  //   };
-  // }, [position, scrollY, index]);
+    return () => {
+      unsubscribeProgress();
+    };
+  }, [position, scrollY, index]);
+
+  console.log(index, progress);
 
   const updateBg = (v) => {
     return transform(
@@ -80,6 +82,14 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
     );
   };
 
+  const updateVisibility = (v) => {
+    return transform(
+      v - positionN + innerHeight * 2,
+      [0, innerHeight],
+      ["none", "block"]
+    );
+  };
+
   const scale = useTransform(scrollY, (v) => updateScale(v), {
     damping: 12,
     mass: 0.1,
@@ -97,10 +107,10 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
       mass: 0.1,
     }
   );
-  console.log("slide");
+
   return (
     <CaseWrapperContext.Provider
-      value={{ parentValues: { position: position, progress: 0 } }}
+      value={{ parentValues: { position: position } }}
     >
       <motion.div
         style={{
@@ -125,8 +135,9 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
         <motion.div
           className="slideContent"
           style={{
+            scale,
+            visibility: progress > 0.99 ? "hidden" : "visible",
             transformOrigin: "left",
-            scale: scale,
             height: "56.25em",
             width: "100%",
             position: "relative",
