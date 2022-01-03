@@ -1,10 +1,12 @@
 /** @jsxImportSource theme-ui */
-import { Text } from "@theme-ui/components";
+import { Text, Grid } from "@theme-ui/components";
 import { Padding } from "../components/Padding";
 import { vectors } from "../assets/vectors";
 import { globalStyle } from "../components/globalStyles";
 import Reveal from "../components/Reveal";
 import { useCaseWrapperContext } from "../components/Slide";
+import diamond from "../assets/diamond.svg";
+import { darken, alpha } from "@theme-ui/color";
 
 const svgStyle = {
   svg: {
@@ -29,29 +31,64 @@ export const SlideProcess = () => {
         ></span>
       </Reveal>
       <Reveal {...globalStyle.textRevealAnimation}>
-        <Text
+        {/* <Text
           mb={1}
           variant="heading"
           sx={{ color: "brand", display: "block" }}
         >
-          Process
-        </Text>
-        <Text variant="heading" sx={{ display: "inline-block" }}>
-          <span>1 · </span>
-          <span>Gathering context & data.</span>
-        </Text>
-        <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
-          <span>2 · </span>
-          <span>Outlining brand strategy.</span>
-        </Text>
-        <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
+          <span sx={{ color: "text" }}>Data</span> · Design
+        </Text> */}
+        <Grid
+          mt={8}
+          sx={{ alignItems: "center", justifyItems: "center" }}
+          columns={"auto 1fr auto"}
+        >
+          <Text m={0} variant="heading">
+            <span>Discover</span>
+          </Text>
+
+          <Reveal
+            sx={{
+              height: "8em",
+              width: "16em",
+              position: "relative",
+              maskImage: `url(${diamond})`,
+              maskSize: "contain",
+              maskRepeat: "no-repeat",
+              maskPosition: "center",
+              backgroundImage: (t) => `
+              repeating-linear-gradient(to left,
+                ${alpha("brand", 0.3)(t)} 0em, ${alpha(
+                "brand",
+                0.7
+              )(t)} 5.3334em)`,
+            }}
+            childStyle={{
+              position: "absolute",
+              width: "100%",
+              height: "100%",
+            }}
+            repeatParent
+            repeatTypeLoop
+            duration={6}
+            parentEffect={[
+              { backgroundPosition: "0em" },
+              { backgroundPosition: "5.3334em" },
+            ]}
+          ></Reveal>
+
+          <Text m={0} variant="heading">
+            <span>Define</span>
+          </Text>
+        </Grid>
+        {/* <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
           <span>3 · </span>
           <span>Design conceptualization.</span>
         </Text>
         <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
           <span>4 · </span>
           <span>Consolidate visuals.</span>
-        </Text>
+        </Text> */}
       </Reveal>
     </Padding>
   );

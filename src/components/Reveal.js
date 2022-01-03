@@ -44,8 +44,8 @@ export const Reveal = ({
         delay: delayVal,
         ...(repeatParent && {
           repeat: Infinity,
-          repeatDelay: 1,
-          repeatType: "reverse",
+          repeatDelay: 0,
+          repeatType: repeatTypeLoop ? "loop" : "reverse",
         }),
       },
     },
@@ -61,7 +61,7 @@ export const Reveal = ({
         delay: delayVal + custom * (0.4 / React.Children.count(children)),
         ...(repeat && {
           repeat: Infinity,
-          repeatDelay: 1,
+          repeatDelay: 0,
           repeatType: repeatTypeLoop ? "loop" : "reverse",
         }),
       },
