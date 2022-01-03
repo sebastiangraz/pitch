@@ -28,7 +28,7 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
 
   const positionN = childPosition[index + 1] || [];
   const { scrollY } = useViewportScroll();
-  const [progress, setProgress] = React.useState(0);
+  const [progress, setProgress] = React.useState(false);
 
   const { innerWidth, innerHeight } = window;
   const stagger = useResponsiveValue([8, 12, 16, 20]);
@@ -49,19 +49,17 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
   React.useEffect(() => {
     const unsubscribeProgress = scrollY.onChange((value) => {
       const calc = transform(
-        value - position + window.innerHeight,
-        [0, window.innerHeight],
+        value - position + innerHeight,
+        [0, innerHeight],
         [0, 1]
       );
-      setProgress(calc);
+      setProgress(calc > 0.99);
     });
 
     return () => {
       unsubscribeProgress();
     };
-  }, [position, scrollY, index]);
-
-  console.log(index, progress);
+  }, [position, scrollY, index, innerHeight]);
 
   const updateBg = (v) => {
     return transform(
@@ -79,14 +77,6 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
       v - positionN + innerHeight * 2,
       [0, innerHeight],
       [1, 0.98]
-    );
-  };
-
-  const updateVisibility = (v) => {
-    return transform(
-      v - positionN + innerHeight * 2,
-      [0, innerHeight],
-      ["none", "block"]
     );
   };
 
@@ -136,7 +126,7 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
           className="slideContent"
           style={{
             scale,
-            visibility: progress > 0.99 ? "hidden" : "visible",
+            visibility: progress ? "hidden" : "visible",
             transformOrigin: "left",
             height: "56.25em",
             width: "100%",
