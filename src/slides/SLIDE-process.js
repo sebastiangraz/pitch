@@ -60,8 +60,8 @@ export const SlideProcess = () => {
               repeating-linear-gradient(to left,
                 ${alpha("brand", 0.3)(t)} 0em, ${alpha(
                 "brand",
-                0.7
-              )(t)} 5.3334em)`,
+                0.9
+              )(t)} 5em, ${alpha("brand", 0.3)(t)}8em)`,
             }}
             childStyle={{
               position: "absolute",
@@ -70,10 +70,11 @@ export const SlideProcess = () => {
             }}
             repeatParent
             repeatTypeLoop
-            duration={6}
+            duration={4}
+            ease="easeInOut"
             parentEffect={[
               { backgroundPosition: "0em" },
-              { backgroundPosition: "5.3334em" },
+              { backgroundPosition: "8em" },
             ]}
           ></Reveal>
 
