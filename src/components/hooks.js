@@ -1,14 +1,13 @@
 import React from "react";
 
-export function useKeyPress(key, action) {
+export const useDebouncedEffect = (effect, deps, delay) => {
   React.useEffect(() => {
-    function onKeyup(e) {
-      if (e.key === key) action();
-    }
-    window.addEventListener("keyup", onKeyup);
-    return () => window.removeEventListener("keyup", onKeyup);
-  }, [action, key]);
-}
+    const handler = setTimeout(() => effect(), delay);
+
+    return () => clearTimeout(handler);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [...(deps || []), delay]);
+};
 
 export function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
