@@ -16,7 +16,7 @@ const svgStyle = {
 
 export const SlideQuestions = () => {
   return (
-    <Padding>
+    <Padding constrain>
       <Grid gap={4} columns={"auto 1fr"} repeat="fit">
         <Reveal {...globalStyle.textRevealAnimation}>
           <Text
@@ -24,7 +24,7 @@ export const SlideQuestions = () => {
             variant="heading"
             sx={{ color: "brand", display: "inline-block" }}
           >
-            <span>Questions</span>
+            <span>Discover</span>
           </Text>
           <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
             <span sx={svgStyle}>{vectors.donut} </span>
@@ -40,7 +40,7 @@ export const SlideQuestions = () => {
           </Text>
           <Text mt={1} variant="heading" sx={{ display: "inline-block" }}>
             <span sx={svgStyle}>{vectors.donut} </span>
-            <span>Core identity challenge.</span>
+            <span>Core identity questions.</span>
           </Text>
         </Reveal>
       </Grid>

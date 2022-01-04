@@ -7,7 +7,7 @@ import { globalStyle } from "../components/globalStyles";
 
 export const SlideClients = () => {
   return (
-    <Padding>
+    <Padding constrain>
       <Reveal
         {...globalStyle.textRevealAnimation}
         sx={{

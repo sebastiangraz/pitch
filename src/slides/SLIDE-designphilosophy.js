@@ -17,7 +17,7 @@ const svgStyle = {
 export const SlidePhilosophy = () => {
   return (
     <>
-      <Padding>
+      <Padding constrain>
         <Reveal {...globalStyle.textRevealAnimation}>
           <Text variant="heading" mb={1} sx={{ color: "brand" }}>
             Philosophy

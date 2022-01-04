@@ -7,23 +7,23 @@ import { globalStyle } from "../components/globalStyles";
 import { mix } from "@theme-ui/color";
 
 const skills = [
+  "Branding",
   "Design Systems",
   "Art Direction",
   "Prototyping",
-  "Front-end",
-  "Branding",
+  "Frontend",
   "UX",
-  "Design Operations",
-  "Typeface Drawing",
-  "Photography",
+  "Design Ops",
+  "Typefaces",
   "Animation",
-  "Print",
   "3D",
+  "Photography",
+  "Print",
 ];
 
 export const SlideSkills = () => {
   return (
-    <Padding>
+    <Padding constrain>
       <Reveal
         {...globalStyle.textRevealAnimation}
         sx={{

@@ -156,7 +156,10 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
               }}
             >
               <Padding
-                sx={{ display: "flex", justifyContent: "space-between" }}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                }}
               >
                 <Text sx={{ fontSize: 2 }}>0{index}</Text>
                 <Text sx={{ fontSize: 2, mr: "0.5em" }}>
