@@ -98,11 +98,16 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
     }
   );
 
+  const scrollTo = () => {
+    window.scrollTo(0, position - innerHeight);
+  };
+
   return (
     <CaseWrapperContext.Provider
       value={{ parentValues: { position: position } }}
     >
       <motion.div
+        onClick={scrollTo}
         style={{
           zIndex: index,
           position: "fixed",
