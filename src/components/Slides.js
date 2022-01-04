@@ -1,6 +1,6 @@
 import React from "react";
 import Slide from "./Slide";
-import { useWindowSize } from "./useWindowSize";
+import { useWindowSize } from "./hooks";
 
 const Slides = React.memo(({ children }) => {
   const count = React.Children.count(children);

@@ -16,7 +16,7 @@ import { Text, Flex, Box } from "@theme-ui/components";
 import Reveal from "../components/Reveal";
 import { Padding } from "../components/Padding";
 import { Logo } from "../components/Logo";
-import { useWindowSize } from "../components/useWindowSize";
+import { useWindowSize } from "../components/hooks";
 
 export const SlideIntro = () => {
   const { scrollY } = useViewportScroll();

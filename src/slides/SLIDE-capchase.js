@@ -11,7 +11,7 @@ import { Text } from "@theme-ui/components";
 import { Padding } from "../components/Padding";
 import Reveal from "../components/Reveal";
 import { useCaseWrapperContext } from "../components/Slide";
-import { useWindowSize } from "../components/useWindowSize";
+import { useWindowSize } from "../components/hooks";
 import { keyframes } from "@emotion/react";
 
 const slide = keyframes`
