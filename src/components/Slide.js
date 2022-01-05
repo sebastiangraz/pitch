@@ -66,7 +66,7 @@ const Slide = React.memo(({ index, childPosition, childCount, children }) => {
       v - positionN + innerHeight * 2,
       [0, innerHeight],
       [
-        tint("brand", 0.8 + index * (20 / childCount) * 0.01)(theme),
+        tint("brand", 0.7 + index * (30 / childCount) * 0.01)(theme),
         tint("brand", 0.1 + index * (90 / childCount) * 0.01)(theme),
       ]
     );
