@@ -1,4 +1,22 @@
 export const vectors = {
+  x: (
+    <svg viewBox="0 0 215 215" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M49.4975 0L0 49.4975L57.9828 107.48L0 165.463L49.4975 214.961L107.48 156.978L165.463 214.96L214.96 165.463L156.978 107.48L214.96 49.4975L165.463 3.73125e-05L107.48 57.9828L49.4975 0ZM107.48 57.9828L57.9828 107.48L107.48 156.978L156.978 107.48L107.48 57.9828Z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
+  arrowR: (
+    <svg viewBox="0 0 226 221" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M178.881 93.1658C192.246 100.858 192.246 120.142 178.881 127.834L46.9762 203.748C33.6429 211.422 17 201.798 17 186.414L17 34.5862C17 19.2024 33.6429 9.57833 46.9762 17.2519L178.881 93.1658Z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
   circles: (
     <svg viewBox="0 0 244 243" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path

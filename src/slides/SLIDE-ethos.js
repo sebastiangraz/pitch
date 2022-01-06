@@ -8,7 +8,8 @@ import Reveal from "../components/Reveal";
 const svgStyle = {
   svg: {
     width: "0.6em",
-    top: "-0.05em",
+    top: "0.05em",
+    right: "-0.05em",
     position: "relative",
     display: "inline",
   },
@@ -23,14 +24,19 @@ export const SlideEthos = () => {
             Ethos
           </Text>
           <Text variant="heading">
-            <span sx={svgStyle}>{vectors.star} </span>
-            <span>
-              Estimating effort is difficult. Outcome over scrutinizing hours.
-            </span>{" "}
+            <span>outcome </span>
+            <span sx={svgStyle}>{vectors.arrowR} </span>
+            <span>scrutinizing time</span>
           </Text>
           <Text mt={1} variant="heading">
-            <span sx={svgStyle}>{vectors.time} </span>
-            <span>Meaningful & frequent collaboration for better results.</span>
+            <span>frequent </span>
+            <span sx={svgStyle}>{vectors.star}</span>
+            <span> collaboration</span>
+          </Text>
+          <Text mt={1} variant="heading">
+            <span>make </span>
+            <span sx={svgStyle}>{vectors.x}</span>
+            <span> ask questions later</span>
           </Text>
         </Reveal>
       </Padding>

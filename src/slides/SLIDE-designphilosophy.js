@@ -8,7 +8,8 @@ import Reveal from "../components/Reveal";
 const svgStyle = {
   svg: {
     width: "0.6em",
-    top: "-0.05em",
+    top: "0.05em",
+    right: "-0.05em",
     position: "relative",
     display: "inline",
   },
@@ -20,20 +21,22 @@ export const SlidePhilosophy = () => {
       <Padding constrain>
         <Reveal {...globalStyle.textRevealAnimation}>
           <Text variant="heading" mb={1} sx={{ color: "brand" }}>
-            Philosophy
+            Design
           </Text>
           <Text variant="heading">
-            <span sx={svgStyle}> {vectors.dotArray} </span>
-            <span>
-              Exploration & naivety <br />
-              is key for great designs.
-            </span>{" "}
+            <span>exploration</span>
+            <span sx={svgStyle}> {vectors.spikedCircle} </span>
+            <span>naivety</span>
           </Text>
           <Text mt={1} variant="heading">
-            <span sx={svgStyle}>{vectors.polygon} </span>
-            <span>
-              Avoid trends, instead aim for designs that answer the brief.
-            </span>
+            <span>trendless</span>
+            <span sx={svgStyle}> {vectors.spikedCircle} </span>
+            <span>on brief</span>
+          </Text>
+          <Text mt={1} variant="heading">
+            <span>familiarity</span>
+            <span sx={svgStyle}> {vectors.spikedCircle} </span>
+            <span>novelty</span>
           </Text>
         </Reveal>
       </Padding>

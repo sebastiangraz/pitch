@@ -1,25 +1,13 @@
 /** @jsxImportSource theme-ui */
 import { Text, Grid } from "@theme-ui/components";
 import { Padding } from "../components/Padding";
-import { vectors } from "../assets/vectors";
 import { globalStyle } from "../components/globalStyles";
 import Reveal from "../components/Reveal";
-import { useCaseWrapperContext } from "../components/Slide";
 import diamond from "../assets/diamond.svg";
 import diamondFilled from "../assets/diamond-filled.svg";
-import { darken, alpha } from "@theme-ui/color";
-
-const svgStyle = {
-  svg: {
-    width: "0.6em",
-    top: "-0.05em",
-    position: "relative",
-    display: "inline",
-  },
-};
+import { alpha } from "@theme-ui/color";
 
 export const SlideProcess = () => {
-  const { parentValues } = useCaseWrapperContext();
   return (
     <Padding>
       <Reveal {...globalStyle.textRevealAnimation} childDelay={3}>
