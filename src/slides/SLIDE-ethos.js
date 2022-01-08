@@ -24,9 +24,9 @@ export const SlideEthos = () => {
             Ethos
           </Text>
           <Text variant="heading">
-            <span>outcome </span>
-            <span sx={svgStyle}>{vectors.arrowR} </span>
-            <span>scrutinizing time</span>
+            <span>flexible </span>
+            <span sx={svgStyle}>{vectors.dotArray} </span>
+            <span>revisions</span>
           </Text>
           <Text mt={1} variant="heading">
             <span>frequent </span>
@@ -34,9 +34,9 @@ export const SlideEthos = () => {
             <span> collaboration</span>
           </Text>
           <Text mt={1} variant="heading">
-            <span>make </span>
-            <span sx={svgStyle}>{vectors.x}</span>
-            <span> ask questions later</span>
+            <span>done </span>
+            <span sx={svgStyle}>{vectors.arrowR}</span>
+            <span> perfect </span>
           </Text>
         </Reveal>
       </Padding>

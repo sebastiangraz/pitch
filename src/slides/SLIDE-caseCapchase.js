@@ -38,7 +38,7 @@ export const SlideCaseCapchase = () => {
 
   return (
     <>
-      <Padding sx={{ width: "40em" }}>
+      <Padding sx={{ width: "36em" }}>
         <Reveal
           effect={[
             { opacity: 0, x: -10 },
@@ -71,7 +71,7 @@ export const SlideCaseCapchase = () => {
           y: y,
           right: 0,
           top: 0,
-          width: "60%",
+          width: "70%",
           position: "absolute",
         }}
       >

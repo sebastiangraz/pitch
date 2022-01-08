@@ -38,7 +38,7 @@ export const SlideCasePrototypingGuide = () => {
 
   return (
     <>
-      <Padding sx={{ width: "40em" }}>
+      <Padding sx={{ width: "36em" }}>
         <Reveal
           effect={[
             { opacity: 0, x: -10 },

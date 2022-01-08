@@ -99,6 +99,7 @@ export const SlideIntro = () => {
               {...globalStyle.textRevealAnimation}
             >
               <Text
+                variant="lead"
                 sx={{
                   display: "inline",
                 }}
@@ -106,6 +107,7 @@ export const SlideIntro = () => {
                 My name is{" "}
               </Text>
               <Text
+                variant="lead"
                 sx={{
                   display: "inline",
                   fontVariantCaps: "all-small-caps",
@@ -114,6 +116,7 @@ export const SlideIntro = () => {
                 sebastian graz
               </Text>
               <Text
+                variant="lead"
                 sx={{
                   display: "inline",
                 }}

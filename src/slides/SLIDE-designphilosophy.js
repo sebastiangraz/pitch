@@ -29,7 +29,7 @@ export const SlidePhilosophy = () => {
             <span>naivety</span>
           </Text>
           <Text mt={1} variant="heading">
-            <span>trendless</span>
+            <span>tailored</span>
             <span sx={svgStyle}> {vectors.spikedCircle} </span>
             <span>on brief</span>
           </Text>
