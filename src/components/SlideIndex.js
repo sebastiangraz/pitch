@@ -6,4 +6,4 @@ export { SlideCaseLoupe } from "../slides/SLIDE-caseLoupe";
 export { SlideCasePrototypingGuide } from "../slides/SLIDE-casePrototypingGuide";
 export { SlideProcess } from "../slides/SLIDE-process";
 export { SlideEthos } from "../slides/SLIDE-ethos";
-export { SlidePhilosophy } from "../slides/SLIDE-designphilosophy";
+export { SlideExploration } from "../slides/SLIDE-exploration";
