@@ -14,6 +14,7 @@ export const SlideClients = () => {
           "&>*": {
             display: "inline-block",
             mr: 2,
+            mb: 1,
           },
         }}
       >

@@ -62,7 +62,7 @@ export default {
   breakpoints: ["40em", "64em", "98em", "120em"],
   lineHeights: {
     body: 1.4,
-    heading: 1.15,
+    heading: 1.1,
   },
   letterSpacings: {
     body: "-0.045em",

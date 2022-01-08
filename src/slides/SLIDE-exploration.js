@@ -45,10 +45,16 @@ export const SlideExploration = () => {
               muted
               loop
             />
-            <Text variant="heading">explorative & naive mindset</Text>
             <Text variant="heading">
-              lasting design
-              <br /> + outcome
+              <span>explorative </span> <br />
+              <span sx={svgStyle}> {vectors.spikedCircle} </span>
+              <span>naive mind</span>
+              {/* explorative & naive mindset */}
+            </Text>
+            <Text variant="heading">
+              <span>lasting design </span> <br />
+              <span sx={svgStyle}> {vectors.time} </span>
+              <span>outcome</span>
             </Text>
           </Grid>
         </Reveal>

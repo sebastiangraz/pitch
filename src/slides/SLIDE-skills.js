@@ -30,6 +30,7 @@ export const SlideSkills = () => {
           "&>*": {
             display: "inline-block",
             mr: 2,
+            mb: 1,
           },
         }}
       >
