@@ -6105,9 +6105,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"framer-motion@npm:^5.5.1":
-  version: 5.5.1
-  resolution: "framer-motion@npm:5.5.1"
+"framer-motion@npm:^5.5.6":
+  version: 5.5.6
+  resolution: "framer-motion@npm:5.5.6"
   dependencies:
     "@emotion/is-prop-valid": ^0.8.2
     framesync: 6.0.1
@@ -6130,7 +6130,7 @@ __metadata:
       optional: true
     three:
       optional: true
-  checksum: fdcdb6e585e06292dd6f278ccfd5a3f7cfdb686871fc86b8070481f7bf68908713af1982544e74713b23dd930acd739bf1f0ed488139fefc77a71bc86d95b468
+  checksum: b2219ae64acfabab147659b68611fdb1ef0760d05723b31c5755fa9244227c732d455dce996cd3aacede83ac1a9526fcdd16b11c6ad34b277afb367d2acee83b
   languageName: node
   linkType: hard
 
@@ -9130,7 +9130,7 @@ __metadata:
     "@testing-library/user-event": ^13.2.1
     "@theme-ui/color": ^0.13.0
     "@theme-ui/match-media": ^0.12.1
-    framer-motion: ^5.5.1
+    framer-motion: ^5.5.6
     react: ^17.0.2
     react-dom: ^17.0.2
     react-helmet: ^6.1.0
