@@ -1,4 +1,5 @@
 import { settings } from "./settings";
+import { tint } from "@theme-ui/color";
 
 const isSafari =
   navigator.userAgent.indexOf("Safari") !== -1 &&
@@ -42,11 +43,12 @@ export const scroll = {
     backgroundColor: "transparent",
   },
   "&::-webkit-scrollbar-thumb": {
-    backgroundColor: `text`,
+    backgroundColor: "brand",
+    borderRadius: "2px",
   },
   "&::-webkit-scrollbar-thumb:hover": {
     cursor: "pointer",
-    backgroundColor: `text`,
+    backgroundColor: tint("brand", 0.3),
   },
 };
 
