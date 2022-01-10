@@ -20,9 +20,16 @@ const svgStyle = {
 export const SlideExploration = () => {
   return (
     <>
-      <Padding constrain>
+      <Padding>
         <Reveal {...globalStyle.textRevealAnimation}>
-          <Grid gap={4} columns={2}>
+          <Grid
+            gap={4}
+            columns={2}
+            sx={{
+              gridTemplateColumns: "auto auto",
+              justifyContent: "space-between",
+            }}
+          >
             <video
               sx={{
                 borderRadius: "1em",
