@@ -18,7 +18,7 @@ import { Padding } from "./Padding";
 import { settings } from "../settings";
 import io from "socket.io-client";
 
-const socket = io("https://brandpresentation.herokuapp.com/");
+const socket = io();
 
 export const useCaseWrapperContext = () => React.useContext(CaseWrapperContext);
 const CaseWrapperContext = React.createContext(null);
