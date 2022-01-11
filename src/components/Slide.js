@@ -18,7 +18,7 @@ import { Padding } from "./Padding";
 import { settings } from "../settings";
 import io from "socket.io-client";
 
-const socket = io(window.location.origin, {
+const socket = io({
   transports: ["websocket"],
 });
 
