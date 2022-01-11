@@ -13,7 +13,7 @@ import {
 
 import { tint } from "@theme-ui/color";
 import { useResponsiveValue } from "@theme-ui/match-media";
-import { Text } from "@theme-ui/components";
+import { Text } from "theme-ui";
 import { Padding } from "./Padding";
 import { settings } from "../settings";
 import io from "socket.io-client";

@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 
-import { Text } from "@theme-ui/components";
+import { Text } from "theme-ui";
 import { Padding } from "../components/Padding";
 import Reveal from "../components/Reveal";
 import { globalStyle } from "../components/globalStyles";

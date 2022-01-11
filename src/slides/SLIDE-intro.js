@@ -12,7 +12,7 @@ import {
   useTransform,
   useViewportScroll,
 } from "framer-motion";
-import { Text, Flex, Box } from "@theme-ui/components";
+import { Text, Flex, Box } from "theme-ui";
 import Reveal from "../components/Reveal";
 import { Padding } from "../components/Padding";
 import { Logo } from "../components/Logo";

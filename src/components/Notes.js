@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { Text } from "@theme-ui/components";
+import { Text } from "theme-ui";
 import React from "react";
 import { Padding } from "./Padding";
 import io from "socket.io-client";
