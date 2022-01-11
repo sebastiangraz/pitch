@@ -22,7 +22,7 @@ export const SlideExploration = () => {
     <>
       <Padding constrain>
         <Reveal
-          childDelay={1.5}
+          childDelay={1.4}
           {...globalStyle.textRevealAnimation}
           sx={{ display: "grid", gridTemplateColumns: "auto auto", gap: 4 }}
         >
