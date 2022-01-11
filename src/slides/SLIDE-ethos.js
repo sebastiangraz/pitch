@@ -19,7 +19,7 @@ export const SlideEthos = () => {
   return (
     <>
       <Padding constrain>
-        <Reveal {...globalStyle.textRevealAnimation}>
+        <Reveal childDelay={2} {...globalStyle.textRevealAnimation}>
           <Text variant="heading" mb={1} sx={{ color: "brand" }}>
             Ethos
           </Text>

@@ -17,8 +17,9 @@ const skills = [
   "Typefaces",
   "Animation",
   "3D",
-  "Photography",
+  "Icons",
   "Print",
+  "Photography",
 ];
 
 export const SlideSkills = () => {
@@ -43,7 +44,7 @@ export const SlideSkills = () => {
                   ${mix(
                     "brand",
                     "text",
-                    Math.min((i * skills.length) / 100, 1)
+                    0.1 + i * (100 / skills.length) * 0.01
                   )(t)}
               `,
               }}
