@@ -4,7 +4,9 @@ import React from "react";
 import { Padding } from "./Padding";
 import io from "socket.io-client";
 
-const socket = io("https://brandpresentation.herokuapp.com/");
+const socket = io({
+  transports: ["websocket"],
+});
 
 const Notes = () => {
   const [note, getNote] = React.useState("test");
