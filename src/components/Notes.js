@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-
+import { Text } from "@theme-ui/components";
 import React from "react";
 import { Padding } from "./Padding";
 
@@ -17,7 +17,9 @@ const Notes = () => {
   }, [note]);
   return (
     <Padding>
-      <h1>{note}</h1>
+      <Text sx={{ color: "brand" }} variant="heading">
+        {note}
+      </Text>
     </Padding>
   );
 };

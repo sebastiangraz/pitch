@@ -33,8 +33,7 @@ export const SlideExploration = () => {
             <video
               sx={{
                 borderRadius: "1em",
-                maxWidth: "27em",
-                placeSelf: "flex-start",
+                maxWidth: "25em",
               }}
               src={logoprocess}
               autoPlay
@@ -44,8 +43,7 @@ export const SlideExploration = () => {
             <video
               sx={{
                 borderRadius: "1em",
-                maxWidth: "27em",
-                placeSelf: "flex-start",
+                maxWidth: "25em",
               }}
               src={timeless}
               autoPlay
