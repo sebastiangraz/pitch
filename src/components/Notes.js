@@ -4,9 +4,7 @@ import React from "react";
 import { Padding } from "./Padding";
 import io from "socket.io-client";
 
-const socket = io("https://brandpresentation.netlify.app", {
-  path: "/notes/",
-});
+const socket = io("ws://localhost:8080");
 
 const Notes = () => {
   const [note, getNote] = React.useState("test");
