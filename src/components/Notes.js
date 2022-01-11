@@ -1,12 +1,24 @@
 /** @jsxImportSource theme-ui */
 
 import React from "react";
+import { Padding } from "./Padding";
 
-const Notes = ({ data }) => {
+const Notes = () => {
+  const [note, getNote] = React.useState();
+
+  React.useEffect(() => {
+    getNote(localStorage.getItem("note"));
+  }, []);
+
+  React.useEffect(() => {
+    window.addEventListener("storage", (e) => {
+      getNote(e.newValue);
+    });
+  }, [note]);
   return (
-    <>
-      <h1>Notes, {data}</h1>
-    </>
+    <Padding>
+      <h1>{note}</h1>
+    </Padding>
   );
 };
 
