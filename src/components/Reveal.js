@@ -1,7 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 export const Reveal = ({
   children,
   delay,
@@ -21,13 +19,7 @@ export const Reveal = ({
 }) => {
   const delayVal = delay ? delay : 0.05;
   const effectVal = React.useMemo(
-    () =>
-      effect
-        ? effect
-        : [
-            { opacity: 0, display: "none" },
-            { opacity: 1, display: "block" },
-          ],
+    () => (effect ? effect : [{ opacity: 0 }, { opacity: 1 }]),
     [effect]
   );
   const parentEffectVal = parentEffect
@@ -72,32 +64,11 @@ export const Reveal = ({
     }),
   };
 
-  const parentControls = useAnimation();
-  const childControls = useAnimation();
-
-  // delay helps to prevent lag when clicking between cases
-  const [ref, inView] = useInView({
-    initialInView: initialInView,
-    triggerOnce: false,
-    delay: 200,
-  });
-
-  useEffect(() => {
-    if (inView) {
-      parentControls.start("visible");
-      childControls.start("visible");
-    } else {
-      parentControls.start("hidden");
-      childControls.start({ ...effectVal[0], transition: { duration: 0 } });
-    }
-  }, [parentControls, childControls, inView, effectVal]);
-
   return (
     <motion.div
       {...rest}
-      ref={ref}
-      animate={parentControls}
       initial="hidden"
+      whileInView="visible"
       variants={!ignoreParentFade && parentVariant}
     >
       {React.Children.map(children || null, (child, i) => {
@@ -109,8 +80,9 @@ export const Reveal = ({
               originY: 0.5,
               ...childStyle,
             }}
+            viewport={{ once: true }}
+            whileInView="visible"
             key={i}
-            animate={childControls}
             custom={i}
             variants={childVariant}
           >

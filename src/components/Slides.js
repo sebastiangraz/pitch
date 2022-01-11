@@ -1,12 +1,32 @@
 import React from "react";
 import Slide from "./Slide";
 import { useWindowSize } from "./hooks";
+import { useViewportScroll } from "framer-motion";
 
 const Slides = React.memo(({ children }) => {
   const count = React.Children.count(children);
   const windowSize = useWindowSize();
   const ref = React.useRef();
   const [position, setPosition] = React.useState([]);
+  const { scrollY } = useViewportScroll();
+  const [activeSlide, setActiveSlide] = React.useState(0);
+  const [value, setValue] = React.useState(0);
+
+  scrollY.onChange((e) => {
+    setValue(e);
+  });
+
+  React.useEffect(() => {
+    const val = position.reduce((prev, curr) => {
+      return Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev;
+    }, 0);
+
+    setActiveSlide(position.indexOf(val) + 1);
+  }, [value, position]);
+
+  // React.useEffect(() => {
+  //   console.log(activeSlide);
+  // }, [activeSlide]);
 
   React.useLayoutEffect(() => {
     let childPosition = [];
@@ -39,7 +59,12 @@ const Slides = React.memo(({ children }) => {
     <div ref={ref}>
       {React.Children.map(children || null, (child, i) => {
         return (
-          <Slide index={i} childPosition={position} childCount={count}>
+          <Slide
+            index={i}
+            childPosition={position}
+            activeSlide={activeSlide === i}
+            childCount={count}
+          >
             {child}
           </Slide>
         );

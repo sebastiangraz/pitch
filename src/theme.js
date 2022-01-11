@@ -107,7 +107,6 @@ export default {
       overflowX: "hidden",
       webkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
-      variant: "text.default",
       fontFeatureSettings: `"liga", "dlig"`,
       "@media (prefers-color-scheme: dark)": {
         backgroundColor: isSafari

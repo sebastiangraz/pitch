@@ -7,7 +7,7 @@ import {
   useTransform,
   useViewportScroll,
 } from "framer-motion";
-import { Text } from "@theme-ui/components";
+import { Text } from "theme-ui";
 import { Padding } from "../components/Padding";
 import Reveal from "../components/Reveal";
 import { useCaseWrapperContext } from "../components/Slide";
