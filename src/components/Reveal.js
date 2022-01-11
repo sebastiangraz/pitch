@@ -80,6 +80,7 @@ export const Reveal = ({
               originY: 0.5,
               ...childStyle,
             }}
+            viewport={{ once: true }}
             whileInView="visible"
             key={i}
             custom={i}
