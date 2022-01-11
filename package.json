@@ -1,10 +1,6 @@
 {
   "name": "pitch",
   "version": "0.1.0",
-  "engines": {
-    "node": "14.x",
-    "yarn": "3.1.1"
-  },
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.7.1",
