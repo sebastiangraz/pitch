@@ -24,9 +24,9 @@ const Slides = React.memo(({ children }) => {
     setActiveSlide(position.indexOf(val) + 1);
   }, [value, position]);
 
-  React.useEffect(() => {
-    console.log(activeSlide);
-  }, [activeSlide]);
+  // React.useEffect(() => {
+  //   console.log(activeSlide);
+  // }, [activeSlide]);
 
   React.useLayoutEffect(() => {
     let childPosition = [];

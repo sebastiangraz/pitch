@@ -2,19 +2,19 @@
 import { Text } from "@theme-ui/components";
 import React from "react";
 import { Padding } from "./Padding";
+import io from "socket.io-client";
+
+const socket = io("ws://localhost:8080");
 
 const Notes = () => {
-  const [note, getNote] = React.useState();
+  const [note, getNote] = React.useState("test");
 
   React.useEffect(() => {
-    getNote(localStorage.getItem("note"));
+    socket.on("emit", (v) => {
+      getNote(v);
+    });
   }, []);
 
-  React.useEffect(() => {
-    window.addEventListener("storage", (e) => {
-      getNote(e.newValue);
-    });
-  }, [note]);
   return (
     <Padding>
       <Text sx={{ color: "brand" }} variant="heading">
