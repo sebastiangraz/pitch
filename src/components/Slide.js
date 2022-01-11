@@ -18,7 +18,9 @@ import { Padding } from "./Padding";
 import { settings } from "../settings";
 import io from "socket.io-client";
 
-const socket = io();
+const socket = io(window.location.origin, {
+  transports: ["websocket"],
+});
 
 export const useCaseWrapperContext = () => React.useContext(CaseWrapperContext);
 const CaseWrapperContext = React.createContext(null);
