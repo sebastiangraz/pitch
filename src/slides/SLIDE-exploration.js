@@ -20,48 +20,45 @@ const svgStyle = {
 export const SlideExploration = () => {
   return (
     <>
-      <Padding>
-        <Reveal {...globalStyle.textRevealAnimation}>
-          <Grid
-            gap={4}
-            columns={2}
+      <Padding constrain>
+        <Reveal
+          childDelay={1.5}
+          {...globalStyle.textRevealAnimation}
+          sx={{ display: "grid", gridTemplateColumns: "auto auto", gap: 4 }}
+        >
+          <video
             sx={{
-              gridTemplateColumns: "auto auto",
-              justifyContent: "space-between",
+              borderRadius: "1em",
+              maxWidth: "26em",
+              placeSelf: "flex-start",
             }}
-          >
-            <video
-              sx={{
-                borderRadius: "1em",
-                maxWidth: "25em",
-              }}
-              src={logoprocess}
-              autoPlay
-              muted
-              loop
-            />
-            <video
-              sx={{
-                borderRadius: "1em",
-                maxWidth: "25em",
-              }}
-              src={timeless}
-              autoPlay
-              muted
-              loop
-            />
-            <Text variant="heading">
-              <span>explorative </span> <br />
-              <span sx={svgStyle}> {vectors.spikedCircle} </span>
-              <span>naive mind</span>
-              {/* explorative & naive mindset */}
-            </Text>
-            <Text variant="heading">
-              <span>lasting design </span> <br />
-              <span sx={svgStyle}> {vectors.time} </span>
-              <span>outcome</span>
-            </Text>
-          </Grid>
+            src={logoprocess}
+            autoPlay
+            muted
+            loop
+          />
+          <video
+            sx={{
+              borderRadius: "1em",
+              maxWidth: "26em",
+              placeSelf: "flex-start",
+            }}
+            src={timeless}
+            autoPlay
+            muted
+            loop
+          />
+          <Text variant="heading">
+            <span>explorative </span> <br />
+            <span sx={svgStyle}> {vectors.spikedCircle} </span>
+            <span>naive mind</span>
+            {/* explorative & naive mindset */}
+          </Text>
+          <Text variant="heading">
+            <span>lasting design </span> <br />
+            <span sx={svgStyle}> {vectors.time} </span>
+            <span>outcome</span>
+          </Text>
         </Reveal>
       </Padding>
     </>
