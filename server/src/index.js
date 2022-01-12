@@ -1,8 +1,8 @@
-const http = require("http").createServer();
+import { createServer } from "http";
+import { Server } from "socket.io";
 
-const io = require("socket.io")(http, {
-  cors: { origin: "*" },
-});
+const httpServer = createServer();
+const io = new Server(httpServer, { cors: { origin: "*" } });
 
 io.on("connection", (socket) => {
   socket.on("message", (message) => {
@@ -10,4 +10,4 @@ io.on("connection", (socket) => {
   });
 });
 
-http.listen(process.env.PORT || 8080, () => console.log("listen 8080"));
+httpServer.listen(process.env.PORT || 8080, () => console.log("listen 8080"));
