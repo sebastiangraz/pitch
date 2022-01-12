@@ -18,9 +18,9 @@ import { Padding } from "./Padding";
 import { settings } from "../settings";
 import io from "socket.io-client";
 
-// const socket = io("http://localhost:8080", {
-//   transports: ["websocket"],
-// });
+const socket = io("http://localhost:8080", {
+  transports: ["websocket"],
+});
 
 export const useCaseWrapperContext = () => React.useContext(CaseWrapperContext);
 const CaseWrapperContext = React.createContext(null);
@@ -112,10 +112,9 @@ const Slide = React.memo(
       window.scrollTo(0, position - innerHeight);
     };
 
-    // React.useLayoutEffect(() => {
-    //   activeSlide && socket.emit("message", children.props.notes);
-    //   activeSlide && localStorage.setItem("note", children.props.notes);
-    // }, [children.props.notes, activeSlide]);
+    React.useLayoutEffect(() => {
+      activeSlide && socket.emit("message", children.props.notes);
+    }, [children.props.notes, activeSlide]);
 
     return (
       <CaseWrapperContext.Provider
