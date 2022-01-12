@@ -4,7 +4,7 @@ import React from "react";
 import { Padding } from "./Padding";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:8080", {
+const socket = io("https://brandserver.herokuapp.com/", {
   transports: ["websocket"],
 });
 
