@@ -33,12 +33,9 @@
   "scripts": {
     "server": "node server/src/index.js",
     "start": "react-scripts start",
-    "build": "ESLINT_NO_DEV_ERRORS=true && CI=false && react-scripts build",
+    "build": "CI=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
