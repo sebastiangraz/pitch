@@ -2,6 +2,9 @@
   "name": "pitch",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "server"
+  ],
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@testing-library/jest-dom": "^5.14.1",
@@ -28,11 +31,16 @@
     "ws": "^8.4.0"
   },
   "scripts": {
-    "server": "node -r esm server/src/index.js",
+    "server": "node server/src/index.js",
     "start": "react-scripts start",
     "build": "CI=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
   },
   "browserslist": {
     "production": [

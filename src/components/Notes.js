@@ -13,6 +13,7 @@ const Notes = () => {
 
   React.useEffect(() => {
     socket.on("emit", (v) => {
+      console.log(v);
       getNote(v);
     });
   }, []);

@@ -21,12 +21,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       {
         "name": "pitch",
         "reference": "workspace:."
+      },
+      {
+        "name": "server",
+        "reference": "workspace:server"
       }
     ],
     "enableTopLevelFallback": true,
     "ignorePatternData": "(^(?:\\.yarn\\/sdks(?:\\/(?!\\.{1,2}(?:\\/|$))(?:(?:(?!(?:^|\\/)\\.{1,2}(?:\\/|$)).)*?)|$))$)",
     "fallbackExclusionList": [
-      ["pitch", ["workspace:."]]
+      ["pitch", ["workspace:."]],
+      ["server", ["workspace:server"]]
     ],
     "fallbackPool": [
     ],
@@ -15405,6 +15410,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["send", "npm:0.17.2"]
           ],
           "linkType": "HARD",
+        }]
+      ]],
+      ["server", [
+        ["workspace:server", {
+          "packageLocation": "./server/",
+          "packageDependencies": [
+            ["server", "workspace:server"],
+            ["socket.io", "npm:4.4.1"],
+            ["socket.io-client", "npm:4.4.1"]
+          ],
+          "linkType": "SOFT",
         }]
       ]],
       ["set-blocking", [
