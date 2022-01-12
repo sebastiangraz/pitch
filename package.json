@@ -2,6 +2,10 @@
   "name": "pitch",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.13.0",
+    "npm": "8.3.0"
+  },
   "workspaces": [
     "server"
   ],
