@@ -35,8 +35,8 @@
     "ws": "^8.4.0"
   },
   "scripts": {
+    "start": "node server/src/index.js",
     "start:dev": "react-scripts start",
-    "start": "npx babel-node --presets es2015 -- server/src/index.js",
     "build": "CI=false && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
