@@ -18,7 +18,7 @@ import { Padding } from "./Padding";
 import { settings } from "../settings";
 import io from "socket.io-client";
 
-const socket = io({
+const socket = io("http://localhost:8080", {
   transports: ["websocket"],
 });
 
@@ -116,12 +116,6 @@ const Slide = React.memo(
       activeSlide && socket.emit("message", children.props.notes);
       activeSlide && localStorage.setItem("note", children.props.notes);
     }, [children.props.notes, activeSlide]);
-
-    React.useLayoutEffect(() => {
-      socket.on("message", (data) => {
-        console.log(data);
-      });
-    }, []);
 
     return (
       <CaseWrapperContext.Provider
