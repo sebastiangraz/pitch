@@ -48,6 +48,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@theme-ui/core", "virtual:b732a4afa1d83f6966306188cb9652cf147ccf61c65d7622c1ebea197dd4a6f4191b8ae156c0a95f3b609fbb3d752e051632dec5cc62d6e19e64fbf4b4c93335#npm:0.13.1"],
             ["@theme-ui/css", "virtual:b732a4afa1d83f6966306188cb9652cf147ccf61c65d7622c1ebea197dd4a6f4191b8ae156c0a95f3b609fbb3d752e051632dec5cc62d6e19e64fbf4b4c93335#npm:0.13.1"],
             ["@theme-ui/match-media", "virtual:b732a4afa1d83f6966306188cb9652cf147ccf61c65d7622c1ebea197dd4a6f4191b8ae156c0a95f3b609fbb3d752e051632dec5cc62d6e19e64fbf4b4c93335#npm:0.12.1"],
+            ["babel-node", "npm:0.0.1-security"],
             ["eslint-config-react-app", "virtual:b732a4afa1d83f6966306188cb9652cf147ccf61c65d7622c1ebea197dd4a6f4191b8ae156c0a95f3b609fbb3d752e051632dec5cc62d6e19e64fbf4b4c93335#npm:6.0.0"],
             ["esm", "npm:3.2.25"],
             ["express", "npm:4.17.2"],
@@ -5827,6 +5828,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/babel__core",
             "@types/webpack",
             "webpack"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["babel-node", [
+        ["npm:0.0.1-security", {
+          "packageLocation": "./.yarn/cache/babel-node-npm-0.0.1-security-9cd1e22fa1-2089aad21c.zip/node_modules/babel-node/",
+          "packageDependencies": [
+            ["babel-node", "npm:0.0.1-security"]
           ],
           "linkType": "HARD",
         }]
@@ -12540,6 +12550,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@theme-ui/core", "virtual:b732a4afa1d83f6966306188cb9652cf147ccf61c65d7622c1ebea197dd4a6f4191b8ae156c0a95f3b609fbb3d752e051632dec5cc62d6e19e64fbf4b4c93335#npm:0.13.1"],
             ["@theme-ui/css", "virtual:b732a4afa1d83f6966306188cb9652cf147ccf61c65d7622c1ebea197dd4a6f4191b8ae156c0a95f3b609fbb3d752e051632dec5cc62d6e19e64fbf4b4c93335#npm:0.13.1"],
             ["@theme-ui/match-media", "virtual:b732a4afa1d83f6966306188cb9652cf147ccf61c65d7622c1ebea197dd4a6f4191b8ae156c0a95f3b609fbb3d752e051632dec5cc62d6e19e64fbf4b4c93335#npm:0.12.1"],
+            ["babel-node", "npm:0.0.1-security"],
             ["eslint-config-react-app", "virtual:b732a4afa1d83f6966306188cb9652cf147ccf61c65d7622c1ebea197dd4a6f4191b8ae156c0a95f3b609fbb3d752e051632dec5cc62d6e19e64fbf4b4c93335#npm:6.0.0"],
             ["esm", "npm:3.2.25"],
             ["express", "npm:4.17.2"],

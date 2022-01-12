@@ -3780,6 +3780,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"babel-node@npm:^0.0.1-security":
+  version: 0.0.1-security
+  resolution: "babel-node@npm:0.0.1-security"
+  checksum: 2089aad21c18b0bbe5e8413c9fb90d2191274131b06d4abb79ee785601f7adf5bcfd4f02383e29d67132acaa7b67a9b41e00e974a4525ab254d9f5bacbfd2814
+  languageName: node
+  linkType: hard
+
 "babel-plugin-dynamic-import-node@npm:^2.3.3":
   version: 2.3.3
   resolution: "babel-plugin-dynamic-import-node@npm:2.3.3"
@@ -9353,6 +9360,7 @@ __metadata:
     "@theme-ui/core": ^0.13.1
     "@theme-ui/css": ^0.13.1
     "@theme-ui/match-media": ^0.12.1
+    babel-node: ^0.0.1-security
     eslint-config-react-app: 6
     esm: ^3.2.25
     express: ^4.17.2
