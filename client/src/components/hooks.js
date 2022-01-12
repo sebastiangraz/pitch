@@ -1,11 +1,11 @@
 import React from "react";
 
-export const useDebouncedEffect = (effect, deps, delay) => {
+export const useDebouncedEffect = (effect, delay) => {
   React.useEffect(() => {
     const handler = setTimeout(() => effect(), delay);
 
     return () => clearTimeout(handler);
-  }, [...(deps || []), delay]);
+  }, [delay, effect]);
 };
 
 export function useWindowSize() {

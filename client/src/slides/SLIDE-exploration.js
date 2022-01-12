@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { Text, Grid } from "theme-ui";
+import { Text } from "theme-ui";
 import { Padding } from "../components/Padding";
 import { vectors } from "../assets/vectors";
 import { globalStyle } from "../components/globalStyles";
