@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { Text, Button, Flex, Box } from "theme-ui";
 import useToggle from "./hooks";
-import { motion, AnimatePresence } from "framer-motion";
 
 const buttonStyle = {
   background: "transparent",
@@ -47,13 +46,6 @@ export const Timer = () => {
       <Flex
         sx={{
           justifyItems: "center",
-          //   span: {
-          //     color: "brand",
-          //     ml: 1,
-          //     mb: 0,
-          //     display: "flex",
-          //     alignItems: "center",
-          //   },
         }}
       >
         <Button onClick={toggleIsOn} sx={{ ...buttonStyle, mr: 1 }}>
