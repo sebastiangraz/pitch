@@ -38,7 +38,14 @@ const Notes = () => {
     return socket.emit("slide", { direction: false });
   };
   return (
-    <Padding sx={{ height: "100vh" }}>
+    <Padding
+      sx={{
+        height: "100%",
+        overflow: "auto",
+        width: "100%",
+        position: "absolute",
+      }}
+    >
       <Box
         sx={{
           height: "100%",
@@ -72,6 +79,7 @@ const Notes = () => {
         <Box
           mt={7}
           sx={{
+            pb: 4,
             gridTemplateColumns: "1fr auto 1fr",
             alignItems: "center",
             gap: 4,
