@@ -7,7 +7,10 @@ import Notes from "./Notes";
 import { chromeColors } from "../theme";
 
 const slides = [
-  { notes: "Intro slide notes", component: componentList.SlideIntro },
+  {
+    notes: "Intro · Transforming Brand · Expectations",
+    component: componentList.SlideIntro,
+  },
   { notes: "Skills slide notes", component: componentList.SlideSkills },
   { notes: "Clients slide notes", component: componentList.SlideClients },
   {
