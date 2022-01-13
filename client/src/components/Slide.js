@@ -23,6 +23,7 @@ const socket = io("https://brandserver.herokuapp.com/", {
 });
 
 // Local
+
 // const socket = io("ws://localhost:8080", {
 //   transports: ["websocket"],
 // });
