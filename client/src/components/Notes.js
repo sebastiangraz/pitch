@@ -2,6 +2,7 @@
 import { Text, Button, Box } from "theme-ui";
 import React from "react";
 import { Padding } from "./Padding";
+import { Timer } from "./Timer";
 import io from "socket.io-client";
 import { slides } from "./App";
 const socket = io("https://brandserver.herokuapp.com/", {
@@ -24,7 +25,6 @@ const Notes = () => {
 
   React.useEffect(() => {
     socket.on("emit", (v) => {
-      console.log(v);
       getNote(v.note);
       getPage(v.pagenr);
     });
@@ -38,53 +38,70 @@ const Notes = () => {
     return socket.emit("slide", { direction: false });
   };
   return (
-    <Padding>
+    <Padding sx={{ height: "100vh" }}>
       <Box
-        mb={7}
         sx={{
-          gridTemplateColumns: "auto auto auto",
-          alignItems: "center",
-          gap: 4,
-          display: "inline-grid",
+          height: "100%",
+          display: "grid",
+          alignContent: "space-between",
+          alignItems: "flex-end",
+          gridTemplateRows: "auto 1fr auto",
         }}
       >
-        <Button
-          disabled={page === 0 ? true : false}
-          sx={buttonStyle}
-          onClick={previous}
-        >
-          Prev
-        </Button>
-        <Text
-          m={0}
-          sx={{ ...buttonStyle, color: "brand", width: 3, textAlign: "center" }}
-        >
-          {" "}
-          {page}
-        </Text>
-        <Button sx={buttonStyle} onClick={next}>
-          Next
-        </Button>
-      </Box>
-
-      <ul
-        sx={{
-          pl: 4,
-          ml: [4, 0],
-          "& li::marker": { content: `" · "` },
-        }}
-      >
-        <Text
+        <ul
           sx={{
-            fontSize: ["28px", 6],
-            color: "brand",
+            mb: 7,
+            pl: 4,
+            ml: [4, 0],
+            "& li::marker": { content: `" · "` },
           }}
         >
-          {note.split("·").map((e) => {
-            return <li key={e}>{e}</li>;
-          })}
-        </Text>
-      </ul>
+          <Text
+            m={0}
+            sx={{
+              fontSize: ["28px", 6],
+              color: "brand",
+            }}
+          >
+            {note.split("·").map((e) => {
+              return <li key={e}>{e}</li>;
+            })}
+          </Text>
+        </ul>
+        <Timer />
+        <Box
+          mt={7}
+          sx={{
+            gridTemplateColumns: "1fr auto 1fr",
+            alignItems: "center",
+            gap: 4,
+            display: "inline-grid",
+          }}
+        >
+          <Button
+            disabled={page === 0 ? true : false}
+            sx={buttonStyle}
+            onClick={previous}
+          >
+            Prev
+          </Button>
+          <Text
+            m={0}
+            sx={{
+              ...buttonStyle,
+              color: "brand",
+              width: 4,
+              textAlign: "center",
+            }}
+          >
+            {" "}
+            {page}
+          </Text>
+          <Button sx={buttonStyle} onClick={next}>
+            Next
+          </Button>
+        </Box>
+      </Box>
     </Padding>
   );
 };
