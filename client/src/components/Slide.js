@@ -22,6 +22,12 @@ const socket = io("https://brandserver.herokuapp.com/", {
   transports: ["websocket"],
 });
 
+// Local
+
+// const socket = io("ws://localhost:8080", {
+//   transports: ["websocket"],
+// });
+
 export const useCaseWrapperContext = () => React.useContext(CaseWrapperContext);
 const CaseWrapperContext = React.createContext(null);
 
@@ -112,9 +118,16 @@ const Slide = React.memo(
       window.scrollTo(0, position - innerHeight);
     };
 
+    React.useEffect(() => {
+      socket.on("updateSlide", (e) => {
+        window.scrollBy(0, e.direction ? innerHeight : -innerHeight);
+      });
+    }, [innerHeight]);
+
     React.useLayoutEffect(() => {
-      activeSlide && socket.emit("message", children.props.notes);
-    }, [children.props.notes, activeSlide]);
+      const payload = { note: children.props.notes, pagenr: index };
+      activeSlide && socket.emit("message", JSON.stringify(payload));
+    }, [activeSlide, children.props.notes, index]);
 
     return (
       <CaseWrapperContext.Provider

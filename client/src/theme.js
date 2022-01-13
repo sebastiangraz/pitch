@@ -73,6 +73,21 @@ export default {
   grids: {
     vertical: {},
   },
+  buttons: {
+    primary: {
+      transition: "background 0.4s ease",
+      bg: "brand",
+      color: "text",
+      fontSize: 4,
+      px: 2,
+      py: 1,
+      cursor: "pointer",
+      borderRadius: "99em",
+      "&:hover": {
+        bg: tint("brand", -0.3),
+      },
+    },
+  },
   fontSizes: space,
   colors: colors,
   text: {

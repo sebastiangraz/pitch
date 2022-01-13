@@ -62,7 +62,7 @@ const showSlides = () => {
   }
 };
 
-const showNotes = (e) => {
+const showNotes = () => {
   if (window.location.pathname === "/notes") {
     return <Notes />;
   }

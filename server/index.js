@@ -20,7 +20,10 @@ app.use(cors());
 
 io.on("connection", (socket) => {
   socket.on("message", (message) => {
-    console.log(message);
-    io.emit("emit", `${message}`);
+    const parsed = JSON.parse(message);
+    io.emit("emit", parsed);
+  });
+  socket.on("slide", function (msg) {
+    io.sockets.emit("updateSlide", msg);
   });
 });
