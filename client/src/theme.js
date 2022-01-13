@@ -86,6 +86,10 @@ export default {
       "&:hover": {
         bg: tint("brand", -0.3),
       },
+      "&:disabled": {
+        opacity: 0.4,
+        cursor: "auto",
+      },
     },
   },
   fontSizes: space,

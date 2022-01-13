@@ -6,7 +6,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import Notes from "./Notes";
 import { chromeColors } from "../theme";
 
-const slides = [
+export const slides = [
   {
     notes: "Intro · Transforming Brand · Expectations",
     component: componentList.SlideIntro,

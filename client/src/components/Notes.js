@@ -3,7 +3,7 @@ import { Text, Button, Box } from "theme-ui";
 import React from "react";
 import { Padding } from "./Padding";
 import io from "socket.io-client";
-
+import { slides } from "./App";
 const socket = io("https://brandserver.herokuapp.com/", {
   transports: ["websocket"],
 });
@@ -14,8 +14,12 @@ const socket = io("https://brandserver.herokuapp.com/", {
 //   transports: ["websocket"],
 // });
 
+const buttonStyle = {
+  fontSize: "20px",
+};
+
 const Notes = () => {
-  const [note, getNote] = React.useState("");
+  const [note, getNote] = React.useState(slides[0].notes);
   const [page, getPage] = React.useState(0);
 
   React.useEffect(() => {
@@ -36,7 +40,7 @@ const Notes = () => {
   return (
     <Padding>
       <Box
-        mb={5}
+        mb={7}
         sx={{
           gridTemplateColumns: "auto auto auto",
           alignItems: "center",
@@ -44,22 +48,38 @@ const Notes = () => {
           display: "inline-grid",
         }}
       >
-        <Button onClick={previous}>Prev</Button>
-        <Text m={0} sx={{ color: "brand", width: 3, textAlign: "center" }}>
+        <Button
+          disabled={page === 0 ? true : false}
+          sx={buttonStyle}
+          onClick={previous}
+        >
+          Prev
+        </Button>
+        <Text
+          m={0}
+          sx={{ ...buttonStyle, color: "brand", width: 3, textAlign: "center" }}
+        >
           {" "}
           {page}
         </Text>
-        <Button onClick={next}>Next</Button>
+        <Button sx={buttonStyle} onClick={next}>
+          Next
+        </Button>
       </Box>
 
       <ul
         sx={{
-          p: 0,
-          listStylePosition: "inside",
+          pl: 4,
+          ml: [4, 0],
           "& li::marker": { content: `" · "` },
         }}
       >
-        <Text sx={{ color: "brand" }} variant="heading">
+        <Text
+          sx={{
+            fontSize: ["28px", 6],
+            color: "brand",
+          }}
+        >
           {note.split("·").map((e) => {
             return <li key={e}>{e}</li>;
           })}
