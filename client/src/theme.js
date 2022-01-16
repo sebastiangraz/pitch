@@ -5,11 +5,6 @@ const isSafari =
   navigator.userAgent.indexOf("Safari") !== -1 &&
   navigator.userAgent.indexOf("Chrome") === -1;
 
-const colors = {
-  text: "#000000",
-  brand: settings.tint,
-};
-
 export const chromeColors = {
   chrome: {
     dark: "#35363A",
@@ -17,7 +12,26 @@ export const chromeColors = {
   },
   safari: {
     dark: "#2C2B2A",
-    light: colors.brand,
+    light: settings.tint,
+  },
+};
+
+const lightColors = {
+  text: "#000000",
+  brand: settings.tint,
+};
+
+const darkColors = {
+  text: "#fff",
+  brand: settings.tint,
+};
+
+const colors = {
+  ...lightColors,
+  modes: {
+    dark: {
+      ...darkColors,
+    },
   },
 };
 
@@ -93,6 +107,9 @@ export default {
     },
   },
   fontSizes: space,
+  config: {
+    initialColorModeName: "default",
+  },
   colors: colors,
   text: {
     default: {
@@ -129,12 +146,12 @@ export default {
       fontFeatureSettings: `"liga", "dlig"`,
       "@media (prefers-color-scheme: dark)": {
         backgroundColor: isSafari
-          ? chromeColors.safari.dark
+          ? chromeColors.safari?.dark
           : chromeColors.chrome?.dark,
       },
       "@media (prefers-color-scheme: light)": {
         backgroundColor: isSafari
-          ? chromeColors.safari.light
+          ? chromeColors.safari?.light
           : chromeColors.chrome?.light,
       },
     },

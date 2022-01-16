@@ -11,9 +11,9 @@ import {
   useViewportScroll,
 } from "framer-motion";
 
-import { tint } from "@theme-ui/color";
+import { tint, shade } from "@theme-ui/color";
 import { useResponsiveValue } from "@theme-ui/match-media";
-import { Text } from "theme-ui";
+import { Text, useThemeUI } from "theme-ui";
 import { Padding } from "./Padding";
 import { settings } from "../settings";
 import io from "socket.io-client";
@@ -37,6 +37,7 @@ const Slide = React.memo(
       () => childPosition[index] || [],
       [childPosition, index]
     );
+    const context = useThemeUI();
 
     const positionN = childPosition[index + 1] || [];
     const { scrollY } = useViewportScroll();
@@ -77,14 +78,33 @@ const Slide = React.memo(
       };
     }, [innerHeight, position, scrollY]);
 
+    // tint(
+    //   context?.theme?.rawColors?.brand,
+    //   0.1 + index * (90 / childCount) * 0.01
+    // )(theme),
+
+    const colorModeBgValue =
+      context.colorMode === "light"
+        ? [
+            tint("brand", 0.7 + index * (30 / childCount) * 0.01)(theme),
+            tint("brand", 0.1 + index * (90 / childCount) * 0.01)(theme),
+          ]
+        : [
+            shade(
+              context?.theme?.rawColors?.brand,
+              0.5 - index * (50 / childCount) * 0.01
+            )(theme),
+            shade(
+              context?.theme?.rawColors?.brand,
+              0.55 - index * (45 / childCount) * 0.01
+            )(theme),
+          ];
+
     const updateBg = (v) => {
       return transform(
         v - positionN + innerHeight * 2,
         [0, innerHeight],
-        [
-          tint("brand", 0.7 + index * (30 / childCount) * 0.01)(theme),
-          tint("brand", 0.1 + index * (90 / childCount) * 0.01)(theme),
-        ]
+        colorModeBgValue
       );
     };
 

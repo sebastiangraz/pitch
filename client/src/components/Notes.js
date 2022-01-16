@@ -1,10 +1,11 @@
 /** @jsxImportSource theme-ui */
-import { Text, Button, Box } from "theme-ui";
+import { Text, Button, Box, useColorMode } from "theme-ui";
 import React from "react";
 import { Padding } from "./Padding";
 import { Timer } from "./Timer";
 import io from "socket.io-client";
 import { slides } from "./App";
+
 const socket = io("https://brandserver.herokuapp.com/", {
   transports: ["websocket"],
 });
@@ -20,6 +21,8 @@ const buttonStyle = {
 };
 
 const Notes = () => {
+  const [mode, setMode] = useColorMode();
+
   const [note, getNote] = React.useState(slides[0].notes);
   const [page, getPage] = React.useState(0);
 
@@ -75,6 +78,16 @@ const Notes = () => {
             })}
           </Text>
         </ul>
+        <Button
+          mb={4}
+          sx={{ ...buttonStyle, justifySelf: "flex-start" }}
+          onClick={(e) => {
+            const next = mode === "dark" ? "light" : "dark";
+            setMode(next);
+          }}
+        >
+          Mode
+        </Button>
         <Timer />
         <Box
           mt={7}

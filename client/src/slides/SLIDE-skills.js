@@ -44,7 +44,7 @@ export const SlideSkills = () => {
                   ${mix(
                     "brand",
                     "text",
-                    0.1 + i * (100 / skills.length) * 0.01
+                    0.01 + i * (100 / skills.length) * 0.01
                   )(t)}
               `,
               }}
