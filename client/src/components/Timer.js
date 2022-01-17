@@ -5,14 +5,6 @@ import { Text, Button, Flex, Box } from "theme-ui";
 import useToggle from "./hooks";
 import { buttonStyle } from "./Notes";
 
-// const buttonStyle = {
-//   color: "text",
-//   fontSize: "20px",
-//   "&:hover": {
-//     color: "text",
-//   },
-// };
-
 export const Timer = ({ colorMode }) => {
   const [time, setTime] = useState(0);
   const [isOn, toggleIsOn] = useToggle();

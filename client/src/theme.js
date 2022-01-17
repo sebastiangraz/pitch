@@ -100,12 +100,11 @@ export default {
   colors: {
     text: "#000000",
     bg: settings.tint,
-    accent: "#0f0",
+    accent: settings.accent,
     modes: {
       dark: {
         text: "#fff",
         bg: settings.tint,
-        accent: "#f00",
       },
     },
   },
