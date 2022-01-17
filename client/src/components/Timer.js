@@ -1,7 +1,7 @@
 /** @jsxImportSource theme-ui */
 
 import React, { useState } from "react";
-import { Text, Button, Flex, Box } from "theme-ui";
+import { Button, Flex, Box } from "theme-ui";
 import useToggle from "./hooks";
 import { buttonStyle } from "./Notes";
 

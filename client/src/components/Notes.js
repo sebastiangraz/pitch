@@ -1,13 +1,13 @@
 /** @jsxImportSource theme-ui */
 import { Text, Button, Box, useColorMode, Flex } from "theme-ui";
 import React from "react";
-import { Padding } from "./Padding";
+
 import { Timer } from "./Timer";
 import io from "socket.io-client";
 import { slides } from "./App";
 import { settings } from "../settings";
 import { scroll } from "../theme";
-import { shade, tint, saturate, alpha, transparentize } from "@theme-ui/color";
+import { shade, transparentize } from "@theme-ui/color";
 import { vectors } from "../assets/vectors";
 
 const socket = io(
