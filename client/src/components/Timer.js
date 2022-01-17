@@ -40,52 +40,49 @@ export const Timer = ({ colorMode }) => {
           justifyItems: "center",
         }}
       >
-        <Button onClick={toggleIsOn} sx={{ ...buttonStyle(colorMode), mr: 1 }}>
-          <Text m={0}>
-            <Box
+        <Button sx={{ ...buttonStyle(colorMode), mr: 1 }}>
+          <Box
+            mr={2}
+            onClick={toggleIsOn}
+            sx={{
+              fontVariantNumeric: "tabular-nums",
+              alignItems: "flex-start",
+              gap: 0,
+              display: "grid",
+              gridAutoFlow: "column",
+              span: {
+                textAlign: "left",
+                m: 0,
+              },
+            }}
+          >
+            <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}</span>
+            <div sx={{ position: "relative", top: "-2px" }}>:</div>
+            <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
+            <span
               sx={{
-                alignItems: "flex-start",
-                gap: 0,
-                display: "grid",
-                gridAutoFlow: "column",
-                span: {
-                  textAlign: "left",
-                  m: 0,
-                },
+                overflow: "hidden",
+                transition: "ease 1s opacity, ease 1s width",
+                width: time < 1000 ? "32px" : "0px",
+                opacity: time < 1000 ? 0.5 : 0,
               }}
             >
-              <span sx={{ width: "50px" }}>
-                {("0" + Math.floor((time / 60000) % 60)).slice(-2)}
-              </span>
-              <div sx={{ position: "relative", top: "-3px", mr: 1 }}>:</div>
-              <span sx={{ width: "50px" }}>
-                {("0" + Math.floor((time / 1000) % 60)).slice(-2)}
-              </span>
-              <span
+              <div
                 sx={{
-                  overflow: "hidden",
-                  transition: "ease 1s opacity, ease 1s width",
-                  width: time < 1000 ? "60px" : "0px",
-                  opacity: time < 1000 ? 0.5 : 0,
+                  top: "-2px",
+                  position: "relative",
+                  display: "inline",
                 }}
               >
-                <div
-                  sx={{
-                    position: "relative",
-                    top: "-3px",
-                    mr: 1,
-                    display: "inline",
-                  }}
-                >
-                  :
-                </div>
-                <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
-              </span>
-            </Box>
-          </Text>
-        </Button>
-        <Button sx={buttonStyle(colorMode)} onClick={handleReset}>
-          Reset
+                :
+              </div>
+              <span>{("0" + ((time / 10) % 100)).slice(-2)}</span>
+            </span>
+          </Box>
+
+          <span sx={buttonStyle(colorMode)} onClick={handleReset}>
+            Reset
+          </span>
         </Button>
       </Flex>
     </>

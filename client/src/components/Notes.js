@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import { Text, Button, Box, useColorMode } from "theme-ui";
+import { Text, Button, Box, useColorMode, Flex } from "theme-ui";
 import React from "react";
 import { Padding } from "./Padding";
 import { Timer } from "./Timer";
@@ -75,7 +75,7 @@ const Notes = () => {
             mb: 7,
             pl: 4,
             ml: [4, 0],
-            "& li::marker": { content: `" · "` },
+            "::marker": { content: `" · "` },
           }}
         >
           <Text
@@ -90,20 +90,25 @@ const Notes = () => {
             })}
           </Text>
         </ul>
-        <Button
-          mb={4}
-          sx={{
-            ...buttonStyle(colorMode),
-            padding: 1,
-            justifySelf: "flex-start",
-          }}
-          onClick={handleModeChange}
-        >
-          {colorMode === "default" ? vectors.moon : vectors.sun}
-        </Button>
-        <Timer colorMode={colorMode} />
+        <Flex>
+          <Button
+            mr={2}
+            sx={{
+              ...buttonStyle(colorMode),
+              padding: 1,
+              justifySelf: "flex-start",
+              svg: {
+                width: 2,
+              },
+            }}
+            onClick={handleModeChange}
+          >
+            {colorMode === "default" ? vectors.moon : vectors.sun}
+          </Button>
+          <Timer colorMode={colorMode} />
+        </Flex>
         <Box
-          mt={7}
+          mt={"32px"}
           sx={{
             pb: 4,
             gridTemplateColumns: "1fr auto 1fr",
