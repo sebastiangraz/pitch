@@ -95,6 +95,7 @@ export default {
   },
   fontSizes: space,
   config: {
+    printColorModeName: "default",
     initialColorModeName: "default",
   },
   colors: {

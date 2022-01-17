@@ -41,6 +41,7 @@ const Slide = React.memo(
     const positionN = childPosition[index + 1] || [];
     const { scrollY } = useViewportScroll();
     const [progress, setProgress] = React.useState(false);
+    const [isPrinting, setIsPrinting] = React.useState(false);
     const { innerWidth, innerHeight } = window;
     const stagger = useResponsiveValue([8, 12, 16, 20]);
 
@@ -133,6 +134,15 @@ const Slide = React.memo(
     };
 
     React.useEffect(() => {
+      window.addEventListener("beforeprint", (event) => {
+        setIsPrinting(true);
+      });
+      window.addEventListener("afterprint", (event) => {
+        setIsPrinting(false);
+      });
+    }, []);
+
+    React.useEffect(() => {
       socket.on("updateSlide", (e) => {
         window.scrollBy(0, e.direction ? innerHeight : -innerHeight);
       });
@@ -145,10 +155,10 @@ const Slide = React.memo(
 
     return (
       <CaseWrapperContext.Provider
-        value={{ parentValues: { position: position } }}
+        value={{ parentValues: { position: position, isPrinting: isPrinting } }}
       >
         <motion.div
-          viewport={{ once: false }}
+          className="slideContainer"
           onClick={scrollTo}
           style={{
             zIndex: index,
@@ -162,14 +172,14 @@ const Slide = React.memo(
               ? {
                   width: `calc(100vw - ${index * stagger + 10}px)`,
                   height: `calc(100vh - 10px)`,
-                  x: y,
+                  ...(isPrinting ? { x: 0 } : { x: y }),
                   left: "100vw",
                   top: "5px",
                 }
               : {
                   width: "calc(100vw - 10px)",
                   height: `calc(100vh - ${index * stagger + 10}px)`,
-                  y: y,
+                  ...(isPrinting ? { y: 0 } : { y: y }),
                   left: "5px",
                   top: "100vh",
                 }),

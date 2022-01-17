@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useCaseWrapperContext } from "../components/Slide";
 
 export const Reveal = React.memo(
   ({
@@ -19,6 +20,9 @@ export const Reveal = React.memo(
     childStyle,
     ...rest
   }) => {
+    const { parentValues } = useCaseWrapperContext();
+
+    console.log(parentValues.isPrinting);
     const delayVal = delay ? delay : 0.05;
     const effectVal = React.useMemo(
       () => (effect ? effect : [{ opacity: 0 }, { opacity: 1 }]),
@@ -70,11 +74,20 @@ export const Reveal = React.memo(
       }),
     };
 
+    const motionPrintChecker = {
+      ...(parentValues?.isPrinting
+        ? { initial: "visible" }
+        : {
+            initial: "hidden",
+            whileInView: "visible",
+          }),
+    };
+
     return (
       <motion.div
+        key={parentValues?.isPrinting}
         {...rest}
-        initial="hidden"
-        whileInView="visible"
+        {...motionPrintChecker}
         variants={!ignoreParentFade && parentVariant}
       >
         {React.Children.map(children || null, (child, i) => {
@@ -87,7 +100,7 @@ export const Reveal = React.memo(
                 ...childStyle,
               }}
               viewport={{ once: true }}
-              whileInView="visible"
+              // whileInView="visible"
               key={i}
               custom={i}
               variants={childVariant}

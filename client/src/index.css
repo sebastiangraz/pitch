@@ -92,3 +92,22 @@ h3 {
 #__next {
   isolation: isolate;
 }
+
+@media print {
+  .slideContainer {
+    page-break-inside: avoid;
+    width: 100% !important;
+    left: 0px !important;
+    position: relative !important;
+  }
+  .slideContainer > * {
+    visibility: visible !important;
+  }
+  .ghostSlide {
+    display: none !important;
+  }
+}
+
+@page {
+  margin: 0mm;
+}
