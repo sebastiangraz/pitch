@@ -1,7 +1,10 @@
 /** @jsxImportSource theme-ui */
-
+import React from "react";
+import { useColorMode } from "theme-ui";
 import * as componentList from "../slides";
 import Slides from "./Slides";
+import io from "socket.io-client";
+import { settings } from "../settings";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Notes from "./Notes";
 import { chromeColors } from "../theme";
@@ -34,38 +37,46 @@ const isSafari =
   navigator.userAgent.indexOf("Safari") !== -1 &&
   navigator.userAgent.indexOf("Chrome") === -1;
 
-const showSlides = () => {
-  if (window.location.pathname === "/") {
-    return (
-      <>
-        <Slides>
-          {Object.entries(slides).map(([i, v]) => {
-            const Slide = v.component;
-            return <Slide key={i} notes={v.notes} />;
-          })}
-        </Slides>
-        {Object.entries(slides).map(([i]) => {
-          return (
-            <div
-              style={{
-                height: "100vh",
-                width: "100vw",
-                scrollSnapAlign: "start",
-              }}
-              className="ghostSlide"
-              key={i}
-            />
-          );
-        })}
-      </>
-    );
+const socket = io(
+  settings.isLocal
+    ? "ws://localhost:8080"
+    : "https://brandserver.herokuapp.com",
+  {
+    transports: ["websocket"],
   }
-};
+);
 
-const showNotes = () => {
-  if (window.location.pathname === "/notes") {
-    return <Notes />;
-  }
+const ShowSlides = () => {
+  const [colorMode, setColorMode] = useColorMode();
+  React.useEffect(() => {
+    socket.on("updateMode", (e) => {
+      setColorMode(e === "default" ? "dark" : "default");
+    });
+  }, [setColorMode]);
+  console.log(colorMode);
+  return (
+    <>
+      <Slides>
+        {Object.entries(slides).map(([i, v]) => {
+          const Slide = v.component;
+          return <Slide key={i} notes={v.notes} />;
+        })}
+      </Slides>
+      {Object.entries(slides).map(([i]) => {
+        return (
+          <div
+            style={{
+              height: "100vh",
+              width: "100vw",
+              scrollSnapAlign: "start",
+            }}
+            className="ghostSlide"
+            key={i}
+          />
+        );
+      })}
+    </>
+  );
 };
 
 const App = () => {
@@ -88,8 +99,9 @@ const App = () => {
             media="(prefers-color-scheme: dark)"
           />
         </Helmet>
-        {showSlides()}
-        {showNotes()}
+
+        {window.location.pathname === "/notes" && <Notes />}
+        {window.location.pathname === "/" && <ShowSlides />}
       </div>
     </HelmetProvider>
   );

@@ -5,24 +5,28 @@ import { Padding } from "./Padding";
 import { Timer } from "./Timer";
 import io from "socket.io-client";
 import { slides } from "./App";
+import { settings } from "../settings";
+import { shade } from "@theme-ui/color";
+import { vectors } from "../assets/vectors";
 
-const socket = io("https://brandserver.herokuapp.com/", {
-  transports: ["websocket"],
-});
+const socket = io(
+  settings.isLocal
+    ? "ws://localhost:8080"
+    : "https://brandserver.herokuapp.com",
+  {
+    transports: ["websocket"],
+  }
+);
 
-// Local
-
-// const socket = io("ws://localhost:8080", {
-//   transports: ["websocket"],
-// });
-
-const buttonStyle = {
-  fontSize: "20px",
+export const buttonStyle = (colorMode) => {
+  return {
+    fontSize: "20px",
+    bg: colorMode === "default" ? shade("bg", 0.2) : shade("bg", 0.7),
+  };
 };
 
 const Notes = () => {
-  const [mode, setMode] = useColorMode();
-
+  const [colorMode, setColorMode] = useColorMode();
   const [note, getNote] = React.useState(slides[0].notes);
   const [page, getPage] = React.useState(0);
 
@@ -40,9 +44,17 @@ const Notes = () => {
   const previous = () => {
     return socket.emit("slide", { direction: false });
   };
+
+  const handleModeChange = () => {
+    setColorMode(colorMode === "default" ? "dark" : "default");
+    socket.emit("mode", colorMode);
+  };
+
   return (
     <Padding
       sx={{
+        background:
+          colorMode === "default" ? shade("bg", 0.1) : shade("bg", 0.6),
         height: "100%",
         overflow: "auto",
         width: "100%",
@@ -70,7 +82,7 @@ const Notes = () => {
             m={0}
             sx={{
               fontSize: ["28px", 6],
-              color: "brand",
+              color: "text",
             }}
           >
             {note.split("·").map((e) => {
@@ -80,15 +92,16 @@ const Notes = () => {
         </ul>
         <Button
           mb={4}
-          sx={{ ...buttonStyle, justifySelf: "flex-start" }}
-          onClick={(e) => {
-            const next = mode === "dark" ? "light" : "dark";
-            setMode(next);
+          sx={{
+            ...buttonStyle(colorMode),
+            padding: 1,
+            justifySelf: "flex-start",
           }}
+          onClick={handleModeChange}
         >
-          Mode
+          {colorMode === "default" ? vectors.moon : vectors.sun}
         </Button>
-        <Timer />
+        <Timer colorMode={colorMode} />
         <Box
           mt={7}
           sx={{
@@ -101,7 +114,7 @@ const Notes = () => {
         >
           <Button
             disabled={page === 0 ? true : false}
-            sx={buttonStyle}
+            sx={buttonStyle(colorMode)}
             onClick={previous}
           >
             Prev
@@ -109,8 +122,8 @@ const Notes = () => {
           <Text
             m={0}
             sx={{
-              ...buttonStyle,
-              color: "brand",
+              fontSize: "20px",
+              color: "text",
               width: 4,
               textAlign: "center",
             }}
@@ -118,7 +131,7 @@ const Notes = () => {
             {" "}
             {page}
           </Text>
-          <Button sx={buttonStyle} onClick={next}>
+          <Button sx={buttonStyle(colorMode)} onClick={next}>
             Next
           </Button>
         </Box>

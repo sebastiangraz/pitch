@@ -42,7 +42,7 @@ export const SlideSkills = () => {
               sx={{
                 color: (t) => `
                   ${mix(
-                    "brand",
+                    "bg",
                     "text",
                     0.01 + i * (100 / skills.length) * 0.01
                   )(t)}

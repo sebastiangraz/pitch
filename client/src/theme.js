@@ -16,25 +16,6 @@ export const chromeColors = {
   },
 };
 
-const lightColors = {
-  text: "#000000",
-  brand: settings.tint,
-};
-
-const darkColors = {
-  text: "#fff",
-  brand: settings.tint,
-};
-
-const colors = {
-  ...lightColors,
-  modes: {
-    dark: {
-      ...darkColors,
-    },
-  },
-};
-
 const space = [
   "0em",
   "0.2em",
@@ -57,12 +38,12 @@ export const scroll = {
     backgroundColor: "transparent",
   },
   "&::-webkit-scrollbar-thumb": {
-    backgroundColor: "brand",
+    backgroundColor: "bg",
     borderRadius: "2px",
   },
   "&::-webkit-scrollbar-thumb:hover": {
     cursor: "pointer",
-    backgroundColor: tint("brand", 0.3),
+    backgroundColor: tint("bg", 0.3),
   },
 };
 
@@ -89,19 +70,25 @@ export default {
   },
   buttons: {
     primary: {
-      transition: "background 0.4s ease",
-      bg: "brand",
+      transition: "opacity 0.4s ease",
+      opacity: 1,
+      bg: "bg",
       color: "text",
       fontSize: 4,
+      height: 4,
+      minWidth: 4,
+      py: 0,
       px: 2,
-      py: 1,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
       cursor: "pointer",
       borderRadius: "99em",
       "&:hover": {
-        bg: tint("brand", -0.3),
+        opacity: 0.72,
       },
       "&:disabled": {
-        opacity: 0.4,
+        opacity: 0.5,
         cursor: "auto",
       },
     },
@@ -110,7 +97,18 @@ export default {
   config: {
     initialColorModeName: "default",
   },
-  colors: colors,
+  colors: {
+    text: "#000000",
+    bg: settings.tint,
+    accent: "#0f0",
+    modes: {
+      dark: {
+        text: "#fff",
+        bg: settings.tint,
+        accent: "#f00",
+      },
+    },
+  },
   text: {
     default: {
       fontSize: 3,

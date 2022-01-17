@@ -3,17 +3,17 @@
 import React, { useState } from "react";
 import { Text, Button, Flex, Box } from "theme-ui";
 import useToggle from "./hooks";
+import { buttonStyle } from "./Notes";
 
-const buttonStyle = {
-  background: "transparent",
-  color: "brand",
-  fontSize: "20px",
-  "&:hover": {
-    color: "text",
-  },
-};
+// const buttonStyle = {
+//   color: "text",
+//   fontSize: "20px",
+//   "&:hover": {
+//     color: "text",
+//   },
+// };
 
-export const Timer = () => {
+export const Timer = ({ colorMode }) => {
   const [time, setTime] = useState(0);
   const [isOn, toggleIsOn] = useToggle();
 
@@ -48,7 +48,7 @@ export const Timer = () => {
           justifyItems: "center",
         }}
       >
-        <Button onClick={toggleIsOn} sx={{ ...buttonStyle, mr: 1 }}>
+        <Button onClick={toggleIsOn} sx={{ ...buttonStyle(colorMode), mr: 1 }}>
           <Text m={0}>
             <Box
               sx={{
@@ -92,7 +92,7 @@ export const Timer = () => {
             </Box>
           </Text>
         </Button>
-        <Button sx={buttonStyle} onClick={handleReset}>
+        <Button sx={buttonStyle(colorMode)} onClick={handleReset}>
           Reset
         </Button>
       </Flex>

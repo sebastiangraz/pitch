@@ -18,15 +18,14 @@ import { Padding } from "./Padding";
 import { settings } from "../settings";
 import io from "socket.io-client";
 
-const socket = io("https://brandserver.herokuapp.com/", {
-  transports: ["websocket"],
-});
-
-// Local
-
-// const socket = io("ws://localhost:8080", {
-//   transports: ["websocket"],
-// });
+const socket = io(
+  settings.isLocal
+    ? "ws://localhost:8080"
+    : "https://brandserver.herokuapp.com",
+  {
+    transports: ["websocket"],
+  }
+);
 
 export const useCaseWrapperContext = () => React.useContext(CaseWrapperContext);
 const CaseWrapperContext = React.createContext(null);
@@ -78,24 +77,19 @@ const Slide = React.memo(
       };
     }, [innerHeight, position, scrollY]);
 
-    // tint(
-    //   context?.theme?.rawColors?.brand,
-    //   0.1 + index * (90 / childCount) * 0.01
-    // )(theme),
-
     const colorModeBgValue =
-      context.colorMode === "light"
+      context.colorMode === "default"
         ? [
-            tint("brand", 0.7 + index * (30 / childCount) * 0.01)(theme),
-            tint("brand", 0.1 + index * (90 / childCount) * 0.01)(theme),
+            tint("bg", 0.7 + index * (30 / childCount) * 0.01)(theme),
+            tint("bg", 0.1 + index * (90 / childCount) * 0.01)(theme),
           ]
         : [
             shade(
-              context?.theme?.rawColors?.brand,
+              context?.theme?.rawColors?.bg,
               0.5 - index * (50 / childCount) * 0.01
             )(theme),
             shade(
-              context?.theme?.rawColors?.brand,
+              context?.theme?.rawColors?.bg,
               0.55 - index * (45 / childCount) * 0.01
             )(theme),
           ];

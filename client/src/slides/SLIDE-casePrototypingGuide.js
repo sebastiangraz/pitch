@@ -48,17 +48,17 @@ export const SlideCasePrototypingGuide = () => {
           <Text mb={0} sx={{ fontVariantCaps: "all-small-caps" }}>
             case study
           </Text>
-          <Text sx={{ color: "brand", fontVariantCaps: "all-small-caps" }}>
+          <Text sx={{ color: "bg", fontVariantCaps: "all-small-caps" }}>
             Prototyping Guide
           </Text>
           <Text sx={{ fontVariantCaps: "all-small-caps" }} mb={0}>
             Duration
           </Text>
-          <Text sx={{ color: "brand" }}>1 month</Text>
+          <Text sx={{ color: "bg" }}>1 month</Text>
           <Text sx={{ fontVariantCaps: "all-small-caps" }} mb={0}>
             Challenge
           </Text>
-          <Text sx={{ color: "brand" }}>
+          <Text sx={{ color: "bg" }}>
             A project to encourage design leaders to invest their teams into in
             high-fi prototyping.
           </Text>

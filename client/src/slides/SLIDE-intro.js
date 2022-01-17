@@ -45,21 +45,19 @@ export const SlideIntro = () => {
               component={
                 <Reveal
                   duration={3}
-                  parentEffect={[
+                  effect={[
                     {
-                      color: saturate("brand", 0.7)(theme),
+                      color: saturate("bg", 0.7)(theme),
                       opacity: 0,
                       scale: 1.2,
+                      fontVariationSettings: `"wght" 5`,
                     },
                     {
                       color: "var(--theme-ui-colors-text)",
                       opacity: 1,
                       scale: 1,
+                      fontVariationSettings: `"wght" 64`,
                     },
-                  ]}
-                  effect={[
-                    { fontVariationSettings: `"wght" 5` },
-                    { fontVariationSettings: `"wght" 64` },
                   ]}
                 >
                   <h1

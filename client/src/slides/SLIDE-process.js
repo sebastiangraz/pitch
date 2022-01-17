@@ -31,10 +31,10 @@ export const SlideProcess = () => {
               maskPosition: "center",
               backgroundImage: (t) => `
               repeating-linear-gradient(to left,
-                ${alpha("brand", 0.3)(t)} 0em, ${alpha(
-                "brand",
-                0.9
-              )(t)} 5em, ${alpha("brand", 0.3)(t)}8em)`,
+                ${alpha("bg", 0.3)(t)} 0em, ${alpha("bg", 0.9)(t)} 5em, ${alpha(
+                "bg",
+                0.3
+              )(t)}8em)`,
             }}
             repeatParent
             repeatTypeLoop
@@ -70,10 +70,10 @@ export const SlideProcess = () => {
               maskPosition: "center",
               backgroundImage: (t) => `
               repeating-linear-gradient(to left,
-                ${alpha("brand", 0.3)(t)} 0em, ${alpha(
-                "brand",
-                0.9
-              )(t)} 6em, ${alpha("brand", 0.3)(t)} 16em)`,
+                ${alpha("bg", 0.3)(t)} 0em, ${alpha("bg", 0.9)(t)} 6em, ${alpha(
+                "bg",
+                0.3
+              )(t)} 16em)`,
             }}
             repeatParent
             repeatTypeLoop
