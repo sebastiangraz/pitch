@@ -11,24 +11,42 @@ import { chromeColors } from "../theme";
 
 export const slides = [
   {
-    notes: "Intro · Transforming Brand · Expectations",
+    notes: "Process · Expectations · Transforming Brand ",
     component: componentList.SlideIntro,
   },
-  { notes: "Skills slide notes", component: componentList.SlideSkills },
-  { notes: "Clients slide notes", component: componentList.SlideClients },
   {
-    notes: "CaseCapchase slide notes",
+    notes: "Hard skills · Design & Systems go together",
+    component: componentList.SlideSkills,
+  },
+  {
+    notes:
+      "Wide range of industries · Wide range of capacities · Helped me shape my branding skills",
+    component: componentList.SlideClients,
+  },
+  {
+    notes:
+      "Contacted me after recent rebrand · Large sums of capital had to look trustworthy · Reposition brand as business partner",
     component: componentList.SlideCaseCapchase,
   },
-  { notes: "CaseLoupe slide notes", component: componentList.SlideCaseLoupe },
   {
-    notes: "CasePrototypingGuide slide notes",
+    notes:
+      "Conference with design audience · Balance brand to attract diverse crowd · Highly creative for shareability",
+    component: componentList.SlideCaseLoupe,
+  },
+  {
+    notes:
+      "Design leaders excited about prototyping · Distributed via paid channels",
     component: componentList.SlideCasePrototypingGuide,
   },
-  { notes: "Process slide notes", component: componentList.SlideProcess },
-  { notes: "Ethos slide notes", component: componentList.SlideEthos },
+  { notes: "4 distinct divisions", component: componentList.SlideProcess },
   {
-    notes: "Exploration slide notes",
+    notes:
+      "fixed SOW arent set in stone · Working directly with product owners · Frequent and involved updated yield better results · Do first ask questions later, refine from feedback rather than perfect",
+    component: componentList.SlideEthos,
+  },
+  {
+    notes:
+      "Design ethos · Explorations that don't follow the path of least resistance · A naive mindset can see beyond restrictions · Designs that answer the brief rather than following current trends",
     component: componentList.SlideExploration,
   },
 ];

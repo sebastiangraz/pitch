@@ -7,7 +7,7 @@ import io from "socket.io-client";
 import { slides } from "./App";
 import { settings } from "../settings";
 import { scroll } from "../theme";
-import { shade } from "@theme-ui/color";
+import { shade, tint, saturate, alpha, transparentize } from "@theme-ui/color";
 import { vectors } from "../assets/vectors";
 
 const socket = io(
@@ -52,10 +52,11 @@ const Notes = () => {
   };
 
   return (
-    <Padding
+    <Box
       sx={{
         borderRadius: "30px",
         m: "5px",
+
         background:
           colorMode === "default" ? shade("bg", 0.1) : shade("bg", 0.6),
         height: "calc(100vh - 10px)",
@@ -65,87 +66,91 @@ const Notes = () => {
         ...scroll,
       }}
     >
-      <Box
-        sx={{
-          height: "100%",
-          display: "grid",
-          alignContent: "space-between",
-          alignItems: "flex-end",
-          gridTemplateRows: "auto 1fr auto",
-        }}
-      >
+      <Box sx={{ height: "100%" }}>
         <ul
           sx={{
-            mb: 7,
-            pl: 4,
-            ml: [4, 0],
+            m: 0,
+            p: 0,
             "li::marker": { content: `" · "` },
           }}
         >
           <Text
             m={0}
             sx={{
-              fontSize: ["28px", 6],
+              p: "32px",
+              fontSize: ["22px"],
               color: "text",
             }}
           >
-            {note.split("·").map((e) => {
-              return <li key={e}>{e}</li>;
+            {note.split("·").map((e, i) => {
+              return (
+                <li
+                  sx={{
+                    mb: 1,
+                    color: i % 2 ? transparentize("text", 0.5) : "text",
+                  }}
+                  key={e}
+                >
+                  {e}
+                </li>
+              );
             })}
           </Text>
         </ul>
-        <Flex>
-          <Button
-            mr={2}
+        <Box sx={{ position: "sticky", top: "100%", p: "32px" }}>
+          <Flex>
+            <Button
+              mr={2}
+              sx={{
+                ...buttonStyle(colorMode),
+                padding: 1,
+                justifySelf: "flex-start",
+                svg: {
+                  width: 2,
+                },
+              }}
+              onClick={handleModeChange}
+            >
+              {colorMode === "default" ? vectors.moon : vectors.sun}
+            </Button>
+            <Timer colorMode={colorMode} />
+          </Flex>
+          <Box
+            mt={"16px"}
             sx={{
-              ...buttonStyle(colorMode),
-              padding: 1,
-              justifySelf: "flex-start",
-              svg: {
-                width: 2,
-              },
-            }}
-            onClick={handleModeChange}
-          >
-            {colorMode === "default" ? vectors.moon : vectors.sun}
-          </Button>
-          <Timer colorMode={colorMode} />
-        </Flex>
-        <Box
-          mt={"32px"}
-          sx={{
-            pb: "32px",
-            gridTemplateColumns: "1fr auto 1fr",
-            alignItems: "center",
-            gap: 4,
-            display: "inline-grid",
-          }}
-        >
-          <Button
-            disabled={page === 0 ? true : false}
-            sx={buttonStyle(colorMode)}
-            onClick={previous}
-          >
-            Prev
-          </Button>
-          <Text
-            m={0}
-            sx={{
-              fontSize: "20px",
-              color: "text",
-              width: 4,
-              textAlign: "center",
+              width: "100%",
+              gridTemplateColumns: "1fr auto 1fr",
+              alignItems: "center",
+              gap: 4,
+              display: "inline-grid",
             }}
           >
-            {" "}
-            {page}
-          </Text>
-          <Button sx={buttonStyle(colorMode)} onClick={next}>
-            Next
-          </Button>
+            <Button
+              disabled={page === 0 ? true : false}
+              sx={buttonStyle(colorMode)}
+              onClick={previous}
+            >
+              Prev
+            </Button>
+            <Text
+              m={0}
+              sx={{
+                fontSize: "20px",
+                color: "text",
+                width: 4,
+                textAlign: "center",
+              }}
+            >
+              {" "}
+              {page}
+            </Text>
+            <Button sx={buttonStyle(colorMode)} onClick={next}>
+              Next
+            </Button>
+          </Box>
         </Box>
       </Box>
-    </Padding>
+    </Box>
   );
 };
 
