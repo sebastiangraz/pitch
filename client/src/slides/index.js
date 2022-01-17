@@ -7,3 +7,5 @@ export { SlideCasePrototypingGuide } from "../slides/SLIDE-casePrototypingGuide"
 export { SlideProcess } from "../slides/SLIDE-process";
 export { SlideEthos } from "../slides/SLIDE-ethos";
 export { SlideExploration } from "../slides/SLIDE-exploration";
+export { SlideOutput } from "../slides/SLIDE-output";
+export { SlidePricing } from "../slides/SLIDE-pricing";

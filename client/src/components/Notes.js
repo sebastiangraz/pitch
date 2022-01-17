@@ -59,7 +59,7 @@ const Notes = () => {
 
         background:
           colorMode === "default" ? shade("bg", 0.1) : shade("bg", 0.6),
-        height: "calc(100vh - 10px)",
+        height: "calc(100% - 10px)",
         width: "calc(100vw - 10px)",
         overflow: "auto",
         position: "absolute",
@@ -71,7 +71,13 @@ const Notes = () => {
           sx={{
             m: 0,
             p: 0,
-            "li::marker": { content: `" · "` },
+            position: "relative",
+            listStyle: "none",
+            "li::before": {
+              content: `" · "`,
+              position: "absolute",
+              marginLeft: "-14px",
+            },
           }}
         >
           <Text
