@@ -53,11 +53,13 @@ const Notes = () => {
   return (
     <Padding
       sx={{
+        borderRadius: "30px",
+        m: "5px",
         background:
           colorMode === "default" ? shade("bg", 0.1) : shade("bg", 0.6),
-        height: "100%",
+        height: "calc(100vh - 10px)",
+        width: "calc(100vw - 10px)",
         overflow: "auto",
-        width: "100%",
         position: "absolute",
       }}
     >
