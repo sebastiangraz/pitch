@@ -6,6 +6,7 @@ import { Timer } from "./Timer";
 import io from "socket.io-client";
 import { slides } from "./App";
 import { settings } from "../settings";
+import { scroll } from "../theme";
 import { shade } from "@theme-ui/color";
 import { vectors } from "../assets/vectors";
 
@@ -61,6 +62,7 @@ const Notes = () => {
         width: "calc(100vw - 10px)",
         overflow: "auto",
         position: "absolute",
+        ...scroll,
       }}
     >
       <Box
@@ -77,7 +79,7 @@ const Notes = () => {
             mb: 7,
             pl: 4,
             ml: [4, 0],
-            "::marker": { content: `" · "` },
+            "li::marker": { content: `" · "` },
           }}
         >
           <Text
@@ -112,7 +114,7 @@ const Notes = () => {
         <Box
           mt={"32px"}
           sx={{
-            pb: 4,
+            pb: "32px",
             gridTemplateColumns: "1fr auto 1fr",
             alignItems: "center",
             gap: 4,
