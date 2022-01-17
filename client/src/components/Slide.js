@@ -189,7 +189,7 @@ const Slide = React.memo(
             className="slideContent"
             style={{
               scale,
-              visibility: progress ? "hidden" : "visible",
+              display: progress ? "none" : "block",
               transformOrigin: "left",
               height: "56.25em",
               width: "100%",

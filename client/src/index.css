@@ -101,7 +101,7 @@ h3 {
     position: relative !important;
   }
   .slideContainer > * {
-    visibility: visible !important;
+    display: block !important;
   }
   .ghostSlide {
     display: none !important;

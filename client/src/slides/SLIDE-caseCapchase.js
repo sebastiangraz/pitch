@@ -14,9 +14,16 @@ import { useCaseWrapperContext } from "../components/Slide";
 import { useWindowSize } from "../components/hooks";
 import { keyframes } from "@emotion/react";
 
-const slide = keyframes`
+const slideMotion = keyframes`
     0%   {  transform: translateY(10em);  }
     100%   { transform: translateY(-80em); }
+    `;
+
+const slideOpacity = keyframes`
+    0%   {  opacity: 0;  }
+    10%   { opacity: 1; }
+    90%   { opacity: 1; }
+    100%   { opacity: 0; }
     `;
 
 export const SlideCaseCapchase = () => {
@@ -78,10 +85,10 @@ export const SlideCaseCapchase = () => {
         <Reveal>
           <motion.img
             sx={{
-              animationName: `${slide}`,
+              animationName: `${slideMotion}, ${slideOpacity}`,
               animationDuration: "20s",
               animationFillMode: "both",
-              animationDirection: "alternate",
+              animationDirection: "normal",
               animationIterationCount: "infinite",
               animationTimingFunction: "linear",
             }}
