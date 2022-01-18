@@ -21,8 +21,6 @@ export const Reveal = React.memo(
     ...rest
   }) => {
     const { parentValues } = useCaseWrapperContext();
-
-    console.log(parentValues.isPrinting);
     const delayVal = delay ? delay : 0.05;
     const effectVal = React.useMemo(
       () => (effect ? effect : [{ opacity: 0 }, { opacity: 1 }]),

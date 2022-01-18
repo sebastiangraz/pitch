@@ -17,6 +17,7 @@ import { Text, useThemeUI } from "theme-ui";
 import { Padding } from "./Padding";
 import { settings } from "../settings";
 import io from "socket.io-client";
+import { useDebounce } from "use-debounce";
 
 const socket = io(
   settings.isLocal
@@ -44,6 +45,7 @@ const Slide = React.memo(
     const [isPrinting, setIsPrinting] = React.useState(false);
     const { innerWidth, innerHeight } = window;
     const stagger = useResponsiveValue([8, 12, 16, 20]);
+    const [debouncedActiveSlide] = useDebounce(activeSlide, 600);
 
     const updatePos = (v) => {
       return transform(
@@ -134,10 +136,10 @@ const Slide = React.memo(
     };
 
     React.useEffect(() => {
-      window.addEventListener("beforeprint", (event) => {
+      window.addEventListener("beforeprint", () => {
         setIsPrinting(true);
       });
-      window.addEventListener("afterprint", (event) => {
+      window.addEventListener("afterprint", () => {
         setIsPrinting(false);
       });
     }, []);
@@ -150,8 +152,8 @@ const Slide = React.memo(
 
     React.useLayoutEffect(() => {
       const payload = { note: children.props.notes, pagenr: index };
-      activeSlide && socket.emit("message", JSON.stringify(payload));
-    }, [activeSlide, children.props.notes, index]);
+      debouncedActiveSlide && socket.emit("message", JSON.stringify(payload));
+    }, [debouncedActiveSlide, children.props.notes, index]);
 
     return (
       <CaseWrapperContext.Provider
