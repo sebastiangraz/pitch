@@ -85,6 +85,7 @@ export const Reveal = React.memo(
 
     return (
       <motion.div
+        whileInView="visible"
         key={parentValues?.isPrinting}
         {...rest}
         {...motionPrintChecker}
@@ -100,7 +101,6 @@ export const Reveal = React.memo(
                 ...childStyle,
               }}
               viewport={{ once: true }}
-              // whileInView="visible"
               key={i}
               custom={i}
               variants={childVariant}
