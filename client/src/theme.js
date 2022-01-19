@@ -135,8 +135,15 @@ export default {
   styles: {
     root: {
       ...scroll,
+      WebkitOverflowScrolling: "touch",
+      overscrollBehavior: "none",
+      scrollSnapType: "y proximity",
+      scrollSnapPointsY: "repeat(100vh)",
+      scrollBehavior: "smooth",
+
       overflowY: "auto",
       overflowX: "hidden",
+
       webkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
       fontFeatureSettings: `"liga", "dlig"`,

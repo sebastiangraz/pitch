@@ -29,14 +29,10 @@ export const buttonStyle = (colorMode) => {
 const Notes = () => {
   const [colorMode, setColorMode] = useColorMode("light");
   const [note, getNote] = React.useState(slides[0].notes);
+  const [counter, setCounter] = React.useState(0);
   const [page, getPage] = React.useState(0);
-  let [counter, setCounter] = React.useState(0);
 
-  let pageStore = page;
-
-  React.useEffect(() => {
-    setCounter(counter);
-  }, [counter]);
+  const pageStore = page;
 
   const home = () => {
     setCounter(0);
@@ -58,6 +54,7 @@ const Notes = () => {
     socket.on("emit", (v) => {
       getNote(v.note);
       getPage(v.pagenr);
+      setCounter(v.pagenr);
     });
   }, []);
 
