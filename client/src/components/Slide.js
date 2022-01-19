@@ -81,7 +81,7 @@ const Slide = React.memo(
     }, [innerHeight, position, scrollY]);
 
     const colorModeBgValue =
-      context.colorMode === "default"
+      context.colorMode === "light"
         ? [
             tint("bg", 0.7 + index * (30 / childCount) * 0.01)(theme),
             tint("bg", 0.1 + index * (90 / childCount) * 0.01)(theme),

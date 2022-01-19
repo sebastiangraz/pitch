@@ -23,12 +23,12 @@ const socket = io(
 export const buttonStyle = (colorMode) => {
   return {
     fontSize: "20px",
-    bg: colorMode === "default" ? shade("bg", 0.2) : shade("bg", 0.7),
+    bg: colorMode === "light" ? shade("bg", 0.2) : shade("bg", 0.7),
   };
 };
 
 const Notes = () => {
-  const [colorMode, setColorMode] = useColorMode();
+  const [colorMode, setColorMode] = useColorMode("light");
   const [note, getNote] = React.useState(slides[0].notes);
   const [page, getPage] = React.useState(0);
   const [counter, setCounter] = React.useState(page);
@@ -63,7 +63,7 @@ const Notes = () => {
   }, []);
 
   const handleModeChange = () => {
-    setColorMode(colorMode === "default" ? "dark" : "default");
+    setColorMode(colorMode === "light" ? "dark" : "light");
     socket.emit("mode", colorMode);
   };
 
@@ -73,8 +73,7 @@ const Notes = () => {
         borderRadius: "30px",
         m: "5px",
 
-        background:
-          colorMode === "default" ? shade("bg", 0.1) : shade("bg", 0.6),
+        background: colorMode === "light" ? shade("bg", 0.1) : shade("bg", 0.6),
         height: "calc(100% - 10px)",
         width: "calc(100vw - 10px)",
         overflow: "auto",
@@ -133,7 +132,7 @@ const Notes = () => {
               }}
               onClick={handleModeChange}
             >
-              {colorMode === "default" ? vectors.moon : vectors.sun}
+              {colorMode === "light" ? vectors.moon : vectors.sun}
             </Button>
             <Timer colorMode={colorMode} />
           </Flex>

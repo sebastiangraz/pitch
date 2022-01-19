@@ -94,10 +94,8 @@ export default {
     },
   },
   fontSizes: space,
-  config: {
-    printColorModeName: "default",
-    initialColorModeName: "default",
-  },
+  useColorSchemeMediaQuery: false,
+  initialColorModeName: "light",
   colors: {
     text: "#000000",
     bg: settings.tint,
