@@ -50,7 +50,6 @@ const Slides = React.memo(({ children }) => {
       window.removeEventListener("keydown", handle);
     };
   }, [windowSize.height]);
-
   return (
     <div ref={ref}>
       {React.Children.map(children || null, (child, i) => {

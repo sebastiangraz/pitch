@@ -8,8 +8,8 @@ export const vectors = {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M25.9778 16.7059C25.1833 16.8982 24.3536 17 23.5 17C17.701 17 13 12.299 13 6.5C13 4.47689 13.5722 2.58742 14.5635 0.984581C14.0912 0.933098 13.6113 0.906677 13.1252 0.906677C5.87636 0.906677 0 6.78304 0 14.0319C0 21.2808 5.87636 27.1571 13.1252 27.1571C19.4578 27.1571 24.7429 22.6725 25.9778 16.7059Z"
         fill="currentColor"
       />
@@ -24,8 +24,8 @@ export const vectors = {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M24 14C24 19.5228 19.5228 24 14 24C8.47715 24 4 19.5228 4 14C4 8.47715 8.47715 4 14 4C19.5228 4 24 8.47715 24 14ZM28 14C28 21.732 21.732 28 14 28C6.26801 28 0 21.732 0 14C0 6.26801 6.26801 0 14 0C21.732 0 28 6.26801 28 14ZM14 20C17.3137 20 20 17.3137 20 14C20 10.6863 17.3137 8 14 8C10.6863 8 8 10.6863 8 14C8 17.3137 10.6863 20 14 20Z"
         fill="currentColor"
       />
@@ -34,8 +34,8 @@ export const vectors = {
   x: (
     <svg viewBox="0 0 215 215" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M49.4975 0L0 49.4975L57.9828 107.48L0 165.463L49.4975 214.961L107.48 156.978L165.463 214.96L214.96 165.463L156.978 107.48L214.96 49.4975L165.463 3.73125e-05L107.48 57.9828L49.4975 0ZM107.48 57.9828L57.9828 107.48L107.48 156.978L156.978 107.48L107.48 57.9828Z"
         fill="currentColor"
       />

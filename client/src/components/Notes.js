@@ -9,6 +9,7 @@ import { settings } from "../settings";
 import { scroll } from "../theme";
 import { shade, transparentize } from "@theme-ui/color";
 import { vectors } from "../assets/vectors";
+import { useDebounce } from "use-debounce";
 
 const socket = io(
   settings.isLocal
@@ -30,21 +31,36 @@ const Notes = () => {
   const [colorMode, setColorMode] = useColorMode();
   const [note, getNote] = React.useState(slides[0].notes);
   const [page, getPage] = React.useState(0);
+  const [counter, setCounter] = React.useState(page);
+  const [debouncedCounter] = useDebounce(counter, 100);
+
+  React.useEffect(() => {
+    console.log(debouncedCounter);
+  }, [debouncedCounter]);
+
+  const home = () => {
+    setCounter(0);
+  };
+
+  const next = () => {
+    setCounter(counter + 1);
+  };
+
+  const previous = () => {
+    setCounter(counter - 1);
+  };
+
+  React.useEffect(() => {
+    socket.emit("slide", { direction: counter });
+  }, [counter]);
 
   React.useEffect(() => {
     socket.on("emit", (v) => {
       getNote(v.note);
       getPage(v.pagenr);
+      setCounter(v.pagenr);
     });
   }, []);
-
-  const next = () => {
-    return socket.emit("slide", { direction: true });
-  };
-
-  const previous = () => {
-    return socket.emit("slide", { direction: false });
-  };
 
   const handleModeChange = () => {
     setColorMode(colorMode === "default" ? "dark" : "default");
@@ -125,14 +141,28 @@ const Notes = () => {
             mt={"16px"}
             sx={{
               width: "100%",
-              gridTemplateColumns: "1fr auto 1fr",
+              gridTemplateColumns: "auto 1fr auto 1fr",
               alignItems: "center",
               gap: 4,
               display: "inline-grid",
             }}
           >
             <Button
-              disabled={page === 0 ? true : false}
+              sx={{
+                ...buttonStyle(colorMode),
+                padding: 1,
+                justifySelf: "flex-start",
+                svg: {
+                  width: 2,
+                },
+              }}
+              onClick={home}
+            >
+              {vectors.x}
+            </Button>
+
+            <Button
+              disabled={counter === 0 ? true : false}
               sx={buttonStyle(colorMode)}
               onClick={previous}
             >
@@ -147,8 +177,7 @@ const Notes = () => {
                 textAlign: "center",
               }}
             >
-              {" "}
-              {page}
+              {counter}
             </Text>
             <Button sx={buttonStyle(colorMode)} onClick={next}>
               Next

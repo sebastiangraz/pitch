@@ -45,7 +45,7 @@ const Slide = React.memo(
     const [isPrinting, setIsPrinting] = React.useState(false);
     const { innerWidth, innerHeight } = window;
     const stagger = useResponsiveValue([8, 12, 16, 20]);
-    const [debouncedActiveSlide] = useDebounce(activeSlide, 600);
+    const [debouncedActiveSlide] = useDebounce(activeSlide, 1000);
 
     const updatePos = (v) => {
       return transform(
@@ -113,22 +113,18 @@ const Slide = React.memo(
       );
     };
 
-    const scale = useTransform(scrollY, (v) => updateScale(v), {
-      damping: 12,
-      mass: 0.1,
-    });
+    const motionSettings = {
+      damping: 16,
+      mass: 0.5,
+    };
 
-    const bg = useTransform(scrollY, (v) => updateBg(v), {
-      damping: 12,
-      mass: 0.1,
-    });
+    const scale = useTransform(scrollY, (v) => updateScale(v));
+
+    const bg = useTransform(scrollY, (v) => updateBg(v));
 
     const y = useSpring(
       useTransform(scrollY, (v) => updatePos(v)),
-      {
-        damping: 12,
-        mass: 0.1,
-      }
+      motionSettings
     );
 
     const scrollTo = () => {
@@ -144,16 +140,17 @@ const Slide = React.memo(
       });
     }, []);
 
-    React.useEffect(() => {
-      socket.on("updateSlide", (e) => {
-        window.scrollBy(0, e.direction ? innerHeight : -innerHeight);
-      });
-    }, [innerHeight]);
-
     React.useLayoutEffect(() => {
       const payload = { note: children.props.notes, pagenr: index };
       debouncedActiveSlide && socket.emit("message", JSON.stringify(payload));
     }, [debouncedActiveSlide, children.props.notes, index]);
+
+    React.useEffect(() => {
+      socket.on("updateSlide", (e) => {
+        console.log(e);
+        window.scrollTo(0, e.direction * innerHeight);
+      });
+    }, [innerHeight]);
 
     return (
       <CaseWrapperContext.Provider
