@@ -10,7 +10,7 @@ import { scroll } from "../theme";
 import { shade, transparentize } from "@theme-ui/color";
 import { vectors } from "../assets/vectors";
 import { useDebounce } from "use-debounce";
-
+import { Logo } from "./Logo";
 const socket = io(
   settings.isLocal
     ? "ws://localhost:8080"
@@ -158,7 +158,31 @@ const Notes = () => {
               }}
               onClick={home}
             >
-              {vectors.x}
+              <Logo
+                component={
+                  <h1
+                    className="logo"
+                    sx={{
+                      // hax iOS14 clips variable fonts
+                      minWidth: 1,
+                      // endhax
+                      display: "inline-block",
+                      fontFamily: "G",
+                      fontVariationSettings: `"wght" 45`,
+                      fontSize: "3em",
+                      textAlign: "center",
+                      lineHeight: 1,
+                      userSelect: "none",
+                      textRendering: "optimizeLegibility",
+                      fontWeight: "normal",
+                      margin: 0,
+                      letterSpacing: 0,
+                    }}
+                  >
+                    G
+                  </h1>
+                }
+              />
             </Button>
 
             <Button
