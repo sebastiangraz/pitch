@@ -45,7 +45,7 @@ const Slide = React.memo(
     const [isPrinting, setIsPrinting] = React.useState(false);
     const { innerWidth, innerHeight } = window;
     const stagger = useResponsiveValue([8, 12, 16, 20]);
-    const [debouncedActiveSlide] = useDebounce(activeSlide, 1000);
+    const [debouncedActiveSlide] = useDebounce(activeSlide, 300);
 
     const updatePos = (v) => {
       return transform(
@@ -147,7 +147,6 @@ const Slide = React.memo(
 
     React.useEffect(() => {
       socket.on("updateSlide", (e) => {
-        console.log(e);
         window.scrollTo(0, e.direction * innerHeight);
       });
     }, [innerHeight]);

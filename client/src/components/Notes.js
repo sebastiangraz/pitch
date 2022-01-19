@@ -9,7 +9,6 @@ import { settings } from "../settings";
 import { scroll } from "../theme";
 import { shade, transparentize } from "@theme-ui/color";
 import { vectors } from "../assets/vectors";
-import { useDebounce } from "use-debounce";
 import { Logo } from "./Logo";
 const socket = io(
   settings.isLocal
@@ -31,23 +30,24 @@ const Notes = () => {
   const [colorMode, setColorMode] = useColorMode("light");
   const [note, getNote] = React.useState(slides[0].notes);
   const [page, getPage] = React.useState(0);
-  const [counter, setCounter] = React.useState(page);
-  const [debouncedCounter] = useDebounce(counter, 100);
+  let [counter, setCounter] = React.useState(0);
+
+  let pageStore = page;
 
   React.useEffect(() => {
-    console.log(debouncedCounter);
-  }, [debouncedCounter]);
+    setCounter(counter);
+  }, [counter]);
 
   const home = () => {
     setCounter(0);
   };
 
   const next = () => {
-    setCounter(counter + 1);
+    setCounter(pageStore + 1);
   };
 
   const previous = () => {
-    setCounter(counter - 1);
+    setCounter(pageStore - 1);
   };
 
   React.useEffect(() => {
@@ -58,7 +58,6 @@ const Notes = () => {
     socket.on("emit", (v) => {
       getNote(v.note);
       getPage(v.pagenr);
-      setCounter(v.pagenr);
     });
   }, []);
 
@@ -185,7 +184,7 @@ const Notes = () => {
             </Button>
 
             <Button
-              disabled={counter === 0 ? true : false}
+              disabled={page <= 0 ? true : false}
               sx={buttonStyle(colorMode)}
               onClick={previous}
             >
@@ -200,7 +199,7 @@ const Notes = () => {
                 textAlign: "center",
               }}
             >
-              {counter}
+              {page}
             </Text>
             <Button sx={buttonStyle(colorMode)} onClick={next}>
               Next

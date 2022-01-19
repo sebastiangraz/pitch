@@ -76,13 +76,13 @@ const socket = io(
 );
 
 const ShowSlides = () => {
-  const [colorMode, setColorMode] = useColorMode();
+  const [, setColorMode] = useColorMode();
   React.useEffect(() => {
     socket.on("updateMode", (e) => {
       setColorMode(e === "light" ? "dark" : "light");
     });
   }, [setColorMode]);
-  console.log(colorMode);
+
   return (
     <>
       <Slides>
