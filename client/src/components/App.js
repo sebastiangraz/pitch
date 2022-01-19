@@ -97,7 +97,9 @@ const ShowSlides = () => {
             style={{
               height: "100vh",
               width: "100vw",
-              scrollSnapAlign: "start",
+            }}
+            sx={{
+              scrollSnapAlign: ["none", "start"],
             }}
             className="ghostSlide"
             key={i}

@@ -137,9 +137,8 @@ export default {
       ...scroll,
       WebkitOverflowScrolling: "touch",
       overscrollBehavior: "none",
-      scrollSnapType: "y proximity",
-      scrollSnapPointsY: "repeat(100vh)",
-      scrollBehavior: "smooth",
+      scrollSnapType: ["none", "y proximity"],
+      scrollBehavior: ["auto", "smooth"],
 
       overflowY: "auto",
       overflowX: "hidden",

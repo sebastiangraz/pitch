@@ -45,7 +45,8 @@ const Slide = React.memo(
     const [isPrinting, setIsPrinting] = React.useState(false);
     const { innerWidth, innerHeight } = window;
     const stagger = useResponsiveValue([8, 12, 16, 20]);
-    const [debouncedActiveSlide] = useDebounce(activeSlide, 300);
+    const horizontal = useResponsiveValue([false, settings.horizontal]);
+    const [debouncedActiveSlide] = useDebounce(activeSlide, 500);
 
     const updatePos = (v) => {
       return transform(
@@ -53,7 +54,7 @@ const Slide = React.memo(
         [0, innerHeight],
         [
           0,
-          settings.horizontal
+          horizontal
             ? -innerWidth + index * stagger + 5
             : -innerHeight + index * stagger + 5,
         ]
@@ -118,9 +119,9 @@ const Slide = React.memo(
       mass: 0.5,
     };
 
-    const scale = useTransform(scrollY, (v) => updateScale(v));
-
+    const scaleVal = useTransform(scrollY, (v) => updateScale(v));
     const bg = useTransform(scrollY, (v) => updateBg(v));
+    const scale = useResponsiveValue([null, scaleVal]);
 
     const y = useSpring(
       useTransform(scrollY, (v) => updatePos(v)),
@@ -146,6 +147,9 @@ const Slide = React.memo(
     }, [debouncedActiveSlide, children.props.notes, index]);
 
     React.useEffect(() => {
+      socket.on("goHome", (e) => {
+        window.scrollTo(0, e);
+      });
       socket.on("updateSlide", (e) => {
         window.scrollTo(0, e.direction * innerHeight);
       });
@@ -166,7 +170,7 @@ const Slide = React.memo(
             display: "flex",
             alignItems: "start",
             backgroundColor: bg,
-            ...(settings.horizontal
+            ...(horizontal
               ? {
                   width: `calc(100vw - ${index * stagger + 10}px)`,
                   height: `calc(100vh - 10px)`,
@@ -198,7 +202,7 @@ const Slide = React.memo(
               <div
                 sx={{
                   top: `calc(100vh - 14em - ${
-                    settings.horizontal ? 0 : index * stagger + 10
+                    horizontal ? 0 : index * stagger + 10
                   }px)`,
                   width: "100%",
                   height: "14em",

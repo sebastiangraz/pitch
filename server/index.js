@@ -26,6 +26,9 @@ io.on("connection", (socket) => {
   socket.on("slide", function (msg) {
     io.sockets.emit("updateSlide", msg);
   });
+  socket.on("home", function (msg) {
+    io.sockets.emit("goHome", msg);
+  });
   socket.on("mode", function (msg) {
     io.sockets.emit("updateMode", msg);
   });
