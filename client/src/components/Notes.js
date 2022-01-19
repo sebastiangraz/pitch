@@ -34,10 +34,6 @@ const Notes = () => {
 
   let pageStore = page;
 
-  const home = () => {
-    socket.emit("home", 0);
-  };
-
   const next = () => {
     setCounter(pageStore + 1);
   };
@@ -56,6 +52,11 @@ const Notes = () => {
       getPage(v.pagenr);
     });
   }, []);
+
+  const home = () => {
+    setCounter(0);
+    socket.emit("home", 0);
+  };
 
   const handleModeChange = () => {
     setColorMode(colorMode === "light" ? "dark" : "light");

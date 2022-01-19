@@ -148,6 +148,7 @@ const Slide = React.memo(
 
     React.useEffect(() => {
       socket.on("goHome", (e) => {
+        console.log(e);
         window.scrollTo(0, e);
       });
       socket.on("updateSlide", (e) => {
