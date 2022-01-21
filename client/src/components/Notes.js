@@ -7,7 +7,7 @@ import io from "socket.io-client";
 import { slides } from "./App";
 import { settings } from "../settings";
 import { scroll } from "../theme";
-import { shade, transparentize } from "@theme-ui/color";
+import { shade, transparentize, alpha } from "@theme-ui/color";
 import { vectors } from "../assets/vectors";
 import { Logo } from "./Logo";
 const socket = io(
@@ -77,9 +77,10 @@ const Notes = () => {
         ...scroll,
       }}
     >
-      <Box sx={{ height: "100%" }}>
+      <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
         <ul
           sx={{
+            height: "100%",
             m: 0,
             p: 0,
             position: "relative",
@@ -114,7 +115,20 @@ const Notes = () => {
             })}
           </Text>
         </ul>
-        <Box sx={{ position: "sticky", top: "100%", p: "32px" }}>
+        <Box
+          sx={{
+            position: "sticky",
+            bottom: "0px",
+            p: "32px",
+            backgroundImage: (t) => `
+              linear-gradient(
+                to bottom,
+                ${alpha("bg", 0)(t)},
+                ${alpha("bg", 0.99)(t)} 40%
+              )
+            `,
+          }}
+        >
           <Flex>
             <Button
               mr={2}
