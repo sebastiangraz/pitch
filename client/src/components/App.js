@@ -12,7 +12,7 @@ import { chromeColors } from "../theme";
 export const slides = [
   {
     notes:
-      "I've got a 10 slide presentation explaining briefly what I do, and what to expect if you were to collaborate together with me · I run a one man shop for all things branding · I help companies transform their brands into becoming more memorable, unique and at the end of the day; steer the brand towards a common business goal. ",
+      "I've got a 10 slide presentation explaining briefly what I do, and what to expect if you were to collaborate together with me · I run a one man shop for all things branding, with emphasis on web · I help companies transform their brands into becoming more memorable, unique and at the end of the day; steer the brand towards a common business goal.",
     component: componentList.SlideIntro,
   },
   {
