@@ -120,13 +120,8 @@ const Notes = () => {
             position: "sticky",
             bottom: "0px",
             p: "32px",
-            backgroundImage: (t) => `
-              linear-gradient(
-                to bottom,
-                ${alpha("bg", 0)(t)},
-                ${alpha("bg", 0.99)(t)} 40%
-              )
-            `,
+            background:
+              colorMode === "light" ? shade("bg", 0.1) : shade("bg", 0.6),
           }}
         >
           <Flex>
