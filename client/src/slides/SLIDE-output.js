@@ -31,7 +31,11 @@ export const SlideOutput = () => {
               justifyContent: "space-between",
             }}
           >
-            <Text variant="heading">Output</Text>
+            <Text variant="heading">
+              Final
+              <br />
+              Output
+            </Text>
             <Reveal
               sx={{ mt: 5, "& > * span": { m: 1 } }}
               delay={1.5}

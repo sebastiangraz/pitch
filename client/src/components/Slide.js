@@ -216,9 +216,10 @@ const Slide = React.memo(
                     justifyContent: "space-between",
                   }}
                 >
-                  <Text sx={{ fontSize: 2 }}>0{index}</Text>
+                  <Text sx={{ fontSize: 2 }}>{children.props.title}</Text>
                   <Text sx={{ fontSize: 2, mr: "0.5em" }}>
-                    Brand Design · 2022
+                    {index < 10 && "0"}
+                    {index}
                   </Text>
                 </Padding>
               </div>

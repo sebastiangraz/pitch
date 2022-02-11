@@ -34,9 +34,9 @@ export const SlideEthos = () => {
             <span> collaboration</span>
           </Text>
           <Text mt={1} variant="heading">
-            <span>done </span>
-            <span sx={svgStyle}>{vectors.arrowR}</span>
             <span> perfect </span>
+            <span sx={svgStyle}>{vectors.arrowR}</span>
+            <span>done </span>
           </Text>
         </Reveal>
       </Padding>
