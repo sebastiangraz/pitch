@@ -7,7 +7,7 @@ import io from "socket.io-client";
 import { slides } from "./App";
 import { settings } from "../settings";
 import { scroll } from "../theme";
-import { shade, transparentize, alpha } from "@theme-ui/color";
+import { shade, transparentize } from "@theme-ui/color";
 import { vectors } from "../assets/vectors";
 import { Logo } from "./Logo";
 const socket = io(
