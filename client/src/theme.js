@@ -49,6 +49,11 @@ export const scroll = {
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
+  config: {
+    initialColorModeName: "light",
+    printColorModeName: "light",
+    useColorSchemeMediaQuery: false,
+  },
   space: space,
   sizes: space,
   fonts: {
@@ -94,8 +99,6 @@ export default {
     },
   },
   fontSizes: space,
-  useColorSchemeMediaQuery: false,
-  initialColorModeName: "light",
   colors: {
     text: "#000000",
     bg: settings.tint,
