@@ -171,6 +171,7 @@ const Slide = React.memo(
             display: "flex",
             alignItems: "start",
             backgroundColor: bg,
+            transition: "background 1s ease",
             ...(horizontal
               ? {
                   width: `calc(100vw - ${index * stagger + 10}px)`,

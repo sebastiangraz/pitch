@@ -8,23 +8,26 @@ import { mix } from "@theme-ui/color";
 import React from "react";
 
 const skills = [
-  "Branding",
-  "Design Systems",
-  "Art Direction",
-  "Prototyping",
-  "Frontend",
-  "UX",
-  "Design Ops",
-  "Typefaces",
-  "Animation",
-  "3D",
-  "Icons",
-  "Print",
-  "Photography",
+  { name: "Branding" },
+  { name: "Design Systems" },
+  { name: "Art Direction" },
+  { name: "Prototyping", format: "mp4" },
+  { name: "Frontend" },
+  { name: "UX" },
+  { name: "Design Ops" },
+  { name: "Typefaces" },
+  { name: "Animation", format: "mp4" },
+  { name: "3D" },
+  { name: "Icons" },
+  { name: "Print" },
+  { name: "Photography" },
 ];
 
 export const SlideSkills = () => {
-  const [image, setImage] = React.useState();
+  const ext = (e) => (e !== undefined ? e.substr(e.lastIndexOf(".") + 1) : "");
+  const [asset, setAsset] = React.useState();
+  const isFormat = ext(asset);
+
   return (
     <Padding constrain>
       <Reveal
@@ -33,13 +36,11 @@ export const SlideSkills = () => {
           position: "relative",
           zIndex: 1000,
           "&:hover *:not(:hover)": {
-            color: "rgba(0,0,0,0)",
+            color: "rgba(0,0,0,0.06)",
             cursor: "pointer",
           },
           "& > *": {
             display: "inline-block",
-            mr: 2,
-            mb: 1,
           },
         }}
       >
@@ -48,18 +49,20 @@ export const SlideSkills = () => {
             <>
               <Text
                 onMouseEnter={() => {
-                  const fileName = e.toLowerCase().split(" ").join("-");
-                  const requireFile = require(`../assets/skills/${fileName}.png`);
-                  setImage(requireFile);
+                  const fileName = e.name.toLowerCase().split(" ").join("-");
+                  const format = e.format ? e.format : "png";
+                  const requireFile = require(`../assets/skills/${fileName}.${format}`);
+                  setAsset(requireFile);
                 }}
                 onMouseLeave={() => {
-                  setImage("");
+                  setAsset("");
                 }}
                 key={e}
                 sx={{
+                  pr: 1,
                   transition: "ease color 0.2s",
                   "&:hover": {
-                    color: "#fff",
+                    color: "#000",
                     cursor: "pointer",
                     position: "relative",
                     zIndex: 1000,
@@ -74,27 +77,51 @@ export const SlideSkills = () => {
                 }}
                 variant="heading"
               >
-                {e} ·{" "}
+                {e.name} ·{" "}
               </Text>
             </>
           );
         })}
       </Reveal>
-      {image && (
-        <img
-          sx={{
-            pointerEvents: "none",
-            position: "absolute",
-            top: "2em",
-            left: "2em",
-            width: "calc(100% - 4em)",
-            height: "calc(100% - 4em)",
-            objectFit: "contain",
-          }}
-          src={image}
-          alt={image}
-        />
-      )}
+      <div
+        sx={{
+          pointerEvents: "none",
+          position: "absolute",
+          top: "2em",
+          left: "2em",
+          width: "calc(100% - 4em)",
+          height: "calc(100% - 4em)",
+          objectFit: "contain",
+          objectPosition: "top left",
+        }}
+      >
+        {isFormat === "mp4" ? (
+          <video
+            src={asset}
+            sx={{
+              borderRadius: "30px",
+              overflow: "hidden",
+              height: "100%",
+              margin: "0 auto",
+            }}
+            autoPlay
+            muted
+            loop
+          />
+        ) : (
+          asset && (
+            <img
+              sx={{
+                borderRadius: 2,
+                height: "100%",
+                overflow: "hidden",
+              }}
+              src={asset}
+              alt={asset}
+            />
+          )
+        )}
+      </div>
     </Padding>
   );
 };
