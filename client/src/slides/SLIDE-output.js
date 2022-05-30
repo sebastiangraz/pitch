@@ -35,18 +35,20 @@ export const SlideOutput = () => {
               Final
               <br />
               Output
+              <br />
+              Examples
             </Text>
             <Reveal
               sx={{ mt: 5, "& > * span": { m: 1 } }}
               delay={1.5}
               childDelay={1.4}
             >
-              <Text>figma design system</Text>
-              <Text>brand guidelines</Text>
-              <Text>color & asset generators</Text>
-              <Text>evergreen assets</Text>
-              <Text>development handoff</Text>
-              <Text>brand documentation</Text>
+              <Text>Figma design system</Text>
+              <Text>Brand guidelines</Text>
+              <Text>Color & asset generators</Text>
+              <Text>Evergreen assets</Text>
+              <Text>Development handoff</Text>
+              <Text>Brand documentation</Text>
             </Reveal>
           </Box>
         </Reveal>

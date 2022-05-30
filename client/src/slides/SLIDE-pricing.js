@@ -34,6 +34,10 @@ export const SlidePricing = () => {
               <span sx={svgStyle}>{vectors.time} </span>
               <span>hourly</span>
             </Text>
+            <Text mt={1} variant="heading">
+              <span sx={svgStyle}>{vectors.dotArray} </span>
+              <span>retainer</span>
+            </Text>
           </Box>
         </Reveal>
       </Padding>

@@ -96,18 +96,20 @@ export const SlideSkills = () => {
         }}
       >
         {isFormat === "mp4" ? (
-          <video
-            src={asset}
-            sx={{
-              borderRadius: "30px",
-              overflow: "hidden",
-              height: "100%",
-              margin: "0 auto",
-            }}
-            autoPlay
-            muted
-            loop
-          />
+          <Reveal>
+            <video
+              src={asset}
+              sx={{
+                borderRadius: "30px",
+                overflow: "hidden",
+                height: "100%",
+                margin: "0 auto",
+              }}
+              autoPlay
+              muted
+              loop
+            />
+          </Reveal>
         ) : (
           asset && (
             <img
