@@ -10,6 +10,7 @@ import { scroll } from "../theme";
 import { shade, transparentize } from "@theme-ui/color";
 import { vectors } from "../assets/vectors";
 import { Logo } from "./Logo";
+
 const socket = io(
   settings.isLocal
     ? "ws://localhost:8080"
@@ -30,6 +31,7 @@ const Notes = () => {
   const [colorMode, setColorMode] = useColorMode("light");
   const [note, getNote] = React.useState(slides[0].notes);
   const [page, getPage] = React.useState(0);
+  const [room, setRoom] = React.useState("");
   const [counter, setCounter] = React.useState(0);
 
   let pageStore = page;
@@ -42,9 +44,22 @@ const Notes = () => {
     setCounter(pageStore - 1);
   };
 
+  const joinRoom = () => {
+    if (room !== "") {
+      socket.emit("join_room", room);
+    }
+  };
+
+  // React.useEffect(() => {
+  //   socket.emit("join_room", (room) => {
+  //     console.log("useEff room", room);
+  //     setRoomNumber(room);
+  //   });
+  // }, []);
+
   React.useEffect(() => {
-    socket.emit("slide", { direction: counter });
-  }, [counter]);
+    socket.emit("slide", { direction: counter, room });
+  }, [counter, room]);
 
   React.useEffect(() => {
     socket.on("emit", (v) => {
@@ -124,9 +139,8 @@ const Notes = () => {
               colorMode === "light" ? shade("bg", 0.1) : shade("bg", 0.6),
           }}
         >
-          <Flex>
+          <Flex sx={{ flexWrap: "wrap", gap: "1rem" }}>
             <Button
-              mr={2}
               sx={{
                 ...buttonStyle(colorMode),
                 padding: 1,
@@ -140,6 +154,25 @@ const Notes = () => {
               {colorMode === "light" ? vectors.moon : vectors.sun}
             </Button>
             <Timer colorMode={colorMode} />
+            <span
+              sx={{
+                ...buttonStyle(colorMode),
+                display: "flex",
+                alignItems: "center",
+                borderRadius: "99em",
+                padding: "0em 1em",
+                minHeight: "40px",
+              }}
+            >
+              <input
+                sx={{ all: "unset", width: "100%" }}
+                placeholder="Room"
+                onChange={(event) => {
+                  setRoom(event.target.value);
+                }}
+              />
+              <span onClick={joinRoom}>Join</span>
+            </span>
           </Flex>
           <Box
             mt={"16px"}

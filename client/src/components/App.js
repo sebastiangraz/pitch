@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import React from "react";
-import { useColorMode } from "theme-ui";
+import { useColorMode, Button } from "theme-ui";
 import * as componentList from "../slides";
 import Slides from "./Slides";
 import io from "socket.io-client";
@@ -8,6 +8,7 @@ import { settings } from "../settings";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Notes from "./Notes";
 import { chromeColors } from "../theme";
+import { motion } from "framer-motion";
 
 export const slides = [
   {
@@ -87,23 +88,103 @@ const socket = io(
     transports: ["websocket"],
   }
 );
+const queryParams = new URLSearchParams(window.location.search);
 
 const ShowSlides = () => {
   const [, setColorMode] = useColorMode();
+  const [room, setRoom] = React.useState("");
+
   React.useEffect(() => {
     socket.on("updateMode", (e) => {
       setColorMode(e === "light" ? "dark" : "light");
     });
   }, [setColorMode]);
 
+  React.useEffect(() => {
+    setRoom(queryParams.get("room"));
+  }, []);
+
+  const joinRoom = () => {
+    if (room !== "") {
+      socket.emit("join_room", room);
+      queryParams.set("room", room);
+      window.location.search = queryParams;
+    }
+  };
+
   return (
     <>
+      <div
+        sx={{
+          position: "fixed",
+          zIndex: 10,
+          top: 0,
+          left: 0,
+          width: "100%",
+        }}
+      >
+        <motion.div
+          sx={{
+            width: "calc(100% - 15px)",
+            left: "10px",
+            top: "10px",
+            height: "100px",
+            position: "absolute",
+            display: "flex",
+            alignItems: "start",
+            gap: "5px",
+            flexDirection: "row",
+          }}
+          drag="y"
+          dragConstraints={{
+            top: -90,
+            bottom: 0,
+          }}
+          dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+          dragElastic={0.5}
+          whileTap={{ cursor: "grabbing" }}
+        >
+          <input
+            onChange={(event) => {
+              setRoom(event.target.value);
+            }}
+            sx={{
+              all: "unset",
+              flex: 1,
+              height: "80px",
+              boxSizing: "border-box",
+              fontSize: "20px",
+              borderRadius: "27.5px",
+              padding: "0.5rem 1rem",
+              color: "bg",
+              bg: isSafari
+                ? chromeColors.safari.dark
+                : chromeColors.chrome.dark,
+            }}
+            placeholder="Room"
+          />
+          <Button
+            sx={{
+              flex: 0.2,
+              height: "80px",
+              borderRadius: "27.5px",
+              fontSize: "20px",
+            }}
+            onClick={joinRoom}
+          >
+            Join
+          </Button>
+        </motion.div>
+      </div>
       <Slides>
         {Object.entries(slides).map(([i, v]) => {
           const Slide = v.component;
-          return <Slide key={i} notes={v.notes} title={v.title} />;
+          return (
+            <Slide params={room} key={i} notes={v.notes} title={v.title} />
+          );
         })}
       </Slides>
+
       {Object.entries(slides).map(([i]) => {
         return (
           <div

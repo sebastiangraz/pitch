@@ -142,9 +142,26 @@ const Slide = React.memo(
     }, []);
 
     React.useLayoutEffect(() => {
-      const payload = { note: children.props.notes, pagenr: index };
-      debouncedActiveSlide && socket.emit("message", JSON.stringify(payload));
-    }, [debouncedActiveSlide, children.props.notes, index]);
+      const payload = {
+        note: children.props.notes,
+        pagenr: index,
+        room: children.props.params,
+      };
+      debouncedActiveSlide &&
+        socket.emit("message", {
+          payload: JSON.stringify(payload),
+          room: children.props.params,
+        });
+    }, [
+      debouncedActiveSlide,
+      children.props.notes,
+      index,
+      children.props.params,
+    ]);
+
+    React.useEffect(() => {
+      socket.emit("join_room", children.props.params);
+    }, [children.props.params]);
 
     React.useEffect(() => {
       socket.on("goHome", (e) => {
@@ -222,6 +239,7 @@ const Slide = React.memo(
                     {index < 10 && "0"}
                     {index}
                   </Text>
+                  {`${children.props.params}`}
                 </Padding>
               </div>
             )}

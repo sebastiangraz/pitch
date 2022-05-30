@@ -46,40 +46,38 @@ export const SlideSkills = () => {
       >
         {skills.map((e, i) => {
           return (
-            <>
-              <Text
-                onMouseEnter={() => {
-                  const fileName = e.name.toLowerCase().split(" ").join("-");
-                  const format = e.format ? e.format : "png";
-                  const requireFile = require(`../assets/skills/${fileName}.${format}`);
-                  setAsset(requireFile);
-                }}
-                onMouseLeave={() => {
-                  setAsset("");
-                }}
-                key={e}
-                sx={{
-                  pr: 1,
-                  transition: "ease color 0.2s",
-                  "&:hover": {
-                    color: "#000",
-                    cursor: "pointer",
-                    position: "relative",
-                    zIndex: 1000,
-                  },
-                  color: (t) => `
+            <Text
+              onMouseEnter={() => {
+                const fileName = e.name.toLowerCase().split(" ").join("-");
+                const format = e.format ? e.format : "png";
+                const requireFile = require(`../assets/skills/${fileName}.${format}`);
+                setAsset(requireFile);
+              }}
+              onMouseLeave={() => {
+                setAsset("");
+              }}
+              key={e + i}
+              sx={{
+                pr: 1,
+                transition: "ease color 0.2s",
+                "&:hover": {
+                  color: "#000",
+                  cursor: "pointer",
+                  position: "relative",
+                  zIndex: 1000,
+                },
+                color: (t) => `
                   ${mix(
                     "bg",
                     "text",
                     0.01 + i * (100 / skills.length) * 0.01
                   )(t)}
               `,
-                }}
-                variant="heading"
-              >
-                {e.name} ·{" "}
-              </Text>
-            </>
+              }}
+              variant="heading"
+            >
+              {e.name} ·{" "}
+            </Text>
           );
         })}
       </Reveal>
