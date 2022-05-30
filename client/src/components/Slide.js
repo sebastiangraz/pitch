@@ -13,7 +13,8 @@ import {
 
 import { tint, shade } from "@theme-ui/color";
 import { useResponsiveValue } from "@theme-ui/match-media";
-import { Text, useThemeUI } from "theme-ui";
+import { Text, useThemeUI, Flex } from "theme-ui";
+import { useAppWrapperContext } from "./App";
 import { Padding } from "./Padding";
 import { settings } from "../settings";
 import io from "socket.io-client";
@@ -38,6 +39,7 @@ const Slide = React.memo(
       [childPosition, index]
     );
     const context = useThemeUI();
+    const { data } = useAppWrapperContext();
 
     const positionN = childPosition[index + 1] || [];
     const { scrollY } = useViewportScroll();
@@ -145,28 +147,22 @@ const Slide = React.memo(
       const payload = {
         note: children.props.notes,
         pagenr: index,
-        room: children.props.params,
+        room: data.room,
       };
       debouncedActiveSlide &&
         socket.emit("message", {
-          payload: JSON.stringify(payload),
-          room: children.props.params,
+          payload: payload,
+          room: data.room,
         });
-    }, [
-      debouncedActiveSlide,
-      children.props.notes,
-      index,
-      children.props.params,
-    ]);
+    }, [debouncedActiveSlide, children.props.notes, index, data.room]);
 
     React.useEffect(() => {
-      socket.emit("join_room", children.props.params);
-    }, [children.props.params]);
+      socket.emit("join_room", data.room);
+    }, [data.room]);
 
     React.useEffect(() => {
-      socket.on("goHome", (e) => {
-        console.log(e);
-        window.scrollTo(0, e);
+      socket.on("goHome", () => {
+        window.scrollTo(0, 0);
       });
       socket.on("updateSlide", (e) => {
         window.scrollTo(0, e.direction * innerHeight);
@@ -235,11 +231,17 @@ const Slide = React.memo(
                   }}
                 >
                   <Text sx={{ fontSize: 2 }}>{children.props.title}</Text>
-                  <Text sx={{ fontSize: 2, mr: "0.5em" }}>
-                    {index < 10 && "0"}
-                    {index}
-                  </Text>
-                  {`${children.props.params}`}
+                  <Flex>
+                    <Text sx={{ fontSize: 2, mr: "0.5em" }}>
+                      {index < 10 && "0"}
+                      {index}
+                    </Text>
+                    {data.room && (
+                      <span
+                        sx={{ textTransform: "capitalize" }}
+                      >{` · ${data.room}`}</span>
+                    )}
+                  </Flex>
                 </Padding>
               </div>
             )}

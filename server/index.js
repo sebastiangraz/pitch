@@ -20,23 +20,17 @@ app.use(cors());
 
 io.on("connection", (socket) => {
   //handle rooms
-  console.log(`Connected to server`, socket.id);
 
   socket.on("join_room", (data) => {
     socket.join(data);
   });
 
-  socket.on("send_message", (data) => {
-    socket.to(data.room).emit("receive_message", data);
-  });
-
-  // socket.on("disconnect", () => {
-  //   console.log(`Disconnected from server`, socket.id);
-  // });
+  console.log(`Connected to server`, socket.id);
+  console.log("Rooms: ", socket.rooms.size);
 
   // handle notes
   socket.on("message", function (data) {
-    const parsed = JSON.parse(data.payload);
+    const parsed = data.payload;
     socket.to(data.room).emit("emit", parsed);
   });
   socket.on("slide", function (data) {

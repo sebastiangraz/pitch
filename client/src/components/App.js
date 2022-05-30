@@ -9,6 +9,7 @@ import { Helmet, HelmetProvider } from "react-helmet-async";
 import Notes from "./Notes";
 import { chromeColors } from "../theme";
 import { motion } from "framer-motion";
+import { alpha } from "@theme-ui/color";
 
 export const slides = [
   {
@@ -90,9 +91,20 @@ const socket = io(
 );
 const queryParams = new URLSearchParams(window.location.search);
 
+const handleSubmit = (e, room) => {
+  e.preventDefault();
+  if (room !== "") {
+    socket.emit("join_room", room);
+    queryParams.set("room", room);
+    window.history.replaceState(null, null, `?${queryParams}`);
+  }
+};
+
+export const useAppWrapperContext = () => React.useContext(AppWrapperContext);
+const AppWrapperContext = React.createContext(null);
+
 const ShowSlides = () => {
   const [, setColorMode] = useColorMode();
-  const [room, setRoom] = React.useState("");
 
   React.useEffect(() => {
     socket.on("updateMode", (e) => {
@@ -100,88 +112,12 @@ const ShowSlides = () => {
     });
   }, [setColorMode]);
 
-  React.useEffect(() => {
-    setRoom(queryParams.get("room"));
-  }, []);
-
-  const joinRoom = () => {
-    if (room !== "") {
-      socket.emit("join_room", room);
-      queryParams.set("room", room);
-      window.location.search = queryParams;
-    }
-  };
-
   return (
     <>
-      <div
-        sx={{
-          position: "fixed",
-          zIndex: 10,
-          top: 0,
-          left: 0,
-          width: "100%",
-        }}
-      >
-        <motion.div
-          sx={{
-            width: "calc(100% - 15px)",
-            left: "10px",
-            top: "10px",
-            height: "100px",
-            position: "absolute",
-            display: "flex",
-            alignItems: "start",
-            gap: "5px",
-            flexDirection: "row",
-          }}
-          drag="y"
-          dragConstraints={{
-            top: -90,
-            bottom: 0,
-          }}
-          dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
-          dragElastic={0.5}
-          whileTap={{ cursor: "grabbing" }}
-        >
-          <input
-            onChange={(event) => {
-              setRoom(event.target.value);
-            }}
-            sx={{
-              all: "unset",
-              flex: 1,
-              height: "80px",
-              boxSizing: "border-box",
-              fontSize: "20px",
-              borderRadius: "27.5px",
-              padding: "0.5rem 1rem",
-              color: "bg",
-              bg: isSafari
-                ? chromeColors.safari.dark
-                : chromeColors.chrome.dark,
-            }}
-            placeholder="Room"
-          />
-          <Button
-            sx={{
-              flex: 0.2,
-              height: "80px",
-              borderRadius: "27.5px",
-              fontSize: "20px",
-            }}
-            onClick={joinRoom}
-          >
-            Join
-          </Button>
-        </motion.div>
-      </div>
       <Slides>
         {Object.entries(slides).map(([i, v]) => {
           const Slide = v.component;
-          return (
-            <Slide params={room} key={i} notes={v.notes} title={v.title} />
-          );
+          return <Slide key={i} notes={v.notes} title={v.title} />;
         })}
       </Slides>
 
@@ -205,6 +141,10 @@ const ShowSlides = () => {
 };
 
 const App = () => {
+  const [room, setRoom] = React.useState("");
+  React.useEffect(() => {
+    setRoom(queryParams.get("room"));
+  }, []);
   return (
     <HelmetProvider>
       <div className="App">
@@ -224,9 +164,94 @@ const App = () => {
             media="(prefers-color-scheme: dark)"
           />
         </Helmet>
+        <div
+          sx={{
+            position: "fixed",
+            zIndex: 100,
+            top: 0,
+            left: 0,
+            width: "100%",
+          }}
+        >
+          <motion.div
+            sx={{
+              width: "calc(100% - 15px)",
+              left: "10px",
+              top: "-90px",
+              height: "110px",
+              position: "absolute",
+              display: "flex",
+              alignItems: "start",
 
+              gap: "5px",
+              flexDirection: "row",
+
+              "&:hover": {
+                "& > input": {
+                  boxShadow: (t) =>
+                    `0 20px 20px -2px ${alpha(
+                      isSafari
+                        ? chromeColors.safari.dark
+                        : chromeColors.chrome.dark,
+                      0.4
+                    )(t)}`,
+                },
+              },
+            }}
+            drag="y"
+            dragConstraints={{
+              top: 0,
+              bottom: 100,
+            }}
+            dragTransition={{ bounceStiffness: 600, bounceDamping: 20 }}
+            dragElastic={0.5}
+            whileTap={{ cursor: "grabbing" }}
+          >
+            <form
+              onSubmit={(e) => handleSubmit(e, room)}
+              sx={{ display: "contents" }}
+            >
+              <input
+                onChange={(e) => {
+                  setRoom(e.target.value);
+                }}
+                sx={{
+                  all: "unset",
+                  transition: "box-shadow 0.3s ease",
+                  flex: 1,
+                  height: "80px",
+                  boxSizing: "border-box",
+                  fontSize: "20px",
+                  borderRadius: "27.5px",
+                  padding: "0.5rem 1rem",
+                  color: "bg",
+                  bg: isSafari
+                    ? chromeColors.safari.dark
+                    : chromeColors.chrome.dark,
+                }}
+                placeholder="Room"
+              />
+              <Button
+                sx={{
+                  flex: 0.2,
+                  height: "80px",
+                  borderRadius: "27.5px",
+                  fontSize: "20px",
+                }}
+                type="submit"
+                // onClick={joinRoom}
+              >
+                Join
+              </Button>
+            </form>
+          </motion.div>
+        </div>
         {window.location.pathname === "/notes" && <Notes />}
-        {window.location.pathname === "/" && <ShowSlides />}
+        {window.location.pathname === "/" && (
+          <AppWrapperContext.Provider value={{ data: { room: room } }}>
+            <ShowSlides />
+          </AppWrapperContext.Provider>
+        )}
       </div>
     </HelmetProvider>
   );

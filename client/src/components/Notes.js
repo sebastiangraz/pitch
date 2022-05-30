@@ -10,6 +10,7 @@ import { scroll } from "../theme";
 import { shade, transparentize } from "@theme-ui/color";
 import { vectors } from "../assets/vectors";
 import { Logo } from "./Logo";
+import { useAppWrapperContext } from "../components/App";
 
 const socket = io(
   settings.isLocal
@@ -45,17 +46,11 @@ const Notes = () => {
   };
 
   const joinRoom = () => {
+    console.log(room);
     if (room !== "") {
       socket.emit("join_room", room);
     }
   };
-
-  // React.useEffect(() => {
-  //   socket.emit("join_room", (room) => {
-  //     console.log("useEff room", room);
-  //     setRoomNumber(room);
-  //   });
-  // }, []);
 
   React.useEffect(() => {
     socket.emit("slide", { direction: counter, room });
