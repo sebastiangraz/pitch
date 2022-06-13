@@ -65,12 +65,12 @@ const Notes = () => {
 
   const home = () => {
     setCounter(0);
-    socket.emit("home", 0);
+    socket.emit("home", { room: room });
   };
 
   const handleModeChange = () => {
     setColorMode(colorMode === "light" ? "dark" : "light");
-    socket.emit("mode", colorMode);
+    socket.emit("mode", { mode: colorMode, room: room });
   };
 
   return (

@@ -48,7 +48,8 @@ export const slides = [
     title: "Prototyping Guide",
   },
   {
-    notes: "4 distinct divisions",
+    notes:
+      "4 distinct divisions · Gather information · Define decisions · Design wide · Deliver consolidated",
     component: componentList.SlideProcess,
     title: "My Process",
   },
@@ -108,7 +109,7 @@ const ShowSlides = () => {
 
   React.useEffect(() => {
     socket.on("updateMode", (e) => {
-      setColorMode(e === "light" ? "dark" : "light");
+      setColorMode(e.mode === "light" ? "dark" : "light");
     });
   }, [setColorMode]);
 

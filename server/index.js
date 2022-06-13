@@ -37,9 +37,10 @@ io.on("connection", (socket) => {
     socket.to(data.room).emit("updateSlide", data);
   });
   socket.on("home", function (data) {
-    io.emit("goHome", data);
+    socket.to(data.room).emit("goHome", data);
   });
   socket.on("mode", function (data) {
-    io.emit("updateMode", data);
+    console.log("mode", data);
+    socket.to(data.room).emit("updateMode", data);
   });
 });
