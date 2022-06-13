@@ -10,7 +10,6 @@ import { scroll } from "../theme";
 import { shade, transparentize } from "@theme-ui/color";
 import { vectors } from "../assets/vectors";
 import { Logo } from "./Logo";
-import { useAppWrapperContext } from "../components/App";
 
 const socket = io(
   settings.isLocal
