@@ -24,7 +24,9 @@ const skills = [
 ];
 
 export const SlideSkills = () => {
-  const ext = (e) => (e !== undefined ? e.substr(e.lastIndexOf(".") + 1) : "");
+  const ext = (e) =>
+    e !== null && e !== undefined ? e.substr(e.lastIndexOf(".") + 1) : "";
+
   const [asset, setAsset] = React.useState();
   const isFormat = ext(asset);
 
@@ -48,9 +50,18 @@ export const SlideSkills = () => {
           return (
             <Text
               onMouseEnter={() => {
-                const fileName = e.name.toLowerCase().split(" ").join("-");
+                const fileName = e?.name?.toLowerCase().split(" ").join("-");
                 const format = e.format ? e.format : "png";
-                const requireFile = require(`../assets/skills/${fileName}.${format}`);
+
+                let requireFile;
+
+                try {
+                  requireFile =
+                    require(`../assets/skills/${fileName}.${format}`) || {};
+                } catch (error) {
+                  requireFile = null;
+                }
+
                 setAsset(requireFile);
               }}
               onMouseLeave={() => {

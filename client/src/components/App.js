@@ -59,12 +59,12 @@ export const slides = [
     component: componentList.SlideEthos,
     title: "Work Ethos",
   },
-  {
-    notes:
-      "Design ethos · Explorations that don't follow the path of least resistance · A naive mindset can see beyond restrictions · Designs that answer the brief rather than following current trends",
-    component: componentList.SlideExploration,
-    title: "Design Ethos",
-  },
+  // {
+  //   notes:
+  //     "Design ethos · Explorations that don't follow the path of least resistance · A naive mindset can see beyond restrictions · Designs that answer the brief rather than following current trends",
+  //   component: componentList.SlideExploration,
+  //   title: "Design Ethos",
+  // },
   {
     notes: "Output",
     component: componentList.SlideOutput,
