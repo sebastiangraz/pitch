@@ -1,6 +1,7 @@
 export { SlideIntro } from "../slides/SLIDE-intro";
 export { SlideClients } from "../slides/SLIDE-clients";
-export { SlideSkills } from "../slides/SLIDE-skills";
+export { SlideSkillsLegacy } from "./SLIDE-skills-legacy";
+export { SlideSkills } from "./SLIDE-skills";
 export { SlideCaseCapchase } from "../slides/SLIDE-caseCapchase";
 export { SlideCaseLoupe } from "../slides/SLIDE-caseLoupe";
 export { SlideCasePrototypingGuide } from "../slides/SLIDE-casePrototypingGuide";

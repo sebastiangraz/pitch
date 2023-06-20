@@ -23,6 +23,12 @@ export const slides = [
     component: componentList.SlideSkills,
     title: "Output",
   },
+  // {
+  //   notes:
+  //     "These are the hard skills you can expect to shape the final outcome · Design & Systems, design informs the system, system informs the design · Secondary & Tertiary",
+  //   component: componentList.SlideSkillsLegacy,
+  //   title: "Output",
+  // },
   {
     notes:
       "Wide range of industries and product types · Helped me shape my branding skills",
