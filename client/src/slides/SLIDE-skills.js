@@ -14,7 +14,7 @@ const skills = [
   { name: "Iconography" },
   { name: "3D" },
   { name: "Illustrations" },
-  { name: "Animation" },
+  { name: "Animation", format: "mp4" },
   { name: "Print" },
 ];
 
@@ -172,18 +172,42 @@ export const SlideSkills = () => {
                 }}
                 key={`${e.name}-${i}`}
               >
-                <img
-                  sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    height: "100%",
-                    width: "100%",
-                    objectFit: "cover",
-                  }}
-                  src={image}
-                  alt={e.name}
-                />
+                {(e.format === "mp4" && (
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    sx={{
+                      display: "flex",
+                      borderRadius: "100%",
+                      overflow: "cover",
+                      position: "absolute",
+                      top: "50%",
+                      left: "75%",
+                      height: "auto",
+                      width: "30%",
+                      aspectRatio: "1/1",
+                      objectFit: "contain",
+                      transform: "translateY(-50%) translateX(-50%)",
+                    }}
+                  >
+                    <source src={image} type="video/mp4" />
+                  </video>
+                )) || (
+                  <img
+                    sx={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "cover",
+                    }}
+                    src={image}
+                    alt={e.name}
+                  />
+                )}
+
                 <Text
                   mb={0}
                   sx={{ fontVariantCaps: "all-small-caps", fontSize: 2 }}
