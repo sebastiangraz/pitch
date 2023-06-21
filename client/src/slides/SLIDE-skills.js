@@ -19,12 +19,6 @@ const skills = [
 ];
 
 export const SlideSkills = () => {
-  const ext = (e) =>
-    e !== null && e !== undefined ? e.substr(e.lastIndexOf(".") + 1) : "";
-
-  const [asset, setAsset] = React.useState();
-  const isFormat = ext(asset);
-
   return (
     <Padding sx={{ height: "100%" }}>
       <Reveal
@@ -219,7 +213,7 @@ export const SlideSkills = () => {
           })}
         </div>
       </Reveal>
-      <div
+      {/* <div
         sx={{
           pointerEvents: "none",
           position: "absolute",
@@ -259,7 +253,7 @@ export const SlideSkills = () => {
             />
           )
         )}
-      </div>
+      </div> */}
     </Padding>
   );
 };
