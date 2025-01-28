@@ -5,28 +5,26 @@ import { Button, Flex, Box } from "theme-ui";
 import useToggle from "./hooks";
 import { buttonStyle } from "./Notes";
 
-export const Timer = ({ colorMode }) => {
+export const Timer = ({ colorMode }: { colorMode: "light" | "dark" }) => {
   const [time, setTime] = useState(0);
   const [isOn, toggleIsOn] = useToggle();
 
   React.useEffect(() => {
-    let interval = null;
+    let interval: NodeJS.Timeout | undefined;
 
     if (isOn === true) {
       interval = setInterval(() => {
         setTime((time) => time + 10);
       }, 10);
-    } else {
-      clearInterval(interval);
     }
     return () => {
-      clearInterval(interval);
+      if (interval) clearInterval(interval);
     };
   }, [isOn]);
 
   const handleReset = () => {
     if (isOn) {
-      toggleIsOn(false);
+      toggleIsOn();
       setTime(0);
     } else {
       setTime(0);

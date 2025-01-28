@@ -76,17 +76,12 @@ export const SlideSkills = () => {
                 // distribute vertically
                 justifyContent: "space-between",
                 // bg: "#DEE2DE",
-                bg: (t) =>
-                  transparentize(
-                    "bg",
-                    (i + 13) * (100 / skills.length) * 0.004
-                  )(t),
-                color: (t) =>
-                  `${mix(
-                    "bg",
-                    "text",
-                    0.01 + i * (100 / skills.length) * 0.01
-                  )(t)}`,
+                bg: `color-mix(in srgb, var(--theme-ui-colors-bg), transparent ${
+                  (i + 13) * (100 / skills.length) * 0.004 * 100
+                }%)`,
+                color: `color-mix(in srgb, var(--theme-ui-colors-text), var(--theme-ui-colors-bg) ${
+                  (0.01 + i * (100 / skills.length) * 0.01) * 100
+                }%)`,
               }}
               key={`${e.name}-${i}`}
             >
@@ -155,14 +150,11 @@ export const SlideSkills = () => {
                   // bg: "#DEE2DE",
                   p: 4,
                   overflow: "hidden",
-                  bg: (t) => transparentize("text", 0.96)(t),
-                  color: (t) => `
-                      ${mix(
-                        "bg",
-                        "text",
-                        0.01 + i * (100 / skills.length) * 0.01
-                      )(t)}
-                  `,
+                  // bg: (t) => transparentize("text", 0.96)(t),
+                  bg: "color-mix(in srgb, var(--theme-ui-colors-text), transparent 96%)",
+                  color: `color-mix(in srgb, var(--theme-ui-colors-bg), var(--theme-ui-colors-text) ${
+                    (0.01 + i * (100 / skills.length) * 0.01) * 100
+                  }%)`,
                 }}
                 key={`${e.name}-${i}`}
               >

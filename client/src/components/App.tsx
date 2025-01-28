@@ -16,14 +16,78 @@ interface Slide {
   title?: string;
 }
 
-export const slides: Slide[] = [
+export const slides = [
   {
-    notes: "I've got a 10 slide presentation...",
+    notes:
+      "I've got a 10 slide presentation explaining briefly what I do, and what to expect if you were to collaborate together with me · I run a one man shop for all things branding, with emphasis on web · I help companies transform their brands into becoming more memorable, unique and at the end of the day; steer the brand towards a common business goal.",
     component: componentList.SlideIntro,
   },
-  // ... rest of your slides array
-];
-
+  {
+    notes:
+      "These are the hard skills you can expect to shape the final outcome · Design & Systems, design informs the system, system informs the design · Secondary & Tertiary",
+    component: componentList.SlideSkills,
+    title: "Output",
+  },
+  // {
+  //   notes:
+  //     "These are the hard skills you can expect to shape the final outcome · Design & Systems, design informs the system, system informs the design · Secondary & Tertiary",
+  //   component: componentList.SlideSkillsLegacy,
+  //   title: "Output",
+  // },
+  {
+    notes:
+      "Wide range of industries and product types · Helped me shape my branding skills",
+    component: componentList.SlideClients,
+    title: "Associated Companies",
+  },
+  {
+    notes:
+      "Contacted me after recent rebrand · Large sums of capital had to look trustworthy · Reposition brand as business partner",
+    component: componentList.SlideCaseCapchase,
+    title: "Capchase",
+  },
+  {
+    notes:
+      "Conference with a design audience · Balance brand to attract diverse crowd · Highly creative for shareability",
+    component: componentList.SlideCaseLoupe,
+    title: "Loupe",
+  },
+  {
+    notes:
+      "Design leaders excited about prototyping · Distributed via paid channels targeting specifically leaders in the design industry",
+    component: componentList.SlideCasePrototypingGuide,
+    title: "Prototyping Guide",
+  },
+  {
+    notes:
+      "4 distinct divisions · Gather information · Define decisions · Design wide · Deliver consolidated",
+    component: componentList.SlideProcess,
+    title: "My Process",
+  },
+  {
+    notes:
+      "Few pointers on how I work · fixed SOW arent set in stone · Working directly with product owners · Frequent and involved updated yield better results · Do first ask questions later, iteration over perfection",
+    component: componentList.SlideEthos,
+    title: "Work Ethos",
+  },
+  // {
+  //   notes:
+  //     "Design ethos · Explorations that don't follow the path of least resistance · A naive mindset can see beyond restrictions · Designs that answer the brief rather than following current trends",
+  //   component: componentList.SlideExploration,
+  //   title: "Design Ethos",
+  // },
+  {
+    notes: "Output",
+    component: componentList.SlideOutput,
+    title: "Brand Design Output",
+  },
+  {
+    notes:
+      "Fixed has the benefit of capping your budget to better predict expenses, suitable for smaller to medium projects · Hourly is a great choice if the Scope of Work is flexible as a result the cost per hour is lower",
+    component: componentList.SlidePricing,
+    title: "Price Considerations",
+  },
+] as Slide[];
 const isSafari: boolean =
   navigator.userAgent.indexOf("Safari") !== -1 &&
   navigator.userAgent.indexOf("Chrome") === -1;

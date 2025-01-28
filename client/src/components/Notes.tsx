@@ -2,14 +2,14 @@
 import { Text, Button, Box, useColorMode, Flex } from "theme-ui";
 import React from "react";
 
-import { Timer } from "./Timer";
+import { Timer } from "@/components/Timer";
 import io from "socket.io-client";
-import { slides } from "./App";
-import { settings } from "../settings";
-import { scroll } from "../theme";
-import { shade, transparentize } from "@theme-ui/color";
-import { vectors } from "../assets/vectors";
-import { Logo } from "./Logo";
+import { slides } from "@/components/App";
+import { settings } from "@/settings";
+import { scroll } from "@/theme";
+import { shade } from "@theme-ui/color";
+import { vectors } from "@/assets/vectors";
+import { Logo } from "@/components/Logo";
 
 const socket = io(
   settings.isLocal ? "ws://localhost:8080" : "https://pitch-f7gm.onrender.com",
@@ -18,7 +18,7 @@ const socket = io(
   }
 );
 
-export const buttonStyle = (colorMode) => {
+export const buttonStyle = (colorMode: "light" | "dark") => {
   return {
     fontSize: "20px",
     bg: colorMode === "light" ? shade("bg", 0.2) : shade("bg", 0.7),
@@ -26,7 +26,7 @@ export const buttonStyle = (colorMode) => {
 };
 
 const Notes = () => {
-  const [colorMode, setColorMode] = useColorMode("light");
+  const [colorMode, setColorMode] = useColorMode<"light" | "dark">();
   const [note, getNote] = React.useState(slides[0].notes);
   const [page, getPage] = React.useState(0);
   const [room, setRoom] = React.useState("");
@@ -128,7 +128,10 @@ const Notes = () => {
                 <li
                   sx={{
                     mb: 1,
-                    color: i % 2 ? transparentize("text", 0.5) : "text",
+                    color:
+                      i % 2
+                        ? "text"
+                        : "color-mix(in srgb, var(--theme-ui-colors-text), transparent 50%)",
                   }}
                   key={e}
                 >

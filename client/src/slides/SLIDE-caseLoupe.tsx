@@ -1,12 +1,7 @@
 /** @jsxImportSource theme-ui */
 
 import loupe from "../assets/loupe.png";
-import {
-  motion,
-  useSpring,
-  useTransform,
-  useViewportScroll,
-} from "framer-motion";
+import { motion, useSpring, useTransform, useScroll } from "framer-motion";
 import { Text } from "theme-ui";
 import { Padding } from "../components/Padding";
 import Reveal from "../components/Reveal";
@@ -28,7 +23,7 @@ const slideOpacity = keyframes`
 
 export const SlideCaseLoupe = () => {
   const { parentValues } = useCaseWrapperContext();
-  const { scrollY } = useViewportScroll();
+  const { scrollY } = useScroll();
   const { height } = useWindowSize();
 
   const y = useSpring(
