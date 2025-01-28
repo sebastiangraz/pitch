@@ -12,9 +12,7 @@ import { vectors } from "../assets/vectors";
 import { Logo } from "./Logo";
 
 const socket = io(
-  settings.isLocal
-    ? "ws://localhost:8080"
-    : "https://brandserver.herokuapp.com",
+  settings.isLocal ? "ws://localhost:8080" : "https://pitch-f7gm.onrender.com",
   {
     transports: ["websocket"],
   }

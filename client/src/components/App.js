@@ -89,9 +89,7 @@ const isSafari =
   navigator.userAgent.indexOf("Chrome") === -1;
 
 const socket = io(
-  settings.isLocal
-    ? "ws://localhost:8080"
-    : "https://brandserver.herokuapp.com",
+  settings.isLocal ? "ws://localhost:8080" : "https://pitch-f7gm.onrender.com",
   {
     transports: ["websocket"],
   }

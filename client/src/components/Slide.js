@@ -21,9 +21,7 @@ import io from "socket.io-client";
 import { useDebounce } from "use-debounce";
 
 const socket = io(
-  settings.isLocal
-    ? "ws://localhost:8080"
-    : "https://brandserver.herokuapp.com",
+  settings.isLocal ? "ws://localhost:8080" : "https://pitch-f7gm.onrender.com",
   {
     transports: ["websocket"],
   }
