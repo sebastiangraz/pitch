@@ -12,7 +12,7 @@ const svgStyle = {
     width: "0.6em",
     top: "0.05em",
     right: "-0.05em",
-    position: "relative",
+    position: "relative" as const,
     display: "inline",
   },
 };

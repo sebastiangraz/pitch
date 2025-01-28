@@ -4,7 +4,7 @@ import { useCaseWrapperContext } from "./Slide";
 import { ThemeUIStyleObject } from "theme-ui";
 
 interface RevealProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   delay?: number;
   childDelay?: number;
   effect?: any;
@@ -71,9 +71,9 @@ export const Reveal = React.memo(
       hidden: effectVal[0],
       visible: (custom: number) => ({
         ...effectVal[1],
-        transitionEnd: {
-          color: "inherit",
-        },
+        // transitionEnd: {
+        //   color: "inherit",
+        // },
         transition: {
           ease: ease ? ease : [0.83, 0, 0.17, 1],
           duration: durationVal,

@@ -1,4 +1,5 @@
 /** @jsxImportSource theme-ui */
+
 import { Text, Box } from "theme-ui";
 import { Padding } from "../components/Padding";
 import { globalStyle } from "../components/globalStyles";
@@ -10,7 +11,7 @@ const svgStyle = {
     width: "0.6em",
     top: "0.05em",
     right: "-0.05em",
-    position: "relative",
+    position: "relative" as const,
     display: "inline",
   },
 };

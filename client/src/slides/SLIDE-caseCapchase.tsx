@@ -30,7 +30,7 @@ export const SlideCaseCapchase = () => {
     useTransform(
       scrollY,
       [parentValues.position - height, parentValues.position],
-      ["0em", -1000]
+      [0, -1000]
     ),
     {
       damping: 12,
