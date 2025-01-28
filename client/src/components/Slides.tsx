@@ -13,6 +13,7 @@ const Slides = React.memo(({ children }: { children: React.ReactNode }) => {
   const [value, setValue] = React.useState<number>(0);
 
   scrollY.onChange((e) => {
+    // TODO: update to use motion/react but newer motion packages dont support useViewportScroll which is deprecated, but somehow more performant.
     setValue(e);
   });
 
