@@ -1,18 +1,18 @@
 import React from "react";
 import Slide from "@/components/Slide";
 import { useWindowSize } from "@/components/hooks";
-import { useScroll } from "framer-motion";
+import { useScroll, useViewportScroll } from "framer-motion";
 
 const Slides = React.memo(({ children }: { children: React.ReactNode }) => {
   const count = React.Children.count(children);
   const windowSize = useWindowSize();
   const ref = React.useRef<HTMLDivElement>(null);
   const [position, setPosition] = React.useState<number[]>([]);
-  const { scrollY } = useScroll();
+  const { scrollY } = useViewportScroll();
   const [activeSlide, setActiveSlide] = React.useState<number>(0);
   const [value, setValue] = React.useState<number>(0);
 
-  scrollY.on("change", (e) => {
+  scrollY.onChange((e) => {
     setValue(e);
   });
 

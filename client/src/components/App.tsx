@@ -40,24 +40,24 @@ export const slides = [
     component: componentList.SlideClients,
     title: "Associated Companies",
   },
-  {
-    notes:
-      "Contacted me after recent rebrand · Large sums of capital had to look trustworthy · Reposition brand as business partner",
-    component: componentList.SlideCaseCapchase,
-    title: "Capchase",
-  },
-  {
-    notes:
-      "Conference with a design audience · Balance brand to attract diverse crowd · Highly creative for shareability",
-    component: componentList.SlideCaseLoupe,
-    title: "Loupe",
-  },
-  {
-    notes:
-      "Design leaders excited about prototyping · Distributed via paid channels targeting specifically leaders in the design industry",
-    component: componentList.SlideCasePrototypingGuide,
-    title: "Prototyping Guide",
-  },
+  // {
+  //   notes:
+  //     "Contacted me after recent rebrand · Large sums of capital had to look trustworthy · Reposition brand as business partner",
+  //   component: componentList.SlideCaseCapchase,
+  //   title: "Capchase",
+  // },
+  // {
+  //   notes:
+  //     "Conference with a design audience · Balance brand to attract diverse crowd · Highly creative for shareability",
+  //   component: componentList.SlideCaseLoupe,
+  //   title: "Loupe",
+  // },
+  // {
+  //   notes:
+  //     "Design leaders excited about prototyping · Distributed via paid channels targeting specifically leaders in the design industry",
+  //   component: componentList.SlideCasePrototypingGuide,
+  //   title: "Prototyping Guide",
+  // },
   {
     notes:
       "4 distinct divisions · Gather information · Define decisions · Design wide · Deliver consolidated",

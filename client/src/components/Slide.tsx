@@ -8,7 +8,7 @@ import {
   transform,
   motion,
   useTransform,
-  useScroll,
+  useViewportScroll,
 } from "framer-motion";
 
 import { tint, shade } from "@theme-ui/color";
@@ -63,7 +63,7 @@ const Slide = React.memo(
     const { data } = useAppWrapperContext();
 
     const positionN = childPosition[index + 1] || 0;
-    const { scrollY } = useScroll();
+    const { scrollY } = useViewportScroll();
     const [progress, setProgress] = React.useState(false);
     const [isPrinting, setIsPrinting] = React.useState(false);
     const { innerWidth, innerHeight } = window;
@@ -86,7 +86,7 @@ const Slide = React.memo(
     };
 
     React.useEffect(() => {
-      const unsubscribeProgress = scrollY.on("change", (value) => {
+      const unsubscribeProgress = scrollY.onChange((value) => {
         const calc = (multi: boolean) => {
           return transform(
             multi
