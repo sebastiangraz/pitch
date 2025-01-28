@@ -171,9 +171,11 @@ const Slide = React.memo(
       });
     }, []);
 
+    const childrenNotes = children?.props?.notes;
+
     React.useLayoutEffect(() => {
       const payload = {
-        note: children?.props?.notes,
+        note: childrenNotes,
         pagenr: index,
         room: data.room,
       };
@@ -182,7 +184,7 @@ const Slide = React.memo(
           payload: payload,
           room: data.room,
         });
-    }, [debouncedActiveSlide, children?.props?.notes, index, data.room]);
+    }, [debouncedActiveSlide, childrenNotes, index, data.room]);
 
     React.useEffect(() => {
       socket.emit("join_room", data.room);
