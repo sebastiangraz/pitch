@@ -20,9 +20,14 @@ app.use(cors());
 
 io.on("connection", (socket) => {
   //handle rooms
+  const userRooms = new Set();
 
   socket.on("join_room", (data) => {
-    socket.join(data);
+    if (data) {
+      userRooms.add(data);
+      socket.join(data);
+      console.log(`User ${socket.id} joined room ${data}`);
+    }
   });
 
   console.log(`Connected to server`, socket.id);
@@ -30,17 +35,32 @@ io.on("connection", (socket) => {
 
   // handle notes
   socket.on("message", function (data) {
-    const parsed = data.payload;
-    socket.to(data.room).emit("emit", parsed);
+    if (data.room && userRooms.has(data.room)) {
+      const parsed = data.payload;
+      socket.to(data.room).emit("emit", parsed);
+    }
   });
+
   socket.on("slide", function (data) {
-    socket.to(data.room).emit("updateSlide", data);
+    if (data.room && userRooms.has(data.room)) {
+      socket.to(data.room).emit("updateSlide", data);
+    }
   });
+
   socket.on("home", function (data) {
-    socket.to(data.room).emit("goHome", data);
+    if (data.room && userRooms.has(data.room)) {
+      socket.to(data.room).emit("goHome", data);
+    }
   });
+
   socket.on("mode", function (data) {
-    console.log("mode", data);
-    socket.to(data.room).emit("updateMode", data);
+    if (data.room && userRooms.has(data.room)) {
+      console.log("mode", data);
+      socket.to(data.room).emit("updateMode", data);
+    }
+  });
+
+  socket.on("disconnect", () => {
+    userRooms.clear();
   });
 });

@@ -10,7 +10,7 @@ import {
   transform,
   useSpring,
   useTransform,
-  useViewportScroll,
+  useScroll,
 } from "framer-motion";
 import { Text, Flex, Box } from "theme-ui";
 import Reveal from "../components/Reveal";
@@ -19,7 +19,7 @@ import { Logo } from "../components/Logo";
 import { useWindowSize } from "../components/hooks";
 
 export const SlideIntro = () => {
-  const { scrollY } = useViewportScroll();
+  const { scrollY } = useScroll();
   const { height } = useWindowSize();
 
   const y = useSpring(

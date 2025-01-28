@@ -1,6 +1,23 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useCaseWrapperContext } from "../components/Slide";
+import { useCaseWrapperContext } from "./Slide";
+
+interface RevealProps {
+  children: React.ReactNode;
+  delay?: number;
+  childDelay?: number;
+  effect?: any;
+  ease?: any;
+  parentEffect?: any;
+  duration?: number;
+  parentDuration?: number;
+  ignoreParentFade?: boolean;
+  repeat?: boolean;
+  repeatParent?: boolean;
+  repeatTypeLoop?: boolean;
+  childStyle?: any;
+  rest?: any;
+}
 
 export const Reveal = React.memo(
   ({
@@ -16,10 +33,9 @@ export const Reveal = React.memo(
     repeat,
     repeatParent,
     repeatTypeLoop,
-    initialInView,
     childStyle,
     ...rest
-  }) => {
+  }: RevealProps) => {
     const { parentValues } = useCaseWrapperContext();
     const delayVal = delay ? delay : 0.05;
     const effectVal = React.useMemo(
@@ -50,7 +66,7 @@ export const Reveal = React.memo(
 
     const childVariant = {
       hidden: effectVal[0],
-      visible: (custom) => ({
+      visible: (custom: number) => ({
         ...effectVal[1],
         transitionEnd: {
           color: "inherit",
@@ -84,10 +100,10 @@ export const Reveal = React.memo(
     return (
       <motion.div
         whileInView="visible"
-        key={parentValues?.isPrinting}
+        key={parentValues?.isPrinting ? "print" : null}
         {...rest}
         {...motionPrintChecker}
-        variants={!ignoreParentFade && parentVariant}
+        variants={!ignoreParentFade ? parentVariant : undefined}
       >
         {React.Children.map(children || null, (child, i) => {
           return (

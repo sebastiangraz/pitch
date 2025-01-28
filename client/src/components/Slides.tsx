@@ -1,18 +1,18 @@
 import React from "react";
-import Slide from "./Slide";
-import { useWindowSize } from "./hooks";
-import { useViewportScroll } from "framer-motion";
+import Slide from "@/components/Slide";
+import { useWindowSize } from "@/components/hooks";
+import { useScroll } from "framer-motion";
 
-const Slides = React.memo(({ children }) => {
+const Slides = React.memo(({ children }: { children: React.ReactNode }) => {
   const count = React.Children.count(children);
   const windowSize = useWindowSize();
-  const ref = React.useRef();
-  const [position, setPosition] = React.useState([]);
-  const { scrollY } = useViewportScroll();
-  const [activeSlide, setActiveSlide] = React.useState(0);
-  const [value, setValue] = React.useState(0);
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [position, setPosition] = React.useState<number[]>([]);
+  const { scrollY } = useScroll();
+  const [activeSlide, setActiveSlide] = React.useState<number>(0);
+  const [value, setValue] = React.useState<number>(0);
 
-  scrollY.onChange((e) => {
+  scrollY.on("change", (e) => {
     setValue(e);
   });
 
@@ -25,19 +25,21 @@ const Slides = React.memo(({ children }) => {
   }, [value, position]);
 
   React.useLayoutEffect(() => {
-    let childPosition = [];
-    const child = ref.current.children;
+    let childPosition: number[] = [];
+    const child = ref.current?.children;
 
-    [...child].reduce((acc) => {
-      childPosition.push(acc + windowSize.height);
-      return acc + windowSize.height;
-    }, 0);
+    if (child) {
+      Array.from(child).reduce((acc) => {
+        childPosition.push(acc + windowSize.height);
+        return acc + windowSize.height;
+      }, 0);
+    }
 
     setPosition(childPosition);
   }, [windowSize]);
 
   React.useEffect(() => {
-    const handle = (event) => {
+    const handle = (event: KeyboardEvent) => {
       if (event.key === "ArrowRight") {
         window.scrollBy(0, windowSize.height);
       } else if (event.key === "ArrowLeft") {
@@ -50,9 +52,11 @@ const Slides = React.memo(({ children }) => {
       window.removeEventListener("keydown", handle);
     };
   }, [windowSize.height]);
+
   return (
     <div ref={ref}>
       {React.Children.map(children || null, (child, i) => {
+        if (!React.isValidElement(child)) return null;
         return (
           <Slide
             index={i}

@@ -31,43 +31,59 @@ const Notes = () => {
   const [page, getPage] = React.useState(0);
   const [room, setRoom] = React.useState("");
   const [counter, setCounter] = React.useState(0);
+  const [isConnected, setIsConnected] = React.useState(false);
 
   let pageStore = page;
 
   const next = () => {
-    setCounter(pageStore + 1);
+    if (room && isConnected) {
+      setCounter(pageStore + 1);
+    }
   };
 
   const previous = () => {
-    setCounter(pageStore - 1);
+    if (room && isConnected) {
+      setCounter(pageStore - 1);
+    }
   };
 
   const joinRoom = () => {
-    console.log(room);
     if (room !== "") {
       socket.emit("join_room", room);
+      setIsConnected(true);
     }
   };
 
   React.useEffect(() => {
-    socket.emit("slide", { direction: counter, room });
-  }, [counter, room]);
+    if (room && isConnected) {
+      socket.emit("slide", { direction: counter, room });
+    }
+  }, [counter, room, isConnected]);
 
   React.useEffect(() => {
     socket.on("emit", (v) => {
       getNote(v.note);
       getPage(v.pagenr);
     });
+
+    return () => {
+      socket.off("emit");
+      setIsConnected(false);
+    };
   }, []);
 
   const home = () => {
-    setCounter(0);
-    socket.emit("home", { room: room });
+    if (room && isConnected) {
+      setCounter(0);
+      socket.emit("home", { room: room });
+    }
   };
 
   const handleModeChange = () => {
-    setColorMode(colorMode === "light" ? "dark" : "light");
-    socket.emit("mode", { mode: colorMode, room: room });
+    if (room && isConnected) {
+      setColorMode(colorMode === "light" ? "dark" : "light");
+      socket.emit("mode", { mode: colorMode, room: room });
+    }
   };
 
   return (

@@ -10,8 +10,8 @@ export default function useToggle(initialValue = false) {
 
 export function useWindowSize() {
   const [windowSize, setWindowSize] = React.useState({
-    width: undefined,
-    height: undefined,
+    width: 0,
+    height: 0,
   });
   React.useEffect(() => {
     function handleResize() {

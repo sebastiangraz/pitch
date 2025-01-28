@@ -1,0 +1,12 @@
+export { SlideIntro } from "./SLIDE-intro";
+export { SlideClients } from "./SLIDE-clients";
+export { SlideSkillsLegacy } from "./SLIDE-skills-legacy";
+export { SlideSkills } from "./SLIDE-skills";
+export { SlideCaseCapchase } from "./SLIDE-caseCapchase";
+export { SlideCaseLoupe } from "./SLIDE-caseLoupe";
+export { SlideCasePrototypingGuide } from "./SLIDE-casePrototypingGuide";
+export { SlideProcess } from "./SLIDE-process";
+export { SlideEthos } from "./SLIDE-ethos";
+export { SlideExploration } from "./SLIDE-exploration";
+export { SlideOutput } from "./SLIDE-output";
+export { SlidePricing } from "./SLIDE-pricing";
