@@ -1,7 +1,7 @@
 import React from "react";
 import Slide from "@/components/Slide";
 import { useWindowSize } from "@/components/hooks";
-import { useScroll, useViewportScroll } from "framer-motion";
+import { useViewportScroll } from "framer-motion";
 
 const Slides = React.memo(({ children }: { children: React.ReactNode }) => {
   const count = React.Children.count(children);

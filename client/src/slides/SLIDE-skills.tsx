@@ -4,7 +4,6 @@ import { Text, Box } from "theme-ui";
 import { Padding } from "../components/Padding";
 import Reveal from "../components/Reveal";
 import { globalStyle } from "../components/globalStyles";
-import React from "react";
 
 const skills = [
   { name: "Branding" },
