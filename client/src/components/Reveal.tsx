@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useCaseWrapperContext } from "./Slide";
+import { ThemeUIStyleObject } from "theme-ui";
 
 interface RevealProps {
   children: React.ReactNode;
@@ -16,6 +17,7 @@ interface RevealProps {
   repeatParent?: boolean;
   repeatTypeLoop?: boolean;
   childStyle?: any;
+  sx?: ThemeUIStyleObject;
   rest?: any;
 }
 
@@ -34,6 +36,7 @@ export const Reveal = React.memo(
     repeatParent,
     repeatTypeLoop,
     childStyle,
+    sx,
     ...rest
   }: RevealProps) => {
     const { parentValues } = useCaseWrapperContext();

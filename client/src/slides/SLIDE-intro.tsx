@@ -1,8 +1,8 @@
 /** @jsxImportSource theme-ui */
 
 import theme from "../theme";
-import introvid from "../assets/intro.mp4";
-import { globalStyle } from "../components/globalStyles";
+import introvid from "@/assets/intro.mp4";
+import { globalStyle } from "@/components/globalStyles";
 import { saturate } from "@theme-ui/color";
 
 import {
@@ -12,7 +12,7 @@ import {
   useTransform,
   useScroll,
 } from "framer-motion";
-import { Text, Flex, Box } from "theme-ui";
+import { Text, Flex, Box, Theme } from "theme-ui";
 import Reveal from "../components/Reveal";
 import { Padding } from "../components/Padding";
 import { Logo } from "../components/Logo";
@@ -47,7 +47,7 @@ export const SlideIntro = () => {
                   duration={3}
                   effect={[
                     {
-                      color: saturate("bg", 0.7)(theme),
+                      color: saturate("bg", 0.7)(theme as Theme<{}>),
                       opacity: 0,
                       scale: 1.2,
                       fontVariationSettings: `"wght" 5`,
