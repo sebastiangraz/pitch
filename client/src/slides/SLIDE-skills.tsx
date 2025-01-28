@@ -4,7 +4,6 @@ import { Text, Box } from "theme-ui";
 import { Padding } from "../components/Padding";
 import Reveal from "../components/Reveal";
 import { globalStyle } from "../components/globalStyles";
-import { mix, transparentize } from "@theme-ui/color";
 import React from "react";
 
 const skills = [
@@ -58,7 +57,10 @@ export const SlideSkills = () => {
           const format = e.format ? e.format : "png";
 
           try {
-            image = require(`../assets/skills/${fileName}.${format}`) || {};
+            image = new URL(
+              `../assets/skills/${fileName}.${format}`,
+              import.meta.url
+            ).href;
           } catch (error) {
             image = null;
           }
@@ -94,7 +96,7 @@ export const SlideSkills = () => {
                   width: "100%",
                   objectFit: "cover",
                 }}
-                src={image}
+                src={image || ""}
                 alt={e.name}
               />
               <Text
@@ -133,7 +135,10 @@ export const SlideSkills = () => {
             const format = e.format ? e.format : "png";
 
             try {
-              image = require(`../assets/skills/${fileName}.${format}`) || {};
+              image = new URL(
+                `../assets/skills/${fileName}.${format}`,
+                import.meta.url
+              ).href;
             } catch (error) {
               image = null;
             }
@@ -177,7 +182,7 @@ export const SlideSkills = () => {
                       transform: "translateY(-50%) translateX(-50%)",
                     }}
                   >
-                    <source src={image} type="video/mp4" />
+                    <source src={image || ""} type="video/mp4" />
                   </video>
                 )) || (
                   <img
@@ -189,7 +194,7 @@ export const SlideSkills = () => {
                       width: "100%",
                       objectFit: "cover",
                     }}
-                    src={image}
+                    src={image || ""}
                     alt={e.name}
                   />
                 )}
