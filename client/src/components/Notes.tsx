@@ -94,22 +94,18 @@ const Notes = () => {
   // Update the socket event handlers
   React.useEffect(() => {
     const handleEmit = (v: { note: string; pagenr: number }) => {
-      if (roomRef.current === activeHomepageRoom) {
-        setNote(v.note);
-        setPage(v.pagenr);
-      }
+      setNote(v.note);
+      setPage(v.pagenr);
+      setCounter(v.pagenr);
     };
 
     const handleUpdateSlide = (data: { direction: number }) => {
-      if (roomRef.current === activeHomepageRoom) {
-        setCounter(data.direction);
-      }
+      setCounter(data.direction);
+      setNote(slides[data.direction].notes);
     };
 
     const handleUpdateMode = (data: { mode: string }) => {
-      if (roomRef.current === activeHomepageRoom) {
-        setColorMode(data.mode === "light" ? "dark" : "light");
-      }
+      setColorMode(data.mode === "light" ? "dark" : "light");
     };
 
     const handleRoomRemoved = (removedRoom: string) => {
