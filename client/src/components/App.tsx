@@ -166,7 +166,7 @@ const ShowSlides = () => {
 const App = () => {
   const [room, setRoom] = React.useState("");
   const [isCreator, setIsCreator] = React.useState(false);
-  const { createRoom, joinRoom } = useSocket();
+  const { createRoom, joinRoom, socket } = useSocket();
 
   // Initialize room from URL and join if present
   React.useEffect(() => {
@@ -182,9 +182,20 @@ const App = () => {
     e.preventDefault();
     if (room !== "") {
       setIsCreator(true);
-      handleSubmit(e, room, createRoom);
-      // After creating, also join the room
-      joinRoom(room);
+      // If room exists, remove it first
+      if (socket.emit) {
+        socket.emit("remove_room", room);
+        // Wait a bit for the room to be removed before creating new one
+        setTimeout(() => {
+          handleSubmit(e, room, createRoom);
+          // After creating, also join the room
+          joinRoom(room);
+        }, 100);
+      } else {
+        handleSubmit(e, room, createRoom);
+        // After creating, also join the room
+        joinRoom(room);
+      }
     }
   };
 

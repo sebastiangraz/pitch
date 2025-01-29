@@ -91,6 +91,14 @@ const Notes = () => {
     availableRooms,
   } = useSocket();
 
+  // Add function to update active homepage room
+  const updateActiveHomepage = React.useCallback(() => {
+    if (isConnected && room) {
+      socket.emit("set_active_homepage_room", room);
+      setActiveHomepageRoom(room);
+    }
+  }, [isConnected, room, socket]);
+
   // Update the socket event handlers
   React.useEffect(() => {
     const handleEmit = (v: { note: string; pagenr: number }) => {
@@ -169,7 +177,8 @@ const Notes = () => {
 
   // Update the control functions
   const next = React.useCallback(() => {
-    if (isConnectedRef.current && roomRef.current === activeHomepageRoom) {
+    updateActiveHomepage();
+    if (isConnectedRef.current) {
       const newCounter =
         counterRef.current >= TOTAL_SLIDES - 1
           ? 0 // Loop back to first slide
@@ -177,10 +186,11 @@ const Notes = () => {
       setCounter(newCounter);
       emitSlideChange({ direction: newCounter, room: roomRef.current });
     }
-  }, [emitSlideChange, activeHomepageRoom]);
+  }, [emitSlideChange, updateActiveHomepage]);
 
   const previous = React.useCallback(() => {
-    if (isConnectedRef.current && roomRef.current === activeHomepageRoom) {
+    updateActiveHomepage();
+    if (isConnectedRef.current) {
       const newCounter =
         counterRef.current <= 0
           ? TOTAL_SLIDES - 1 // Loop to last slide
@@ -188,19 +198,19 @@ const Notes = () => {
       setCounter(newCounter);
       emitSlideChange({ direction: newCounter, room: roomRef.current });
     }
-  }, [emitSlideChange, activeHomepageRoom]);
+  }, [emitSlideChange, updateActiveHomepage]);
 
   const home = React.useCallback(() => {
-    const urlRoom = getUrlRoom();
-    if (isConnectedRef.current && roomRef.current === urlRoom) {
+    updateActiveHomepage();
+    if (isConnectedRef.current) {
       setCounter(0);
       emitHome({ room: roomRef.current });
     }
-  }, [emitHome, getUrlRoom]);
+  }, [emitHome, updateActiveHomepage]);
 
   const handleModeChange = React.useCallback(() => {
-    const urlRoom = getUrlRoom();
-    if (isConnectedRef.current && roomRef.current === urlRoom) {
+    updateActiveHomepage();
+    if (isConnectedRef.current) {
       const newMode = colorModeRef.current === "light" ? "dark" : "light";
       setColorMode(newMode);
       emitModeChange({
@@ -208,7 +218,7 @@ const Notes = () => {
         room: roomRef.current,
       });
     }
-  }, [setColorMode, emitModeChange, getUrlRoom]);
+  }, [setColorMode, emitModeChange, updateActiveHomepage]);
 
   // Update the room list rendering to show green border only for active homepage room
   const renderRoomList = () => (
