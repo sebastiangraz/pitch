@@ -17,16 +17,9 @@ import { Text, useThemeUI, Flex } from "theme-ui";
 import { useAppWrapperContext } from "./App";
 import { Padding } from "./Padding";
 import { settings } from "../settings";
-import io from "socket.io-client";
 import { useDebounce } from "use-debounce";
 import { Theme as ThemeUITheme } from "theme-ui";
-
-const socket = io(
-  settings.isLocal ? "ws://localhost:8080" : "https://pitch-f7gm.onrender.com",
-  {
-    transports: ["websocket"],
-  }
-);
+import { useSocket } from "@/socket";
 
 export const useCaseWrapperContext = () => {
   const context = React.useContext(CaseWrapperContext);
@@ -61,10 +54,10 @@ const Slide = React.memo(
     );
     const context = useThemeUI();
     const { data } = useAppWrapperContext();
+    const { socket, joinRoom, emitMessage } = useSocket();
 
     const positionN = childPosition[index + 1] || 0;
     const { scrollY } = useViewportScroll();
-    const [progress, setProgress] = React.useState(false);
     const [isPrinting, setIsPrinting] = React.useState(false);
     const { innerWidth, innerHeight } = window;
     const stagger = useResponsiveValue([8, 12, 16, 20]) || 0;
@@ -85,25 +78,67 @@ const Slide = React.memo(
       );
     };
 
-    React.useEffect(() => {
-      const unsubscribeProgress = scrollY.onChange((value) => {
-        const calc = (multi: boolean) => {
-          return transform(
-            multi
-              ? value - position + innerHeight * 2
-              : value - position + innerHeight,
-            [0, innerHeight],
-            [0, 1]
-          );
-        };
+    const motionSettings = {
+      damping: 16,
+      mass: 0.5,
+    };
 
-        setProgress(calc(false) > 0.99 ? true : false);
+    const y = useSpring(
+      useTransform(scrollY, (v) => updatePos(v)),
+      motionSettings
+    );
+
+    const scrollTo = () => {
+      window.scrollTo(0, position - innerHeight);
+    };
+
+    React.useEffect(() => {
+      window.addEventListener("beforeprint", () => {
+        setIsPrinting(true);
       });
+      window.addEventListener("afterprint", () => {
+        setIsPrinting(false);
+      });
+    }, []);
+
+    const childrenNotes = children?.props?.notes;
+
+    React.useLayoutEffect(() => {
+      const payload = {
+        note: childrenNotes,
+        pagenr: index,
+        room: data.room,
+      };
+      debouncedActiveSlide &&
+        emitMessage({
+          payload,
+          room: data.room,
+        });
+    }, [debouncedActiveSlide, childrenNotes, index, data.room, emitMessage]);
+
+    React.useEffect(() => {
+      if (data.room) {
+        joinRoom(data.room);
+      }
+    }, [data.room, joinRoom]);
+
+    React.useEffect(() => {
+      const handleGoHome = () => {
+        window.scrollTo(0, 0);
+      };
+
+      const handleUpdateSlide = (e: { direction: number }) => {
+        window.scrollTo(0, e.direction * innerHeight);
+      };
+
+      socket.on("goHome", handleGoHome);
+      socket.on("updateSlide", handleUpdateSlide);
 
       return () => {
-        unsubscribeProgress();
+        socket.off("goHome", handleGoHome);
+        socket.off("updateSlide", handleUpdateSlide);
       };
-    }, [innerHeight, position, scrollY]);
+    }, [innerHeight, socket]);
 
     const colorModeBgValue =
       context.colorMode === "light"
@@ -144,60 +179,9 @@ const Slide = React.memo(
       );
     };
 
-    const motionSettings = {
-      damping: 16,
-      mass: 0.5,
-    };
-
     const scaleVal = useTransform(scrollY, (v) => updateScale(v));
     const bg = useTransform(scrollY, (v) => updateBg(v));
     const scale = useResponsiveValue([null, scaleVal]) || scaleVal;
-
-    const y = useSpring(
-      useTransform(scrollY, (v) => updatePos(v)),
-      motionSettings
-    );
-
-    const scrollTo = () => {
-      window.scrollTo(0, position - innerHeight);
-    };
-
-    React.useEffect(() => {
-      window.addEventListener("beforeprint", () => {
-        setIsPrinting(true);
-      });
-      window.addEventListener("afterprint", () => {
-        setIsPrinting(false);
-      });
-    }, []);
-
-    const childrenNotes = children?.props?.notes;
-
-    React.useLayoutEffect(() => {
-      const payload = {
-        note: childrenNotes,
-        pagenr: index,
-        room: data.room,
-      };
-      debouncedActiveSlide &&
-        socket.emit("message", {
-          payload: payload,
-          room: data.room,
-        });
-    }, [debouncedActiveSlide, childrenNotes, index, data.room]);
-
-    React.useEffect(() => {
-      socket.emit("join_room", data.room);
-    }, [data.room]);
-
-    React.useEffect(() => {
-      socket.on("goHome", () => {
-        window.scrollTo(0, 0);
-      });
-      socket.on("updateSlide", (e) => {
-        window.scrollTo(0, e.direction * innerHeight);
-      });
-    }, [innerHeight]);
 
     return (
       <CaseWrapperContext.Provider
@@ -236,7 +220,7 @@ const Slide = React.memo(
             className="slideContent"
             style={{
               scale,
-              display: progress ? "none" : "block",
+              display: isPrinting ? "none" : "block",
               transformOrigin: "left",
               height: "56.25em",
               width: "100%",

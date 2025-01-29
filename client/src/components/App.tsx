@@ -3,12 +3,12 @@ import React from "react";
 import { useColorMode, Button, ThemeUIStyleObject } from "theme-ui";
 import * as componentList from "@/slides";
 import Slides from "@/components/Slides";
-import io from "socket.io-client";
 import { settings } from "@/settings";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { chromeColors } from "@/theme";
 import { motion } from "framer-motion";
 import { alpha } from "@theme-ui/color";
+import { useSocket } from "@/socket";
 
 interface Slide {
   notes: string;
@@ -92,19 +92,16 @@ const isSafari: boolean =
   navigator.userAgent.indexOf("Safari") !== -1 &&
   navigator.userAgent.indexOf("Chrome") === -1;
 
-const socket = io(
-  settings.isLocal ? "ws://localhost:8080" : "https://pitch-f7gm.onrender.com",
-  {
-    transports: ["websocket"],
-  }
-);
-
 const queryParams = new URLSearchParams(window.location.search);
 
-const handleSubmit = (e: React.FormEvent, room: string): void => {
+const handleSubmit = (
+  e: React.FormEvent,
+  room: string,
+  createRoom: (room: string) => void
+): void => {
   e.preventDefault();
   if (room !== "") {
-    socket.emit("create_room", room);
+    createRoom(room);
     queryParams.set("room", room);
     window.history.replaceState({}, "", `?${queryParams}`);
   }
@@ -127,12 +124,17 @@ export const useAppWrapperContext = () => {
 
 const ShowSlides = () => {
   const [, setColorMode] = useColorMode();
+  const { socket } = useSocket();
 
   React.useEffect(() => {
     socket.on("updateMode", (e: { mode: string }) => {
       setColorMode(e.mode === "light" ? "dark" : "light");
     });
-  }, [setColorMode]);
+
+    return () => {
+      socket.off("updateMode");
+    };
+  }, [setColorMode, socket]);
 
   return (
     <>
@@ -163,32 +165,19 @@ const ShowSlides = () => {
 const App = () => {
   const [room, setRoom] = React.useState("");
   const [isCreator, setIsCreator] = React.useState(false);
+  const { createRoom } = useSocket();
 
   React.useEffect(() => {
     const roomFromQuery = queryParams.get("room") || "";
     setRoom(roomFromQuery);
-    // If we're loading with a room query param, we're not the creator
     setIsCreator(false);
   }, []);
-
-  React.useEffect(() => {
-    socket.on("room_list", (rooms: string[]) => {
-      if (isCreator && room && rooms.includes(room)) {
-        // If we're the creator and our room is in the list, we've successfully created it
-        socket.emit("join_room", room);
-      }
-    });
-
-    return () => {
-      socket.off("room_list");
-    };
-  }, [room, isCreator]);
 
   const handleRoomSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (room !== "") {
       setIsCreator(true);
-      handleSubmit(e, room);
+      handleSubmit(e, room, createRoom);
     }
   };
 

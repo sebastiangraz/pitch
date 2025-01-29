@@ -1,22 +1,14 @@
 /** @jsxImportSource theme-ui */
 import { Text, Button, Box, useColorMode, Flex } from "theme-ui";
 import React from "react";
-
 import { Timer } from "@/components/Timer";
-import io from "socket.io-client";
 import { slides } from "@/components/App";
-import { settings } from "@/settings";
 import { scroll } from "@/theme";
 import { shade } from "@theme-ui/color";
 import { vectors } from "@/assets/vectors";
 import { Logo } from "@/components/Logo";
-
-const socket = io(
-  settings.isLocal ? "ws://localhost:8080" : "https://pitch-f7gm.onrender.com",
-  {
-    transports: ["websocket"],
-  }
-);
+import { useAppWrapperContext } from "@/components/App";
+import { useSocket } from "@/socket";
 
 export const buttonStyle = (colorMode: "light" | "dark") => {
   return {
@@ -27,89 +19,144 @@ export const buttonStyle = (colorMode: "light" | "dark") => {
 
 const Notes = () => {
   const [colorMode, setColorMode] = useColorMode<"light" | "dark">();
-  const [note, getNote] = React.useState(slides[0].notes);
-  const [page, getPage] = React.useState(0);
-  const [room, setRoom] = React.useState("");
+  const [note, setNote] = React.useState(slides[0].notes);
+  const [page, setPage] = React.useState(0);
   const [counter, setCounter] = React.useState(0);
   const [isConnected, setIsConnected] = React.useState(false);
-  const [availableRooms, setAvailableRooms] = React.useState<string[]>([]);
 
-  let pageStore = page;
+  // Use the socket context
+  const {
+    socket,
+    joinRoom: socketJoinRoom,
+    emitSlideChange,
+    emitModeChange,
+    emitHome,
+    emitMessage,
+    availableRooms,
+  } = useSocket();
 
-  const next = () => {
-    if (room && isConnected) {
-      setCounter(pageStore + 1);
+  // Use the context to get the room state
+  const {
+    data: { room: contextRoom },
+  } = useAppWrapperContext();
+  const [room, setRoom] = React.useState(contextRoom);
+
+  // Use refs to track the latest state values for socket callbacks
+  const roomRef = React.useRef(room);
+  const isConnectedRef = React.useRef(isConnected);
+  const counterRef = React.useRef(counter);
+  const colorModeRef = React.useRef(colorMode);
+
+  // Update refs when states change
+  React.useEffect(() => {
+    roomRef.current = room;
+    isConnectedRef.current = isConnected;
+    counterRef.current = counter;
+    colorModeRef.current = colorMode;
+  }, [room, isConnected, counter, colorMode]);
+
+  // Sync with context room
+  React.useEffect(() => {
+    if (contextRoom) {
+      setRoom(contextRoom);
     }
-  };
+  }, [contextRoom]);
 
-  const previous = () => {
-    if (room && isConnected) {
-      setCounter(pageStore - 1);
+  const next = React.useCallback(() => {
+    if (roomRef.current && isConnectedRef.current) {
+      const newCounter = counterRef.current + 1;
+      setCounter(newCounter);
+      emitSlideChange({ direction: newCounter, room: roomRef.current });
     }
-  };
+  }, [emitSlideChange]);
 
-  const joinRoom = (roomName: string = room) => {
-    if (roomName !== "" && availableRooms.includes(roomName)) {
-      socket.emit("join_room", roomName);
-      setRoom(roomName);
-      setIsConnected(true);
+  const previous = React.useCallback(() => {
+    if (roomRef.current && isConnectedRef.current) {
+      const newCounter = counterRef.current - 1;
+      setCounter(newCounter);
+      emitSlideChange({ direction: newCounter, room: roomRef.current });
     }
-  };
+  }, [emitSlideChange]);
 
-  const removeRoom = (roomName: string) => {
-    if (availableRooms.includes(roomName)) {
-      socket.emit("remove_room", roomName);
-      if (room === roomName) {
+  const joinRoom = React.useCallback(
+    (roomName: string = room) => {
+      if (roomName !== "" && availableRooms.includes(roomName)) {
+        socketJoinRoom(roomName);
+        setRoom(roomName);
+        setIsConnected(true);
+      }
+    },
+    [availableRooms, room, socketJoinRoom]
+  );
+
+  const removeRoom = React.useCallback(
+    (roomName: string) => {
+      if (availableRooms.includes(roomName)) {
+        socket.emit("remove_room", roomName);
+        if (roomRef.current === roomName) {
+          setRoom("");
+          setIsConnected(false);
+        }
+      }
+    },
+    [availableRooms, socket]
+  );
+
+  const home = React.useCallback(() => {
+    if (roomRef.current && isConnectedRef.current) {
+      setCounter(0);
+      emitHome({ room: roomRef.current });
+    }
+  }, [emitHome]);
+
+  const handleModeChange = React.useCallback(() => {
+    if (roomRef.current && isConnectedRef.current) {
+      const newMode = colorModeRef.current === "light" ? "dark" : "light";
+      setColorMode(newMode);
+      emitModeChange({
+        mode: colorModeRef.current,
+        room: roomRef.current,
+      });
+    }
+  }, [setColorMode, emitModeChange]);
+
+  // Socket event handlers
+  React.useEffect(() => {
+    const handleEmit = (v: { note: string; pagenr: number }) => {
+      setNote(v.note);
+      setPage(v.pagenr);
+    };
+
+    const handleUpdateSlide = (data: { direction: number }) => {
+      setCounter(data.direction);
+    };
+
+    const handleUpdateMode = (data: { mode: string }) => {
+      setColorMode(data.mode === "light" ? "dark" : "light");
+    };
+
+    const handleRoomRemoved = (removedRoom: string) => {
+      if (roomRef.current === removedRoom) {
         setRoom("");
         setIsConnected(false);
       }
-    }
-  };
+    };
 
-  React.useEffect(() => {
-    if (room && isConnected) {
-      socket.emit("slide", { direction: counter, room });
-    }
-  }, [counter, room, isConnected]);
+    // Register all event handlers
+    socket.on("emit", handleEmit);
+    socket.on("updateSlide", handleUpdateSlide);
+    socket.on("updateMode", handleUpdateMode);
+    socket.on("room_removed", handleRoomRemoved);
 
-  React.useEffect(() => {
-    socket.on("emit", (v) => {
-      getNote(v.note);
-      getPage(v.pagenr);
-    });
-
-    socket.on("room_list", (rooms: string[]) => {
-      setAvailableRooms(rooms);
-    });
-
-    socket.on("room_removed", (removedRoom: string) => {
-      if (room === removedRoom) {
-        setRoom("");
-        setIsConnected(false);
-      }
-    });
-
+    // Cleanup
     return () => {
-      socket.off("emit");
-      socket.off("room_list");
-      socket.off("room_removed");
+      socket.off("emit", handleEmit);
+      socket.off("updateSlide", handleUpdateSlide);
+      socket.off("updateMode", handleUpdateMode);
+      socket.off("room_removed", handleRoomRemoved);
       setIsConnected(false);
     };
-  }, [room]);
-
-  const home = () => {
-    if (room && isConnected) {
-      setCounter(0);
-      socket.emit("home", { room: room });
-    }
-  };
-
-  const handleModeChange = () => {
-    if (room && isConnected) {
-      setColorMode(colorMode === "light" ? "dark" : "light");
-      socket.emit("mode", { mode: colorMode, room: room });
-    }
-  };
+  }, [socket, setColorMode]);
 
   return (
     <Box
