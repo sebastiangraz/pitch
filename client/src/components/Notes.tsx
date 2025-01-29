@@ -36,6 +36,11 @@ const Notes = () => {
   const [isConnected, setIsConnected] = React.useState(false);
   const [room, setRoom] = React.useState(contextRoom || "");
 
+  // Update notes when counter changes
+  React.useEffect(() => {
+    setNote(slides[counter].notes);
+  }, [counter]);
+
   // Sync room with context when it changes
   React.useEffect(() => {
     if (contextRoom) {
