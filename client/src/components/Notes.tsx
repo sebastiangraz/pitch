@@ -32,6 +32,7 @@ const Notes = () => {
   const [room, setRoom] = React.useState("");
   const [counter, setCounter] = React.useState(0);
   const [isConnected, setIsConnected] = React.useState(false);
+  const [availableRooms, setAvailableRooms] = React.useState<string[]>([]);
 
   let pageStore = page;
 
@@ -47,10 +48,21 @@ const Notes = () => {
     }
   };
 
-  const joinRoom = () => {
-    if (room !== "") {
-      socket.emit("join_room", room);
+  const joinRoom = (roomName: string = room) => {
+    if (roomName !== "" && availableRooms.includes(roomName)) {
+      socket.emit("join_room", roomName);
+      setRoom(roomName);
       setIsConnected(true);
+    }
+  };
+
+  const removeRoom = (roomName: string) => {
+    if (availableRooms.includes(roomName)) {
+      socket.emit("remove_room", roomName);
+      if (room === roomName) {
+        setRoom("");
+        setIsConnected(false);
+      }
     }
   };
 
@@ -66,11 +78,24 @@ const Notes = () => {
       getPage(v.pagenr);
     });
 
+    socket.on("room_list", (rooms: string[]) => {
+      setAvailableRooms(rooms);
+    });
+
+    socket.on("room_removed", (removedRoom: string) => {
+      if (room === removedRoom) {
+        setRoom("");
+        setIsConnected(false);
+      }
+    });
+
     return () => {
       socket.off("emit");
+      socket.off("room_list");
+      socket.off("room_removed");
       setIsConnected(false);
     };
-  }, []);
+  }, [room]);
 
   const home = () => {
     if (room && isConnected) {
@@ -178,13 +203,49 @@ const Notes = () => {
               <input
                 sx={{ all: "unset", width: "100%" }}
                 placeholder="Room"
+                value={room}
                 onChange={(event) => {
                   setRoom(event.target.value);
                 }}
               />
-              <span onClick={joinRoom}>Join</span>
+              <span onClick={() => joinRoom()}>Join</span>
             </span>
           </Flex>
+
+          {/* Room List */}
+          <Box mt={3}>
+            <Flex sx={{ gap: 2, flexWrap: "wrap" }}>
+              {availableRooms.map((roomName) => (
+                <Button
+                  key={roomName}
+                  sx={{
+                    ...buttonStyle(colorMode),
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 2,
+                    opacity: room === roomName ? 0.7 : 1,
+                  }}
+                  onClick={() => joinRoom(roomName)}
+                >
+                  {roomName}
+                  <span
+                    sx={{
+                      cursor: "pointer",
+                      ml: 2,
+                      "&:hover": { opacity: 0.7 },
+                    }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeRoom(roomName);
+                    }}
+                  >
+                    ×
+                  </span>
+                </Button>
+              ))}
+            </Flex>
+          </Box>
+
           <Box
             mt={"16px"}
             sx={{

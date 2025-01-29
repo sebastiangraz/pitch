@@ -11,6 +11,9 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+// Track all active rooms
+const activeRooms = new Set();
+
 server.listen(PORT, () => {
   console.log(`server is running ${PORT}`);
 });
@@ -22,11 +25,34 @@ io.on("connection", (socket) => {
   //handle rooms
   const userRooms = new Set();
 
-  socket.on("join_room", (data) => {
-    if (data) {
+  // Send current rooms to newly connected client
+  socket.emit("room_list", Array.from(activeRooms));
+
+  socket.on("create_room", (data) => {
+    if (data && !activeRooms.has(data)) {
       userRooms.add(data);
       socket.join(data);
-      console.log(`User ${socket.id} joined room ${data}`);
+      activeRooms.add(data);
+      // Broadcast updated room list to all clients
+      io.emit("room_list", Array.from(activeRooms));
+      console.log(`User ${socket.id} created and joined room ${data}`);
+    }
+  });
+
+  socket.on("join_room", (data) => {
+    if (data && activeRooms.has(data)) {
+      userRooms.add(data);
+      socket.join(data);
+      console.log(`User ${socket.id} joined existing room ${data}`);
+    }
+  });
+
+  socket.on("remove_room", (roomName) => {
+    if (activeRooms.has(roomName)) {
+      activeRooms.delete(roomName);
+      io.emit("room_list", Array.from(activeRooms));
+      // Notify all clients in the room that it's being removed
+      io.to(roomName).emit("room_removed", roomName);
     }
   });
 

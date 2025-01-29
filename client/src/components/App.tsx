@@ -104,7 +104,7 @@ const queryParams = new URLSearchParams(window.location.search);
 const handleSubmit = (e: React.FormEvent, room: string): void => {
   e.preventDefault();
   if (room !== "") {
-    socket.emit("join_room", room);
+    socket.emit("create_room", room);
     queryParams.set("room", room);
     window.history.replaceState({}, "", `?${queryParams}`);
   }
@@ -113,6 +113,7 @@ const handleSubmit = (e: React.FormEvent, room: string): void => {
 interface AppContextData {
   data: {
     room: string;
+    isCreator: boolean;
   };
 }
 
@@ -161,10 +162,35 @@ const ShowSlides = () => {
 
 const App = () => {
   const [room, setRoom] = React.useState("");
+  const [isCreator, setIsCreator] = React.useState(false);
 
   React.useEffect(() => {
-    setRoom(queryParams.get("room") || "");
+    const roomFromQuery = queryParams.get("room") || "";
+    setRoom(roomFromQuery);
+    // If we're loading with a room query param, we're not the creator
+    setIsCreator(false);
   }, []);
+
+  React.useEffect(() => {
+    socket.on("room_list", (rooms: string[]) => {
+      if (isCreator && room && rooms.includes(room)) {
+        // If we're the creator and our room is in the list, we've successfully created it
+        socket.emit("join_room", room);
+      }
+    });
+
+    return () => {
+      socket.off("room_list");
+    };
+  }, [room, isCreator]);
+
+  const handleRoomSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (room !== "") {
+      setIsCreator(true);
+      handleSubmit(e, room);
+    }
+  };
 
   const motionStyles: ThemeUIStyleObject = {
     width: "calc(100% - 15px)",
@@ -188,7 +214,7 @@ const App = () => {
   };
 
   return (
-    <AppWrapperContext.Provider value={{ data: { room } }}>
+    <AppWrapperContext.Provider value={{ data: { room, isCreator } }}>
       <HelmetProvider>
         <div className="App">
           <Helmet>
@@ -227,10 +253,7 @@ const App = () => {
               dragElastic={0.5}
               whileTap={{ cursor: "grabbing" }}
             >
-              <form
-                onSubmit={(e) => handleSubmit(e, room)}
-                sx={{ display: "contents" }}
-              >
+              <form onSubmit={handleRoomSubmit} sx={{ display: "contents" }}>
                 <input
                   onChange={(e) => setRoom(e.target.value)}
                   sx={{
