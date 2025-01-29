@@ -71,9 +71,9 @@ export const Reveal = React.memo(
       hidden: effectVal[0],
       visible: (custom: number) => ({
         ...effectVal[1],
-        // transitionEnd: {
-        //   color: "inherit",
-        // },
+        transitionEnd: {
+          color: "var(--theme-ui-colors-text)",
+        },
         transition: {
           ease: ease ? ease : [0.83, 0, 0.17, 1],
           duration: durationVal,
