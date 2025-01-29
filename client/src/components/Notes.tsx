@@ -160,12 +160,6 @@ const Notes = () => {
   // Update isControlEnabled to use activeHomepageRoom
   const isControlEnabled = React.useMemo(() => {
     const enabled = room === activeHomepageRoom && isConnected;
-    console.log("Control enabled check:", {
-      currentRoom: room,
-      activeHomepageRoom,
-      isConnected,
-      enabled,
-    });
     return enabled;
   }, [room, activeHomepageRoom, isConnected]);
 
