@@ -26,7 +26,6 @@ const Notes = () => {
 
   // Helper function to get room from context
   const getUrlRoom = React.useCallback(() => {
-    console.log("Getting URL room from context:", { contextRoom });
     return contextRoom || "";
   }, [contextRoom]);
 
@@ -39,7 +38,6 @@ const Notes = () => {
 
   // Sync room with context when it changes
   React.useEffect(() => {
-    console.log("Context room changed:", { contextRoom, currentRoom: room });
     if (contextRoom) {
       setRoom(contextRoom);
     }
@@ -67,9 +65,7 @@ const Notes = () => {
   // Update room control when context room changes
   React.useEffect(() => {
     const urlRoom = getUrlRoom();
-    console.log("Room control check:", { contextRoom, room, urlRoom });
     if (room && room === urlRoom) {
-      console.log("Setting controlling room:", room);
       setControllingRoom(room);
     }
   }, [room, getUrlRoom]);
@@ -119,7 +115,6 @@ const Notes = () => {
     };
 
     const handleActiveHomepageRoom = (activeRoom: string | null) => {
-      console.log("Received active homepage room:", activeRoom);
       setActiveHomepageRoom(activeRoom);
     };
 
@@ -143,12 +138,6 @@ const Notes = () => {
 
   const joinRoom = React.useCallback(
     (roomName: string = room) => {
-      console.log("Joining room:", {
-        roomName,
-        availableRooms,
-        isAvailable: availableRooms.includes(roomName),
-        urlRoom: getUrlRoom(),
-      });
       if (roomName !== "" && availableRooms.includes(roomName)) {
         socketJoinRoom(roomName);
         setRoom(roomName);
@@ -183,12 +172,6 @@ const Notes = () => {
   // Update the control functions
   const next = React.useCallback(() => {
     const urlRoom = getUrlRoom();
-    console.log("Next clicked:", {
-      isConnected: isConnectedRef.current,
-      currentRoom: roomRef.current,
-      urlRoom,
-      match: roomRef.current === urlRoom,
-    });
     if (isConnectedRef.current && roomRef.current === urlRoom) {
       const newCounter = counterRef.current + 1;
       setCounter(newCounter);
@@ -245,10 +228,10 @@ const Notes = () => {
                   ? {
                       content: '""',
                       position: "absolute",
-                      top: -2,
-                      right: -2,
-                      bottom: -2,
-                      left: -2,
+                      top: -1,
+                      right: -1,
+                      bottom: -1,
+                      left: -1,
                       border: "2px solid #00ff00",
                       borderRadius: "inherit",
                       pointerEvents: "none",
