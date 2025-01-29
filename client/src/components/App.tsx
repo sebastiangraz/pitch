@@ -112,6 +112,7 @@ interface AppContextData {
     room: string;
     isCreator: boolean;
   };
+  updateUrl?: (room: string) => void;
 }
 
 type AppContextType = AppContextData | null;
@@ -165,19 +166,25 @@ const ShowSlides = () => {
 const App = () => {
   const [room, setRoom] = React.useState("");
   const [isCreator, setIsCreator] = React.useState(false);
-  const { createRoom } = useSocket();
+  const { createRoom, joinRoom } = useSocket();
 
+  // Initialize room from URL and join if present
   React.useEffect(() => {
     const roomFromQuery = queryParams.get("room") || "";
-    setRoom(roomFromQuery);
-    setIsCreator(false);
-  }, []);
+    if (roomFromQuery) {
+      setRoom(roomFromQuery);
+      joinRoom(roomFromQuery);
+      setIsCreator(false);
+    }
+  }, [joinRoom]);
 
   const handleRoomSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (room !== "") {
       setIsCreator(true);
       handleSubmit(e, room, createRoom);
+      // After creating, also join the room
+      joinRoom(room);
     }
   };
 

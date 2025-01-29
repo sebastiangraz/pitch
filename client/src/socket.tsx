@@ -72,7 +72,11 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
   }, []);
 
   const joinRoom = useCallback((room: string) => {
-    socket.emit("join_room", room);
+    if (room) {
+      socket.emit("join_room", room);
+      // Request current room state after joining
+      socket.emit("get_room_state", room);
+    }
   }, []);
 
   const leaveRoom = useCallback((room: string) => {
@@ -81,21 +85,29 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({ children }) => {
 
   const emitSlideChange = useCallback(
     (data: { direction: number; room: string }) => {
-      socket.emit("slide", data);
+      if (data.room) {
+        socket.emit("slide", data);
+      }
     },
     []
   );
 
   const emitModeChange = useCallback((data: { mode: string; room: string }) => {
-    socket.emit("mode", data);
+    if (data.room) {
+      socket.emit("mode", data);
+    }
   }, []);
 
   const emitHome = useCallback((data: { room: string }) => {
-    socket.emit("home", data);
+    if (data.room) {
+      socket.emit("home", data);
+    }
   }, []);
 
   const emitMessage = useCallback((data: { payload: any; room: string }) => {
-    socket.emit("message", data);
+    if (data.room) {
+      socket.emit("message", data);
+    }
   }, []);
 
   const value = {

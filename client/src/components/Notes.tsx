@@ -18,28 +18,32 @@ export const buttonStyle = (colorMode: "light" | "dark") => {
 };
 
 const Notes = () => {
+  // Get room from context
+  const {
+    data: { room: contextRoom },
+    updateUrl,
+  } = useAppWrapperContext();
+
+  // Helper function to get room from context
+  const getUrlRoom = React.useCallback(() => {
+    console.log("Getting URL room from context:", { contextRoom });
+    return contextRoom || "";
+  }, [contextRoom]);
+
   const [colorMode, setColorMode] = useColorMode<"light" | "dark">();
   const [note, setNote] = React.useState(slides[0].notes);
   const [page, setPage] = React.useState(0);
   const [counter, setCounter] = React.useState(0);
   const [isConnected, setIsConnected] = React.useState(false);
+  const [room, setRoom] = React.useState(contextRoom || "");
 
-  // Use the socket context
-  const {
-    socket,
-    joinRoom: socketJoinRoom,
-    emitSlideChange,
-    emitModeChange,
-    emitHome,
-    emitMessage,
-    availableRooms,
-  } = useSocket();
-
-  // Use the context to get the room state
-  const {
-    data: { room: contextRoom },
-  } = useAppWrapperContext();
-  const [room, setRoom] = React.useState(contextRoom);
+  // Sync room with context when it changes
+  React.useEffect(() => {
+    console.log("Context room changed:", { contextRoom, currentRoom: room });
+    if (contextRoom) {
+      setRoom(contextRoom);
+    }
+  }, [contextRoom]);
 
   // Use refs to track the latest state values for socket callbacks
   const roomRef = React.useRef(room);
@@ -55,84 +59,56 @@ const Notes = () => {
     colorModeRef.current = colorMode;
   }, [room, isConnected, counter, colorMode]);
 
-  // Sync with context room
+  // Add state to track which room is controlling the index page
+  const [controllingRoom, setControllingRoom] = React.useState<string | null>(
+    null
+  );
+
+  // Update room control when context room changes
   React.useEffect(() => {
-    if (contextRoom) {
-      setRoom(contextRoom);
+    const urlRoom = getUrlRoom();
+    console.log("Room control check:", { contextRoom, room, urlRoom });
+    if (room && room === urlRoom) {
+      console.log("Setting controlling room:", room);
+      setControllingRoom(room);
     }
-  }, [contextRoom]);
+  }, [room, getUrlRoom]);
 
-  const next = React.useCallback(() => {
-    if (roomRef.current && isConnectedRef.current) {
-      const newCounter = counterRef.current + 1;
-      setCounter(newCounter);
-      emitSlideChange({ direction: newCounter, room: roomRef.current });
-    }
-  }, [emitSlideChange]);
+  // Add state to track the active homepage room
+  const [activeHomepageRoom, setActiveHomepageRoom] = React.useState<
+    string | null
+  >(null);
 
-  const previous = React.useCallback(() => {
-    if (roomRef.current && isConnectedRef.current) {
-      const newCounter = counterRef.current - 1;
-      setCounter(newCounter);
-      emitSlideChange({ direction: newCounter, room: roomRef.current });
-    }
-  }, [emitSlideChange]);
+  // Use the socket context
+  const {
+    socket,
+    joinRoom: socketJoinRoom,
+    emitSlideChange,
+    emitModeChange,
+    emitHome,
+    emitMessage,
+    availableRooms,
+  } = useSocket();
 
-  const joinRoom = React.useCallback(
-    (roomName: string = room) => {
-      if (roomName !== "" && availableRooms.includes(roomName)) {
-        socketJoinRoom(roomName);
-        setRoom(roomName);
-        setIsConnected(true);
-      }
-    },
-    [availableRooms, room, socketJoinRoom]
-  );
-
-  const removeRoom = React.useCallback(
-    (roomName: string) => {
-      if (availableRooms.includes(roomName)) {
-        socket.emit("remove_room", roomName);
-        if (roomRef.current === roomName) {
-          setRoom("");
-          setIsConnected(false);
-        }
-      }
-    },
-    [availableRooms, socket]
-  );
-
-  const home = React.useCallback(() => {
-    if (roomRef.current && isConnectedRef.current) {
-      setCounter(0);
-      emitHome({ room: roomRef.current });
-    }
-  }, [emitHome]);
-
-  const handleModeChange = React.useCallback(() => {
-    if (roomRef.current && isConnectedRef.current) {
-      const newMode = colorModeRef.current === "light" ? "dark" : "light";
-      setColorMode(newMode);
-      emitModeChange({
-        mode: colorModeRef.current,
-        room: roomRef.current,
-      });
-    }
-  }, [setColorMode, emitModeChange]);
-
-  // Socket event handlers
+  // Update the socket event handlers
   React.useEffect(() => {
     const handleEmit = (v: { note: string; pagenr: number }) => {
-      setNote(v.note);
-      setPage(v.pagenr);
+      if (roomRef.current === activeHomepageRoom) {
+        setNote(v.note);
+        setPage(v.pagenr);
+      }
     };
 
     const handleUpdateSlide = (data: { direction: number }) => {
-      setCounter(data.direction);
+      if (roomRef.current === activeHomepageRoom) {
+        setCounter(data.direction);
+      }
     };
 
     const handleUpdateMode = (data: { mode: string }) => {
-      setColorMode(data.mode === "light" ? "dark" : "light");
+      if (roomRef.current === activeHomepageRoom) {
+        setColorMode(data.mode === "light" ? "dark" : "light");
+      }
     };
 
     const handleRoomRemoved = (removedRoom: string) => {
@@ -142,11 +118,17 @@ const Notes = () => {
       }
     };
 
+    const handleActiveHomepageRoom = (activeRoom: string | null) => {
+      console.log("Received active homepage room:", activeRoom);
+      setActiveHomepageRoom(activeRoom);
+    };
+
     // Register all event handlers
     socket.on("emit", handleEmit);
     socket.on("updateSlide", handleUpdateSlide);
     socket.on("updateMode", handleUpdateMode);
     socket.on("room_removed", handleRoomRemoved);
+    socket.on("active_homepage_room", handleActiveHomepageRoom);
 
     // Cleanup
     return () => {
@@ -154,9 +136,146 @@ const Notes = () => {
       socket.off("updateSlide", handleUpdateSlide);
       socket.off("updateMode", handleUpdateMode);
       socket.off("room_removed", handleRoomRemoved);
+      socket.off("active_homepage_room", handleActiveHomepageRoom);
       setIsConnected(false);
     };
   }, [socket, setColorMode]);
+
+  const joinRoom = React.useCallback(
+    (roomName: string = room) => {
+      console.log("Joining room:", {
+        roomName,
+        availableRooms,
+        isAvailable: availableRooms.includes(roomName),
+        urlRoom: getUrlRoom(),
+      });
+      if (roomName !== "" && availableRooms.includes(roomName)) {
+        socketJoinRoom(roomName);
+        setRoom(roomName);
+        setIsConnected(true);
+
+        // Update URL when joining a room
+        if (updateUrl) {
+          updateUrl(roomName);
+        }
+
+        const urlRoom = getUrlRoom();
+        if (roomName === urlRoom) {
+          setControllingRoom(roomName);
+        }
+      }
+    },
+    [availableRooms, room, socketJoinRoom, getUrlRoom, updateUrl]
+  );
+
+  // Update isControlEnabled to use activeHomepageRoom
+  const isControlEnabled = React.useMemo(() => {
+    const enabled = room === activeHomepageRoom && isConnected;
+    console.log("Control enabled check:", {
+      currentRoom: room,
+      activeHomepageRoom,
+      isConnected,
+      enabled,
+    });
+    return enabled;
+  }, [room, activeHomepageRoom, isConnected]);
+
+  // Update the control functions
+  const next = React.useCallback(() => {
+    const urlRoom = getUrlRoom();
+    console.log("Next clicked:", {
+      isConnected: isConnectedRef.current,
+      currentRoom: roomRef.current,
+      urlRoom,
+      match: roomRef.current === urlRoom,
+    });
+    if (isConnectedRef.current && roomRef.current === urlRoom) {
+      const newCounter = counterRef.current + 1;
+      setCounter(newCounter);
+      emitSlideChange({ direction: newCounter, room: roomRef.current });
+    }
+  }, [emitSlideChange, getUrlRoom]);
+
+  const previous = React.useCallback(() => {
+    const urlRoom = getUrlRoom();
+    if (isConnectedRef.current && roomRef.current === urlRoom) {
+      const newCounter = counterRef.current - 1;
+      setCounter(newCounter);
+      emitSlideChange({ direction: newCounter, room: roomRef.current });
+    }
+  }, [emitSlideChange, getUrlRoom]);
+
+  const home = React.useCallback(() => {
+    const urlRoom = getUrlRoom();
+    if (isConnectedRef.current && roomRef.current === urlRoom) {
+      setCounter(0);
+      emitHome({ room: roomRef.current });
+    }
+  }, [emitHome, getUrlRoom]);
+
+  const handleModeChange = React.useCallback(() => {
+    const urlRoom = getUrlRoom();
+    if (isConnectedRef.current && roomRef.current === urlRoom) {
+      const newMode = colorModeRef.current === "light" ? "dark" : "light";
+      setColorMode(newMode);
+      emitModeChange({
+        mode: colorModeRef.current,
+        room: roomRef.current,
+      });
+    }
+  }, [setColorMode, emitModeChange, getUrlRoom]);
+
+  // Update the room list rendering to show green border only for active homepage room
+  const renderRoomList = () => (
+    <Box mt={3}>
+      <Flex sx={{ gap: 2, flexWrap: "wrap" }}>
+        {availableRooms.map((roomName) => (
+          <Button
+            key={roomName}
+            sx={{
+              ...buttonStyle(colorMode),
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              opacity: room === roomName ? 0.7 : 1,
+              border: room === roomName ? "2px solid #ff0000" : "none",
+              position: "relative",
+              "&::after":
+                roomName === activeHomepageRoom
+                  ? {
+                      content: '""',
+                      position: "absolute",
+                      top: -2,
+                      right: -2,
+                      bottom: -2,
+                      left: -2,
+                      border: "2px solid #00ff00",
+                      borderRadius: "inherit",
+                      pointerEvents: "none",
+                    }
+                  : undefined,
+            }}
+            onClick={() => joinRoom(roomName)}
+          >
+            {roomName}
+            <span
+              sx={{
+                cursor: "pointer",
+                ml: 2,
+                "&:hover": { opacity: 0.7 },
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                socket.emit("remove_room", roomName);
+              }}
+            >
+              ×
+            </span>
+          </Button>
+        ))}
+      </Flex>
+    </Box>
+  );
 
   return (
     <Box
@@ -231,8 +350,11 @@ const Notes = () => {
                 svg: {
                   width: 2,
                 },
+                opacity: isControlEnabled ? 1 : 0.5,
+                cursor: isControlEnabled ? "pointer" : "not-allowed",
               }}
               onClick={handleModeChange}
+              disabled={!isControlEnabled}
             >
               {colorMode === "light" ? vectors.moon : vectors.sun}
             </Button>
@@ -260,38 +382,7 @@ const Notes = () => {
           </Flex>
 
           {/* Room List */}
-          <Box mt={3}>
-            <Flex sx={{ gap: 2, flexWrap: "wrap" }}>
-              {availableRooms.map((roomName) => (
-                <Button
-                  key={roomName}
-                  sx={{
-                    ...buttonStyle(colorMode),
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 2,
-                    opacity: room === roomName ? 0.7 : 1,
-                  }}
-                  onClick={() => joinRoom(roomName)}
-                >
-                  {roomName}
-                  <span
-                    sx={{
-                      cursor: "pointer",
-                      ml: 2,
-                      "&:hover": { opacity: 0.7 },
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeRoom(roomName);
-                    }}
-                  >
-                    ×
-                  </span>
-                </Button>
-              ))}
-            </Flex>
-          </Box>
+          {renderRoomList()}
 
           <Box
             mt={"16px"}
@@ -311,8 +402,11 @@ const Notes = () => {
                 svg: {
                   width: 2,
                 },
+                opacity: isControlEnabled ? 1 : 0.5,
+                cursor: isControlEnabled ? "pointer" : "not-allowed",
               }}
               onClick={home}
+              disabled={!isControlEnabled}
             >
               <Logo
                 component={
@@ -342,8 +436,13 @@ const Notes = () => {
             </Button>
 
             <Button
-              disabled={page <= 0 ? true : false}
-              sx={buttonStyle(colorMode)}
+              disabled={page <= 0 || !isControlEnabled}
+              sx={{
+                ...buttonStyle(colorMode),
+                opacity: page <= 0 || !isControlEnabled ? 0.5 : 1,
+                cursor:
+                  page <= 0 || !isControlEnabled ? "not-allowed" : "pointer",
+              }}
               onClick={previous}
             >
               Prev
@@ -359,7 +458,15 @@ const Notes = () => {
             >
               {page}
             </Text>
-            <Button sx={buttonStyle(colorMode)} onClick={next}>
+            <Button
+              sx={{
+                ...buttonStyle(colorMode),
+                opacity: !isControlEnabled ? 0.5 : 1,
+                cursor: !isControlEnabled ? "not-allowed" : "pointer",
+              }}
+              onClick={next}
+              disabled={!isControlEnabled}
+            >
               Next
             </Button>
           </Box>
