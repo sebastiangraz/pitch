@@ -163,24 +163,31 @@ const Notes = () => {
     return enabled;
   }, [room, activeHomepageRoom, isConnected]);
 
+  // Add constant for total slides
+  const TOTAL_SLIDES = slides.length;
+
   // Update the control functions
   const next = React.useCallback(() => {
-    const urlRoom = getUrlRoom();
-    if (isConnectedRef.current && roomRef.current === urlRoom) {
-      const newCounter = counterRef.current + 1;
+    if (isConnectedRef.current && roomRef.current === activeHomepageRoom) {
+      const newCounter =
+        counterRef.current >= TOTAL_SLIDES - 1
+          ? 0 // Loop back to first slide
+          : counterRef.current + 1;
       setCounter(newCounter);
       emitSlideChange({ direction: newCounter, room: roomRef.current });
     }
-  }, [emitSlideChange, getUrlRoom]);
+  }, [emitSlideChange, activeHomepageRoom]);
 
   const previous = React.useCallback(() => {
-    const urlRoom = getUrlRoom();
-    if (isConnectedRef.current && roomRef.current === urlRoom) {
-      const newCounter = counterRef.current - 1;
+    if (isConnectedRef.current && roomRef.current === activeHomepageRoom) {
+      const newCounter =
+        counterRef.current <= 0
+          ? TOTAL_SLIDES - 1 // Loop to last slide
+          : counterRef.current - 1;
       setCounter(newCounter);
       emitSlideChange({ direction: newCounter, room: roomRef.current });
     }
-  }, [emitSlideChange, getUrlRoom]);
+  }, [emitSlideChange, activeHomepageRoom]);
 
   const home = React.useCallback(() => {
     const urlRoom = getUrlRoom();
@@ -413,14 +420,13 @@ const Notes = () => {
             </Button>
 
             <Button
-              disabled={page <= 0 || !isControlEnabled}
               sx={{
                 ...buttonStyle(colorMode),
-                opacity: page <= 0 || !isControlEnabled ? 0.5 : 1,
-                cursor:
-                  page <= 0 || !isControlEnabled ? "not-allowed" : "pointer",
+                opacity: !isControlEnabled ? 0.5 : 1,
+                cursor: !isControlEnabled ? "not-allowed" : "pointer",
               }}
               onClick={previous}
+              disabled={!isControlEnabled}
             >
               Prev
             </Button>
@@ -433,7 +439,7 @@ const Notes = () => {
                 textAlign: "center",
               }}
             >
-              {page}
+              {counter}
             </Text>
             <Button
               sx={{
